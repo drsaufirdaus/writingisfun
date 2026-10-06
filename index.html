@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Writing is Fun with Dr Saufi - 100 Levels English Adventure</title>
+    <title>Writing is Fun with Dr Saufi - Malaysian English DSKP Adventure</title>
     <!-- Google Fonts for playful and legible typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,11 +67,11 @@
         .main-header {
             position: relative;
             z-index: 2;
-            margin: 8px 0 12px;
+            margin: 6px 0 10px;
         }
         h1.app-title {
             margin: 0;
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             color: #e65100;
             text-shadow: 3px 3px 0 #ffe082, 5px 5px 0 rgba(0,0,0,0.06);
             letter-spacing: -0.5px;
@@ -83,7 +83,7 @@
             display: inline-block;
             background: #ffffff;
             color: #00695c;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 700;
             padding: 5px 16px;
             border-radius: 50px;
@@ -119,7 +119,7 @@
             background: #ffffff;
             max-width: 660px;
             margin: 10px auto 30px;
-            padding: 30px 24px;
+            padding: 28px 24px;
             border-radius: 30px;
             box-shadow: var(--card-shadow);
             border: 4px solid #ffffff;
@@ -135,14 +135,14 @@
             border: 2px dashed #ff9800;
             padding: 12px 18px;
             border-radius: 20px;
-            margin-bottom: 22px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
             color: #e65100;
             font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             text-align: left;
         }
         .form-label {
@@ -155,7 +155,7 @@
 
         .input-text {
             width: 100%;
-            padding: 15px 18px;
+            padding: 14px 18px;
             font-size: 17px;
             font-weight: 700;
             font-family: inherit;
@@ -244,7 +244,7 @@
         .btn-launch {
             width: 100%;
             padding: 16px;
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 900;
             font-family: inherit;
             color: white;
@@ -369,14 +369,19 @@
         }
         .pill-level { background: #e1f5fe; color: #0277bd; border: 1.5px solid #81d4fa; }
         .pill-tier { background: #f3e5f5; color: #7b1fa2; border: 1.5px solid #ce93d8; }
+        .pill-phase { background: #e0f2f1; color: #00796b; border: 1.5px solid #80cbc4; }
         .pill-score { background: #fff8e1; color: #f57f17; border: 1.5px solid #ffe082; }
         .pill-streak { background: #fbe9e7; color: #d84315; border: 1.5px solid #ffab91; display: none; }
 
         .helper-text {
-            font-size: 14.5px;
-            color: #546e7a;
-            font-weight: 700;
+            font-size: 15px;
+            color: #455a64;
+            font-weight: 800;
             margin-bottom: 12px;
+            background: #fdfefe;
+            padding: 8px 14px;
+            border-radius: 12px;
+            display: inline-block;
         }
 
         /* Boss Prompt Announcement (Level 100) */
@@ -392,11 +397,11 @@
             color: #e65100;
         }
 
-        /* Sentence Slots */
+        /* Sentence Slots Area */
         .slots-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             min-height: 95px;
             margin: 16px 0;
@@ -457,6 +462,7 @@
         .target-slot[data-slot-role="s"]::before { background: #1976d2; }
         .target-slot[data-slot-role="v"]::before { background: #f57c00; }
         .target-slot[data-slot-role="c"]::before { background: #388e3c; }
+        .target-slot[data-slot-role="pos"]::before { background: #6a1b9a; }
         .target-slot[data-slot-role="adv"]::before { background: #7b1fa2; }
         .target-slot[data-slot-role="conj"]::before { background: #c2185b; }
         .target-slot[data-slot-role="rel"]::before { background: #00796b; }
@@ -466,7 +472,7 @@
         .word-bank {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             margin: 18px 0;
             padding: 16px;
@@ -480,7 +486,7 @@
             background: linear-gradient(180deg, #0288d1 0%, #01579b 100%);
             color: white;
             padding: 11px 18px;
-            font-size: 16px;
+            font-size: 16.5px;
             font-weight: 800;
             border-radius: 14px;
             cursor: pointer;
@@ -597,8 +603,10 @@
 </head>
 <body>
 
+    <!-- Confetti Canvas -->
     <canvas id="confettiCanvas"></canvas>
 
+    <!-- Floating Background Emojis -->
     <div class="bg-decorations">
         <span class="float-emoji" style="top:8%; left:6%;">✏️</span>
         <span class="float-emoji" style="top:25%; right:8%; animation-delay: 2s;">📚</span>
@@ -614,21 +622,22 @@
     <!-- Header -->
     <div class="main-header">
         <h1 class="app-title">✏️ Writing is Fun with Dr Saufi</h1><br>
-        <span class="subtitle-pill">🌟 CEFR KSSR English • 100 Levels Mastery Adventure</span>
+        <span class="subtitle-pill">🌟 CEFR KSSR English • 100 Progressive Mastery Levels</span>
     </div>
 
+    <!-- Login Screen -->
     <div id="loginScreen" class="card-container">
         <div class="welcome-badge">
-            👋 Welcome Young Writers! Choose your avatar, name, and class to begin your 100-level quest!
+            👋 Welcome Young English Writers! Choose your avatar, enter your name, and select your Year level to start your 100-level journey!
         </div>
 
         <div class="form-group">
-            <label class="form-label" for="studentNameInput">1. Your Full Name</label>
-            <input type="text" id="studentNameInput" class="input-text" placeholder="ENTER YOUR FULL NAME..." maxlength="40" autocomplete="off">
+            <label class="form-label" for="studentNameInput">1. What is your name?</label>
+            <input type="text" id="studentNameInput" class="input-text" placeholder="TYPE YOUR NAME HERE..." maxlength="35" autocomplete="off">
         </div>
 
         <div class="form-group">
-            <label class="form-label">2. Pick Your Avatar</label>
+            <label class="form-label">2. Pick Your Adventure Avatar</label>
             <div class="avatar-grid" id="avatarSelector">
                 <div class="avatar-option selected" data-avatar="🐱">🐱</div>
                 <div class="avatar-option" data-avatar="🚀">🚀</div>
@@ -646,11 +655,11 @@
             <div class="year-grid" id="yearSelector">
                 <button type="button" class="year-btn selected" data-year="1">
                     Year 1
-                    <span class="year-desc">Beginner Sentence</span>
+                    <span class="year-desc">DSKP Phonics & Grammar</span>
                 </button>
                 <button type="button" class="year-btn" data-year="2">
                     Year 2
-                    <span class="year-desc">Sentence Expansion</span>
+                    <span class="year-desc">DSKP Sentence Builder</span>
                 </button>
                 <button type="button" class="year-btn" data-year="3">
                     Year 3
@@ -658,7 +667,7 @@
                 </button>
                 <button type="button" class="year-btn" data-year="4">
                     Year 4
-                    <span class="year-desc">Compound Sentences</span>
+                    <span class="year-desc">Compound Clauses</span>
                 </button>
                 <button type="button" class="year-btn" data-year="5">
                     Year 5
@@ -674,14 +683,15 @@
         <button type="button" class="btn-launch" onclick="beginAdventure()">START ADVENTURE ▶</button>
     </div>
 
+    <!-- Active Game Arena -->
     <div id="gameArena" class="game-arena">
         <!-- HUD Header -->
         <div class="hud-banner">
             <div class="hud-player">
                 <span id="playerAvatarDisplay" class="hud-avatar">🐱</span>
                 <div class="hud-meta">
-                    <b id="playerNameDisplay">PLAYER</b>
-                    <span id="playerYearDisplay">Year 1</span>
+                    <b id="playerNameDisplay">STUDENT</b>
+                    <span id="playerYearDisplay">Year 1 Writer</span>
                 </div>
             </div>
 
@@ -689,24 +699,25 @@
             <div class="lives-box" id="hudLives">❤❤❤</div>
         </div>
 
-        <!-- Level progress line (1 to 100) -->
-        <div class="progress-track" title="100-Level Adventure Bar">
+        <!-- 100-Level Track Progress -->
+        <div class="progress-track" title="100-Level Adventure Progress">
             <div class="progress-fill" id="levelProgressFill"></div>
         </div>
 
         <!-- Badges & Statistics -->
         <div class="badges-row">
             <div class="pill-badge pill-level">⭐ Level: <span id="hudLevelNumber">1</span> / 100</div>
-            <div class="pill-badge pill-tier" id="hudDifficultyTier">Novice 3-Part</div>
+            <div class="pill-badge pill-phase" id="hudPhaseBadge">Phase 1: Parts of Speech</div>
+            <div class="pill-badge pill-tier" id="hudDifficultyTier">Noun Recognition</div>
             <div class="pill-badge pill-score">🏆 Score: <span id="hudScore">0</span></div>
             <div class="pill-badge pill-streak" id="hudStreakBadge">🔥 COMBO x2</div>
         </div>
 
         <div class="helper-text" id="hudInstructions">
-            💡 Drag tiles or tap any word tile to place it into the sentence!
+            💡 Select the correct word tile to match the target part of speech!
         </div>
 
-        <!-- Grand Boss Alert (Level 100) -->
+        <!-- Boss Prompt Announcement (Level 100) -->
         <div id="bossAnnouncement" class="boss-card"></div>
 
         <!-- Sentence Slots Area -->
@@ -723,7 +734,7 @@
 
         <!-- Jump to any unlocked level -->
         <div class="level-selector-row">
-            <span>Level quick-jump:</span>
+            <span>Level Quick-Jump:</span>
             <select id="levelJumpSelect" class="level-select-input" onchange="jumpDirectlyToLevel(this.value)"></select>
         </div>
 
@@ -737,7 +748,7 @@
         <!-- End of Game / Celebration Scorecard -->
         <div id="scorecardModal" class="overlay-modal" style="display:none;">
             <div class="score-hero-avatar" id="scorecardAvatar">🐱</div>
-            <h2 id="scorecardTitle" style="font-size:2.2rem; margin:4px 0; color:#2e7d32;">QUEST FINISHED! 🏆</h2>
+            <h2 id="scorecardTitle" style="font-size:2.2rem; margin:4px 0; color:#2e7d32;">QUEST COMPLETE! 🏆</h2>
             <p style="font-size:1.2rem; margin:2px 0; color:#37474f;">
                 Player: <b id="scorecardPlayerName">-</b> • <span id="scorecardClass">-</span>
             </p>
@@ -747,13 +758,13 @@
             </div>
 
             <div class="badge-list" id="scorecardBadges">
-                <span class="award-badge">🎖️ Grammar Explorer</span>
-                <span class="award-badge">⚡ Quick Thinker</span>
+                <span class="award-badge">🎖️ DSKP Master</span>
+                <span class="award-badge">⚡ Grammar Pro</span>
                 <span class="award-badge">✍️ Super Writer</span>
             </div>
 
             <p id="syncStatus" style="color:#78909c; font-style:italic; font-size:14px; margin: 4px 0 16px;">
-                Syncing with teacher's Google Sheet...
+                Syncing with Google Sheet...
             </p>
 
             <div>
@@ -869,193 +880,419 @@
             else cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
 
-        /* ================= 100 Progressive Level Curriculum Generator ================= */
-        function build100Curriculum(year) {
-            const isLower = (year <= 3);
+        /* ================= DSKP CURRICULUM GENERATOR FOR YEARS 1 TO 6 ================= */
 
-            // Pool sets for Lower Primary (Years 1 - 3)
-            const subY13 = [
-                "My loving mother", "The active boy", "A clever pupil", "Uncle Rosli",
-                "The fluffy kitten", "Our gentle teacher", "Pak Cik Hassan", "The cheerful girl",
-                "Two playful monkeys", "A little brown puppy", "My elder brother", "A green frog",
-                "The polite prefect", "The kind nurse", "A hungry rabbit", "My dear grandmother",
-                "The fast athlete", "A colorful parrot", "Our friendly neighbor", "The tall policeman",
-                "Cousin Daniel", "The stray cat", "The quiet student", "A wise owl", "The swift deer"
-            ];
-            const vrbY13 = [
-                "bakes", "eats", "reads", "cleans", "waters", "draws", "brushes", "catches",
-                "washes", "feeds", "collects", "kicks", "carries", "opens", "writes",
-                "buys", "finds", "fixes", "paints", "hugs", "plants", "observes", "protects", "serves", "shares"
-            ];
-            const objY13 = [
-                "fresh red apples", "a picture book", "the wooden table", "blooming flowers", "a glass of milk",
-                "colourful butterflies", "a bright blue shirt", "tasty chocolate muffins", "a football", "his pet fish",
-                "crispy curry puffs", "a handwritten letter", "ripe yellow bananas", "warm mushroom soup", "a storybook",
-                "the garden vegetables", "a new bicycle", "a paper boat", "sweet honeydew melon", "the front porch",
-                "a warm blanket", "colourful crayons", "a heavy backpack", "delicious nasi lemak", "a tall tree"
-            ];
-            const advY13 = [
-                "every single morning", "in the living room", "behind the school canteen", "very neatly",
-                "under the leafy tree", "after school hours", "with a bright smile", "at the public playground",
-                "during the weekend", "inside the kitchen", "near the clear river", "at the quiet library",
-                "before bedtime", "on the front lawn", "very cheerfully", "with great care",
-                "beside his best friend", "during recess time", "around the garden", "at the pet shop",
-                "in the sunny yard", "with warm milk", "without any sound", "before dinner", "outside the house"
-            ];
-            const conjY13 = ["because", "although", "so that", "while", "and therefore"];
+        // Helper function: Build Year 1 Curriculum (Strictly DSKP: Phonics, Superminds Unit Topics)
+        function buildYear1Curriculum() {
+            const levels = [];
 
-            // Pool sets for Upper Primary (Years 4 - 6)
+            // --- Level 1 to 10: Identifying Parts of Speech (Noun, Verb, Adjective) ---
+            const y1PosTasks = [
+                { target: "cat", role: "Noun (Naming Word 🐱)", dist: ["big", "run"], hint: "Find the NOUN (name of an animal):" },
+                { target: "jump", role: "Verb (Action Word 🏃)", dist: ["pencil", "red"], hint: "Find the VERB (action word):" },
+                { target: "happy", role: "Adjective (Describing Word ⭐)", dist: ["apple", "sleep"], hint: "Find the ADJECTIVE (describing feeling):" },
+                { target: "teacher", role: "Noun (Naming Word 👩‍‍🏫)", dist: ["sweet", "eat"], hint: "Find the NOUN (a person at school):" },
+                { target: "swim", role: "Verb (Action Word 🏊)", dist: ["school", "green"], hint: "Find the VERB (what ducks do):" },
+                { target: "small", role: "Adjective (Describing Word 📏)", dist: ["sister", "read"], hint: "Find the ADJECTIVE (describes size):" },
+                { target: "ball", role: "Noun (Naming Word ⚽)", dist: ["hot", "play"], hint: "Find the NOUN (a toy you kick):" },
+                { target: "sleep", role: "Verb (Action Word 💤)", dist: ["yellow", "book"], hint: "Find the VERB (rest in bed):" },
+                { target: "red", role: "Adjective (Describing Word 🎨)", dist: ["ruler", "sing"], hint: "Find the ADJECTIVE (a bright colour):" },
+                { target: "apple", role: "Noun (Naming Word 🍎)", dist: ["fast", "climb"], hint: "Find the NOUN (a healthy sweet fruit):" }
+            ];
+
+            for (let i = 0; i < 10; i++) {
+                const item = y1PosTasks[i];
+                levels.push({
+                    level: i + 1,
+                    phase: "Phase 1: Parts of Speech",
+                    tier: "Identifying " + item.role.split(" ")[0],
+                    instruction: item.hint,
+                    type: "pos",
+                    parts: [
+                        { id: 'pos', txt: item.target, label: item.role }
+                    ],
+                    distractors: item.dist
+                });
+            }
+
+            // --- Level 11 to 30: 2-Part Sentences: Subject + Verb (SV Structure) ---
+            const y1SV = [
+                { s: "The cat", v: "sleeps" },
+                { s: "Birds", v: "fly" },
+                { s: "My mother", v: "cooks" },
+                { s: "Ali", v: "runs" },
+                { s: "Ducks", v: "swim" },
+                { s: "The teacher", v: "smiles" },
+                { s: "A baby", v: "cries" },
+                { s: "Frogs", v: "jump" },
+                { s: "The dog", v: "barks" },
+                { s: "My brother", v: "reads" },
+                { s: "Sister", v: "sings" },
+                { s: "Fish", v: "swim" },
+                { s: "The boy", v: "walks" },
+                { s: "The girl", v: "draws" },
+                { s: "A rabbit", v: "hops" },
+                { s: "Grandfather", v: "rests" },
+                { s: "Kittens", v: "play" },
+                { s: "Pupils", v: "listen" },
+                { s: "The bell", v: "rings" },
+                { s: "The sun", v: "shines" }
+            ];
+
+            for (let i = 0; i < 20; i++) {
+                const pair = y1SV[i];
+                levels.push({
+                    level: i + 11,
+                    phase: "Phase 2: Subject + Verb",
+                    tier: "2-Part Sentence (SV)",
+                    instruction: "Arrange the 2 parts in order: Subject + Verb.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: pair.s, label: 'Subject (Who)' },
+                        { id: 'v', txt: pair.v, label: 'Verb (Action)' }
+                    ]
+                });
+            }
+
+            // --- Level 31 to 99: 3-Part Sentences: Subject + Verb + Complement (SVC / SVO Structure) ---
+            // 69 Guaranteed Distinct Questions using Year 1 DSKP Topics (School, Pet Show, Lunchtime, Family, Toys)
+            const y1Subjects = [
+                "The polite boy", "My sister", "A cute kitten", "Ali", "The caring teacher",
+                "Grandfather", "The little girl", "Our friendly doctor", "Uncle Ben", "The smart pupil",
+                "My loving mother", "The active scout", "A gentle deer", "The fast swimmer", "A brown puppy",
+                "The tall policeman", "My elder brother", "The quiet student", "Cousin Mei", "The happy farmer",
+                "Two lovely birds", "The baker", "A green parrot", "The kind nurse"
+            ];
+            const y1Verbs = [
+                "likes", "eats", "reads", "cleans", "waters", "draws", "brushes", "catches",
+                "washes", "holds", "opens", "buys", "plants", "drinks", "carries", "shares",
+                "feeds", "finds", "picks", "fixes", "kicks", "paints", "loves"
+            ];
+            const y1Complements = [
+                "fresh red apples", "a funny storybook", "his wooden desk", "blooming garden roses",
+                "a glass of warm milk", "a bright blue ball", "crispy yellow bananas", "her tidy pencil case",
+                "sweet chocolate cake", "a new green ruler", "his leather shoes", "hot vegetable soup",
+                "a colourful picture", "three ripe mangoes", "a heavy school bag", "the cute hamsters",
+                "a red toy car", "the white whiteboard", "a golden key", "delicious chicken rice",
+                "fresh orange juice", "a large cardboard box", "his yellow raincoat"
+            ];
+
+            for (let lvl = 31; lvl <= 99; lvl++) {
+                const sIdx = (lvl * 7 + 3) % y1Subjects.length;
+                const vIdx = (lvl * 11 + 5) % y1Verbs.length;
+                const cIdx = (lvl * 13 + 7) % y1Complements.length;
+
+                levels.push({
+                    level: lvl,
+                    phase: "Phase 3: Subject + Verb + Complement",
+                    tier: "3-Part Sentence (SVC)",
+                    instruction: "Arrange the 3 cards in order: Subject + Verb + Complement.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: y1Subjects[sIdx], label: 'Subject' },
+                        { id: 'v', txt: y1Verbs[vIdx], label: 'Verb' },
+                        { id: 'c', txt: y1Complements[cIdx], label: 'Complement' }
+                    ]
+                });
+            }
+
+            // --- Level 100: Guided Narrative Sequencing Boss Challenge ---
+            levels.push({
+                level: 100,
+                phase: "Boss: Master Story Builder",
+                tier: "👑 Level 100 Guided Story Boss!",
+                instruction: "Arrange the chronological sequence to tell the story of 'A Day with Whiskers'!",
+                type: "boss",
+                storyHeader: "Topic: A Day with Whiskers (Year 1 Guided Story)",
+                parts: [
+                    { id: 'boss', txt: "First, Ali finds a tiny lost kitten under a shady tree.", label: "Beginning / Opening" },
+                    { id: 'boss', txt: "Next, he gently carries the cute kitten back home.", label: "Next Action" },
+                    { id: 'boss', txt: "Then, he gives the hungry kitten a bowl of warm milk.", label: "Subsequent Action" },
+                    { id: 'boss', txt: "Finally, the happy kitten purrs and curls up to sleep peacefully.", label: "Resolution / Ending" }
+                ]
+            });
+
+            return levels;
+        }
+
+        // Helper function: Build Year 2 Curriculum (DSKP: Expanded Nouns, Free Time, The Robot, An Outing)
+        function buildYear2Curriculum() {
+            const levels = [];
+
+            // --- Level 1 to 10: Identifying Parts of Speech (Expanded Noun, Inflected Verb, Descriptive Adjective) ---
+            const y2PosTasks = [
+                { target: "classroom", role: "Noun (Place / Thing 🏫)", dist: ["fluffy", "swimming"], hint: "Find the NOUN (a place in school):" },
+                { target: "climbing", role: "Verb (Action Word 🧗)", dist: ["delicious", "doctor"], hint: "Find the VERB (action ending in -ing):" },
+                { target: "delicious", role: "Adjective (Describing Word 😋)", dist: ["kitchen", "washes"], hint: "Find the ADJECTIVE (describing taste):" },
+                { target: "elephant", role: "Noun (Animal Name 🐘)", dist: ["tidy", "running"], hint: "Find the NOUN (a large mammal):" },
+                { target: "washes", role: "Verb (Action Word 🧼)", dist: ["colorful", "playground"], hint: "Find the VERB (cleaning action):" },
+                { target: "fluffy", role: "Adjective (Describing Word ☁️)", dist: ["umbrella", "painted"], hint: "Find the ADJECTIVE (soft touch):" },
+                { target: "doctor", role: "Noun (Occupation 👨‍⚕️)", dist: ["noisy", "cooking"], hint: "Find the NOUN (medical professional):" },
+                { target: "cooking", role: "Verb (Action Word 🍳)", dist: ["bright", "hospital"], hint: "Find the VERB (making food):" },
+                { target: "dangerous", role: "Adjective (Describing Word ⚠️)", dist: ["pencil", "walking"], hint: "Find the ADJECTIVE (describes risk):" },
+                { target: "playground", role: "Noun (Place 🛝)", dist: ["sweet", "barking"], hint: "Find the NOUN (outdoor play area):" }
+            ];
+
+            for (let i = 0; i < 10; i++) {
+                const item = y2PosTasks[i];
+                levels.push({
+                    level: i + 1,
+                    phase: "Phase 1: Parts of Speech",
+                    tier: "Identifying " + item.role.split(" ")[0],
+                    instruction: item.hint,
+                    type: "pos",
+                    parts: [
+                        { id: 'pos', txt: item.target, label: item.role }
+                    ],
+                    distractors: item.dist
+                });
+            }
+
+            // --- Level 11 to 30: 2-Part Sentences: Subject + Verb (DSKP Year 2 Richer SV) ---
+            const y2SV = [
+                { s: "The grey robot", v: "dances" },
+                { s: "Tired swimmers", v: "rest" },
+                { s: "Hungry monkeys", v: "chatter" },
+                { s: "Young seedlings", v: "sprout" },
+                { s: "Strong athletes", v: "train" },
+                { s: "The friendly doctor", v: "listens" },
+                { s: "Heavy rain", v: "pours" },
+                { s: "The cute puppy", v: "barks" },
+                { s: "Brave firefighters", v: "work" },
+                { s: "Little ducklings", v: "waddle" },
+                { s: "Clever pupils", v: "study" },
+                { s: "The school bus", v: "arrives" },
+                { s: "Green crickets", v: "chirp" },
+                { s: "The diligent baker", v: "kneads" },
+                { s: "Wild deer", v: "graze" },
+                { s: "Happy children", v: "cheer" },
+                { s: "The tall windmill", v: "spins" },
+                { s: "The swift swimmer", v: "dives" },
+                { s: "Honest prefects", v: "patrol" },
+                { s: "Kind volunteers", v: "help" }
+            ];
+
+            for (let i = 0; i < 20; i++) {
+                const pair = y2SV[i];
+                levels.push({
+                    level: i + 11,
+                    phase: "Phase 2: Subject + Verb",
+                    tier: "2-Part Sentence (SV)",
+                    instruction: "Arrange the subject and rich action verb in proper order.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: pair.s, label: 'Subject' },
+                        { id: 'v', txt: pair.v, label: 'Verb' }
+                    ]
+                });
+            }
+
+            // --- Level 31 to 99: 3-Part Sentences: Subject + Verb + Complement (Year 2 Topics) ---
+            const y2Subjects = [
+                "The energetic boy", "Mother", "The little girl", "Clever dolphins", "Pak Mat",
+                "The hardworking farmer", "Our school driver", "The polite scout", "My grandfather",
+                "The caring nurse", "Aminah", "The creative artist", "The brown bear", "The diligent tailor",
+                "A clever squirrel", "The playground cleaner", "Encik Hakim", "My elder cousin", "The zoo keeper",
+                "The friendly shopkeeper", "A gentle deer", "The library monitor", "The sports captain"
+            ];
+            const y2Verbs = [
+                "plays", "bakes", "cleans", "jumps through", "waters", "grows", "drives", "prepares",
+                "repairs", "gathers", "sweeps", "paints", "serves", "protects", "organizes", "washes",
+                "picks", "draws", "recycles", "delivers", "borrows", "practices", "shares"
+            ];
+            const y2Complements = [
+                "badminton on Saturdays", "sweet banana muffins", "her tidy bedroom", "the big hoop",
+                "fresh green vegetables", "tall coconut palms", "the yellow school bus", "tasty sandwiches",
+                "his broken bicycle", "wild brown nuts", "the leaf-covered porch", "a scenic mountain view",
+                "warm vegetable broth", "the playful cubs", "old comic books", "the dusty classroom windows",
+                "ripe red strawberries", "a colourful map", "used plastic bottles", "important letters",
+                "interesting science books", "his football skills", "delicious fruit salad"
+            ];
+
+            for (let lvl = 31; lvl <= 99; lvl++) {
+                const sIdx = (lvl * 5 + 2) % y2Subjects.length;
+                const vIdx = (lvl * 9 + 4) % y2Verbs.length;
+                const cIdx = (lvl * 15 + 1) % y2Complements.length;
+
+                levels.push({
+                    level: lvl,
+                    phase: "Phase 3: Subject + Verb + Complement",
+                    tier: "3-Part Sentence (SVC)",
+                    instruction: "Construct the full sentence: Subject + Verb + Complement.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: y2Subjects[sIdx], label: 'Subject' },
+                        { id: 'v', txt: y2Verbs[vIdx], label: 'Verb' },
+                        { id: 'c', txt: y2Complements[cIdx], label: 'Complement' }
+                    ]
+                });
+            }
+
+            // --- Level 100: Guided Story Narrative Boss Challenge ---
+            levels.push({
+                level: 100,
+                phase: "Boss: Master Story Builder",
+                tier: "👑 Level 100 Guided Story Boss!",
+                instruction: "Arrange the chronological sequence to assemble 'Our School Recycling Day'!",
+                type: "boss",
+                storyHeader: "Topic: Our School Gotong-Royong Recycling Day (Year 2 Guided Story)",
+                parts: [
+                    { id: 'boss', txt: "Early on Saturday morning, all pupils gathered at the school field with excitement.", label: "Orientation / Time & Setting" },
+                    { id: 'boss', txt: "First, Mr. Lim distributed safety gloves and heavy trash bags to every team.", label: "First Sequence" },
+                    { id: 'boss', txt: "Next, the energetic children collected empty plastic bottles and paper cartons.", label: "Second Sequence" },
+                    { id: 'boss', txt: "Later, they carefully sorted all recyclables into the blue, brown, and orange bins.", label: "Third Sequence" },
+                    { id: 'boss', txt: "Finally, the entire school compound looked spotless, green, and beautiful.", label: "Final Outcome" }
+                ]
+            });
+
+            return levels;
+        }
+
+        // Helper function: Build Year 3 to Year 6 Curricula
+        function buildUpperCurriculum(year) {
+            const isY3 = (year === 3);
+
+            // Base word pools for Upper Grades
+            const subY3 = [
+                "The talented artist", "Puan Salmah", "The young painter", "Fierce tigers", "A pride of lions",
+                "The caring doctor", "The school prefects", "Our head chef", "The green club scouts", "The brave lifeguard",
+                "A clever mechanic", "The sports teacher", "The friendly librarian", "The enthusiastic choir", "A skilled carpenter"
+            ];
+            const vrbY3 = [
+                "paints", "examines", "prepares", "arranges", "rescues", "repairs", "conducts", "serves", "supervises", "organizes"
+            ];
+            const objY3 = [
+                "a colourful landscape mural", "the sick patient gently", "crispy curry puffs for recess", "new science encyclopedias",
+                "swimmers during high tide", "the broken wooden desk", "the weekly assembly choir", "hot chicken porridge", "outdoor sporting events", "a modern birdhouse"
+            ];
+            const advY3 = [
+                "every Monday morning", "inside the spacious art room", "at the district hospital", "before the final bell rings",
+                "near the sunny beach", "with great concentration", "during co-curricular practice", "inside the school canteen", "under the shade of rain trees", "with handy wooden tools"
+            ];
+
             const subY46 = [
                 "The proactive environmentalists", "Malaysian scientists", "Dedicated healthcare frontliners", "Our visionary headmaster",
                 "Cautious motorists", "The creative robotic engineers", "Youth volunteer societies", "The state debate champions",
-                "Forest conservation rangers", "Compassionate charity workers", "Responsible digital citizens", "The local town council",
-                "Energetic scouting troops", "Talented cultural dancers", "Agricultural researchers", "The school editorial board",
-                "Inspiring national athletes", "Experienced marine biologists", "The disaster response committee", "The consumer protection board",
-                "Passionate history teachers", "Innovative software coders", "The organic farming collective", "Brave emergency rescue teams", "Local artisan craftsmen"
+                "Forest conservation rangers", "Compassionate charity workers", "Responsible digital citizens", "The local municipal council"
             ];
             const vrbY46 = [
                 "systematically implemented", "actively promoted", "strictly enforce", "advocate for",
                 "tirelessly rehabilitated", "comprehensively investigated", "enthusiastically presented", "cautiously monitored",
-                "regularly broadcast", "skillfully restored", "urgently appealed for", "consistently maintain",
-                "successfully organized", "steadfastly safeguarded", "accurately recorded", "passionately defended",
-                "diligently cultivated", "innovatively revolutionized", "rigorously evaluated", "thoughtfully designed",
-                "openly encouraged", "judiciously distributed", "earnestly spearheaded", "harmoniously united", "critically analyzed"
+                "regularly broadcast", "skillfully restored", "urgently appealed for", "consistently maintain"
             ];
             const objY46 = [
                 "stringent traffic safety regulations", "sustainable eco-friendly solutions", "endangered tropical wildlife habitats", "modern smart recycling facilities",
-                "balanced nutritional dietary habits", "traditional cultural craftsmanship", "advanced artificial intelligence software", "essential relief supplies",
-                "youth financial literacy workshops", "clean renewable solar installations", "safe public transportation routes", "historical national archives",
-                "biodiverse coral reef reserves", "equitable learning resources", "inclusive extracurricular tournaments", "vital flood prevention strategies",
-                "high-standard hygienic conditions", "scientific agricultural breakthroughs", "civic responsibilities and virtues", "authentic regional literature",
-                "reliable energy efficiency devices", "positive mental wellness habits", "modern medical diagnostic systems", "sustainable organic irrigation methods", "endangered turtle sanctuary grounds"
+                "balanced nutritional dietary habits", "traditional cultural craftsmanship", "advanced artificial intelligence software", "essential disaster relief supplies",
+                "youth financial literacy workshops", "clean renewable solar installations", "safe public transportation routes", "historical national heritage archives"
             ];
             const advY46 = [
                 "throughout the neighboring districts", "in order to inspire the community", "with extraordinary perseverance", "during the national awareness campaign",
-                "without compromising ecological harmony", "across various public platforms", "to minimize carbon footprints", "under rigorous scientific standards",
-                "to empower future generations", "at the state convention center", "despite unpredictable weather conditions", "to prevent serious accidents",
-                "in accordance with international guidelines", "to assist underprivileged families", "with undeniable dedication and passion", "through practical collaborative efforts",
-                "around the Clock Tower square", "along coastal mangrove estuaries", "during peak rush hours", "for sustainable community development",
-                "with immediate and tangible results", "inside modern educational laboratories", "across remote rural communities", "to promote civic unity", "for the welfare of society"
+                "without compromising ecological harmony", "across various media platforms", "to minimize carbon footprints", "under rigorous scientific standards",
+                "to empower future generations", "at the state convention center", "despite unpredictable weather conditions", "to prevent serious accidents"
             ];
             const clausesY46 = [
-                "because they value sustainable living",
-                "although unforeseen challenges emerged suddenly",
-                "so that future generations will thrive",
-                "while citizens cooperated whole-heartedly",
-                "since community welfare remains paramount",
-                "even though modern technologies are complex"
+                "because they value sustainable living for all citizens",
+                "although unforeseen weather challenges emerged suddenly",
+                "so that future generations will inherit pristine nature",
+                "while local residents cooperated with genuine enthusiasm",
+                "since community welfare remains our highest collective priority",
+                "even though modern technologies require ongoing training"
             ];
 
-            const poolS = isLower ? subY13 : subY46;
-            const poolV = isLower ? vrbY13 : vrbY46;
-            const poolO = isLower ? objY13 : objY46;
-            const poolA = isLower ? advY13 : advY46;
+            const poolS = isY3 ? subY3 : subY46;
+            const poolV = isY3 ? vrbY3 : vrbY46;
+            const poolO = isY3 ? objY3 : objY46;
+            const poolA = isY3 ? advY3 : advY46;
 
             const levels = [];
 
-            // Generate levels 1 to 99 with guaranteed non-overlapping sentences
             for (let lvl = 1; lvl <= 99; lvl++) {
                 const s = poolS[(lvl * 3 + year) % poolS.length];
                 const v = poolV[(lvl * 7 + year * 2) % poolV.length];
                 const o = poolO[(lvl * 5 + year * 3) % poolO.length];
 
-                if (lvl <= 25) {
-                    // Level 1 - 25: 3 Slots (Subject + Verb + Complement / Object)
+                if (lvl <= 30) {
+                    // Level 1 - 30: SVC 3-Slot Foundations
                     levels.push({
                         level: lvl,
-                        tier: "Novice (3 Parts)",
-                        instruction: "Put the 3 cards in order: Subject + Verb + Complement.",
+                        phase: "Phase 1: Core Clause Formation",
+                        tier: "Subject + Verb + Complement",
+                        instruction: "Form the complete sentence: Subject + Verb + Complement.",
                         type: "standard",
                         parts: [
                             { id: 's', txt: s, label: 'Subject' },
                             { id: 'v', txt: v, label: 'Verb' },
-                            { id: 'c', txt: o, label: 'Complement' }
+                            { id: 'c', txt: o, label: 'Complement / Object' }
                         ]
                     });
-                } else if (lvl <= 55) {
-                    // Level 26 - 55: 4 Slots (Subject + Verb + Object + Place/Time/Manner)
+                } else if (lvl <= 70) {
+                    // Level 31 - 70: 4 Slots with Adverbial Modifier
                     const adv = poolA[(lvl * 11 + year) % poolA.length];
                     levels.push({
                         level: lvl,
-                        tier: "Intermediate (4 Parts)",
-                        instruction: "Construct the sentence: Subject + Verb + Object + Adverbial modifier.",
+                        phase: "Phase 2: Expanded Modifiers",
+                        tier: "4-Part Extended Sentence",
+                        instruction: "Order the sentence with time, place, or manner adverbials.",
                         type: "standard",
                         parts: [
                             { id: 's', txt: s, label: 'Subject' },
                             { id: 'v', txt: v, label: 'Verb' },
                             { id: 'c', txt: o, label: 'Object' },
-                            { id: 'adv', txt: adv, label: 'Time / Place / Manner' }
-                        ]
-                    });
-                } else if (lvl <= 80) {
-                    // Level 56 - 80: 5 Slots (Compound sentences with conjunctions)
-                    const adv = poolA[(lvl * 2 + 5) % poolA.length];
-                    const conj = isLower ? conjY13[lvl % conjY13.length] : "because";
-                    const secondClause = isLower ? "everyone cheered with delight" : "it protects local natural resources";
-
-                    levels.push({
-                        level: lvl,
-                        tier: "Advanced Compound (5 Parts)",
-                        instruction: "Connect the two clauses using the appropriate conjunction.",
-                        type: "standard",
-                        parts: [
-                            { id: 's', txt: s, label: 'Main Subject' },
-                            { id: 'v', txt: v, label: 'Verb' },
-                            { id: 'c', txt: o, label: 'Direct Object' },
-                            { id: 'conj', txt: conj, label: 'Conjunction' },
-                            { id: 'rel', txt: secondClause, label: 'Joined Clause' }
+                            { id: 'adv', txt: adv, label: 'Adverbial Context' }
                         ]
                     });
                 } else {
-                    // Level 81 - 99: Master Complex Clauses (5 parts)
-                    const adv = poolA[(lvl * 4 + 7) % poolA.length];
-                    const extraClause = isLower
-                        ? "while the bright sun shone over the field"
+                    // Level 71 - 99: 5 Slots Compound & Complex Clauses
+                    const adv = poolA[(lvl * 2 + 5) % poolA.length];
+                    const extraClause = isY3
+                        ? "while the supportive crowd cheered with great joy"
                         : clausesY46[lvl % clausesY46.length];
 
                     levels.push({
                         level: lvl,
-                        tier: "Mastery Syntactic (5 Parts)",
-                        instruction: "Order the complex sentence with relative and adverbial structures.",
+                        phase: "Phase 3: Multi-Clause Complex Synthesis",
+                        tier: "5-Part Complex Compound",
+                        instruction: "Connect clauses using appropriate logical linkers and relative phrases.",
                         type: "standard",
                         parts: [
                             { id: 's', txt: s, label: 'Subject' },
-                            { id: 'v', txt: v, label: 'Action Verb' },
-                            { id: 'c', txt: o, label: 'Complemented Object' },
-                            { id: 'adv', txt: adv, label: 'Context Adverbial' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Direct Object' },
+                            { id: 'adv', txt: adv, label: 'Adverbial' },
                             { id: 'rel', txt: extraClause, label: 'Subordinate Clause' }
                         ]
                     });
                 }
             }
 
-            // LEVEL 100: Grand Boss Challenge
-            if (isLower) {
-                // Year 1-3: Guided Writing Challenge (Story Sequencing)
+            // Level 100: Boss Challenge
+            if (isY3) {
                 levels.push({
                     level: 100,
+                    phase: "Boss: Master Story Builder",
                     tier: "👑 Level 100 Guided Story Boss!",
-                    instruction: "Arrange the chronological sequence to assemble the guided story!",
+                    instruction: "Arrange the chronological sequence to narrate the school camping trip!",
                     type: "boss",
-                    storyHeader: "Topic: The Helpful Children of Kampung Sentosa",
+                    storyHeader: "Topic: The Annual Scout Camping Expedition (Year 3 Guided Story)",
                     parts: [
-                        { id: 'boss', txt: "1. Early last Saturday, the pupils gathered at the town park with rakes and trash bags.", label: "Beginning / Introduction" },
-                        { id: 'boss', txt: "2. First, they worked as a team to pick up empty plastic bottles along the path.", label: "First Sequence" },
-                        { id: 'boss', txt: "3. Next, the teacher helped them plant lovely blooming flower saplings.", label: "Second Sequence" },
-                        { id: 'boss', txt: "4. Soon, the entire public park looked pristine, tidy, and welcoming.", label: "Climax / Outcome" },
-                        { id: 'boss', txt: "5. Everyone smiled happily because their teamwork made their neighborhood beautiful.", label: "Ending & Reflection" }
+                        { id: 'boss', txt: "Last Friday afternoon, thirty enthusiastic scouts arrived at the lush jungle campsite.", label: "Orientation / Setting" },
+                        { id: 'boss', txt: "First, they pitched their waterproof tents and tied sturdy ropes between trees.", label: "Step 1: Tent Pitching" },
+                        { id: 'boss', txt: "Next, the scout leaders demonstrated how to build a safe campfire and cook noodles.", label: "Step 2: Campfire Setup" },
+                        { id: 'boss', txt: "At night, everyone gathered under the twinkling stars to sing traditional campfire songs.", label: "Step 3: Campfire Fellowship" },
+                        { id: 'boss', txt: "Finally, they cleaned the campsite thoroughly before heading home with happy memories.", label: "Ending & Reflection" }
                     ]
                 });
             } else {
-                // Year 4-6: Email / Short Story Construction Challenge
+                // Year 4 to 6: Structured Email / Letter Boss Challenge
                 levels.push({
                     level: 100,
+                    phase: "Boss: Email & Story Pro",
                     tier: "👑 Level 100 Email & Story Architect!",
                     instruction: "Arrange the structured email from Header & Salutation down to the Sign-Off!",
                     type: "boss",
-                    storyHeader: "Topic: Formal Email Requesting Permission for an Eco-Camp",
+                    storyHeader: "Topic: Formal Email Requesting Permission for an Inter-School Eco-Camp",
                     parts: [
-                        { id: 'boss', txt: "Subject: Request for Permission to Host School Earth Camp 2026", label: "Email Subject Header" },
+                        { id: 'boss', txt: "Subject: Request for Official Approval to Host Inter-School Eco-Camp 2026", label: "Email Subject Header" },
                         { id: 'boss', txt: "Dear Headmaster Mr. Razak,", label: "Formal Salutation" },
                         { id: 'boss', txt: "I am writing on behalf of the Nature Club to kindly request approval to organize our annual three-day eco-camp.", label: "Opening Purpose Statement" },
                         { id: 'boss', txt: "The program includes tree-planting, composting workshops, and an interactive renewable energy exhibition for all students.", label: "Body Paragraph / Objectives" },
@@ -1066,6 +1303,13 @@
             }
 
             return levels;
+        }
+
+        // Master Level Builder Selector
+        function getYearLevels(year) {
+            if (year === 1) return buildYear1Curriculum();
+            if (year === 2) return buildYear2Curriculum();
+            return buildUpperCurriculum(year);
         }
 
         /* ================= Global State Management ================= */
@@ -1113,7 +1357,7 @@
             }
 
             playerName = cleanName;
-            currentYearLevels = build100Curriculum(selectedYear);
+            currentYearLevels = getYearLevels(selectedYear);
             currentLevelIdx = 0;
             lives = 3;
             score = 0;
@@ -1159,8 +1403,9 @@
             // Update Progress & Badges
             document.getElementById('hudLevelNumber').innerText = levelNum;
             document.getElementById('hudScore').innerText = score;
+            document.getElementById('hudPhaseBadge').innerText = levelData.phase || "Level Phase";
             document.getElementById('hudDifficultyTier').innerText = levelData.tier;
-            document.getElementById('hudInstructions').innerText = levelData.instruction;
+            document.getElementById('hudInstructions').innerText = "💡 " + levelData.instruction;
             document.getElementById('levelJumpSelect').value = levelNum;
 
             const progressPct = (levelNum / 100) * 100;
@@ -1210,14 +1455,27 @@
             const bank = document.getElementById('wordBankArea');
             bank.innerHTML = '';
 
-            const shuffledParts = [...levelData.parts].sort(() => Math.random() - 0.5);
+            let tilesToRender = [];
 
-            shuffledParts.forEach((part, index) => {
+            if (levelData.type === 'pos') {
+                // In Parts of Speech mode (Levels 1-10 for Year 1 & 2), mix in distractors
+                tilesToRender.push({ txt: levelData.parts[0].txt, isAnswer: true });
+                if (levelData.distractors) {
+                    levelData.distractors.forEach(d => tilesToRender.push({ txt: d, isAnswer: false }));
+                }
+            } else {
+                tilesToRender = levelData.parts.map(p => ({ txt: p.txt, isAnswer: true }));
+            }
+
+            // Shuffle tiles
+            tilesToRender.sort(() => Math.random() - 0.5);
+
+            tilesToRender.forEach((item, index) => {
                 const tile = document.createElement('div');
                 tile.className = 'word-tile' + (levelData.type === 'boss' ? ' stacked-text' : '');
                 tile.id = `tile-${index}-${Date.now()}`;
                 tile.draggable = true;
-                tile.innerText = part.txt;
+                tile.innerText = item.txt;
 
                 // Dragging
                 tile.addEventListener('dragstart', handleDragStart);
@@ -1269,7 +1527,7 @@
                     SFX.tap();
                 }
                 if (timeLeft <= 0) {
-                    triggerMistake("⏰ TIME'S UP! Keep going!");
+                    triggerMistake("⏰ TIME'S UP! Keep trying!");
                 }
             }, 1000);
         }
@@ -1327,7 +1585,7 @@
             });
 
             if (!allFilled) {
-                alert("Please place every part into its slot before checking!");
+                alert("Please fill all slots before checking!");
                 startCountdownTimer(timeLeft);
                 return;
             }
@@ -1348,7 +1606,7 @@
                     return;
                 }
 
-                const praise = streak >= 3 ? "UNSTOPPABLE COMBO! 🔥" : "BRILLIANT SENTENCE! 🎉";
+                const praise = streak >= 3 ? "SUPER COMBO! 🔥" : "EXCELLENT WORK! 🎉";
                 showFeedbackModal(praise, "#2e7d32", 1200, () => {
                     currentLevelIdx++;
                     renderLevel();
@@ -1363,7 +1621,7 @@
             document.getElementById('feedbackHeadline').innerText = msg;
             document.getElementById('feedbackHeadline').style.color = color;
             document.getElementById('feedbackEmoji').innerText = (color === "#2e7d32") ? "🌟" : "💡";
-            document.getElementById('feedbackExplanation').innerText = lives > 0 ? "Loading next challenge..." : "Out of hearts!";
+            document.getElementById('feedbackExplanation').innerText = lives > 0 ? "Loading next challenge..." : "No lives left!";
             modal.style.display = 'flex';
 
             setTimeout(() => {
@@ -1402,7 +1660,7 @@
                 document.getElementById('scorecardTitle').innerText = "LEVEL 100 CONQUERED! 👑";
                 document.getElementById('scorecardTitle').style.color = "#2e7d32";
             } else {
-                document.getElementById('scorecardTitle').innerText = "QUEST PAUSED 💔";
+                document.getElementById('scorecardTitle').innerText = "QUEST FINISHED 💔";
                 document.getElementById('scorecardTitle').style.color = "#d50000";
             }
 
