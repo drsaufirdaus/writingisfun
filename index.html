@@ -3,516 +3,855 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Writing is Fun with Dr Saufi</title>
+    <title>Writing is Fun with Dr Saufi - Malaysian English DSKP Adventure</title>
+    <!-- Google Fonts for playful, friendly typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; }
-        body { 
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif; 
-            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%); 
-            text-align: center; 
-            padding: 12px; 
-            margin: 0; 
-            user-select: none; 
-            overflow-x: hidden; 
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        :root {
+            --primary: #0288d1;
+            --primary-dark: #01579b;
+            --accent: #ff6d00;
+            --accent-yellow: #ffd600;
+            --success: #2e7d32;
+            --danger: #d50000;
+            --purple: #7b1fa2;
+            --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 40%, #80deea 100%);
+            --card-shadow: 0 16px 36px rgba(0, 77, 64, 0.15);
+        }
+
+        body {
+            font-family: 'Fredoka', 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 12px;
             min-height: 100vh;
+            color: #263238;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        h1.main-title { 
-            color: #d84315; 
-            font-size: 2.1rem; 
-            margin: 8px 0; 
-            text-shadow: 2px 2px 0px #ffccbc, 4px 4px 0px rgba(0,0,0,0.06); 
+        /* Floating background icons */
+        .bg-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .float-emoji {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.22;
+            animation: floatSlow 12s infinite ease-in-out alternate;
+        }
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(20px) rotate(-10deg); }
         }
 
-        /* --- LOGIN & SETUP SCREEN --- */
-        .login-card { 
-            background: white; 
-            max-width: 650px; 
-            margin: 20px auto; 
-            padding: 30px 24px; 
-            border-radius: 28px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
-            border: 4px solid #ffffff;
-            animation: popIn 0.3s ease-out;
+        /* Main Header Banner */
+        .main-header {
+            position: relative;
+            z-index: 2;
+            margin: 6px 0 10px;
         }
-        @keyframes popIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .avatar-selection {
-            display: flex;
-            justify-content: center;
+        h1.app-title {
+            margin: 0;
+            font-size: 2.3rem;
+            color: #e65100;
+            text-shadow: 3px 3px 0 #ffe082, 5px 5px 0 rgba(0,0,0,0.06);
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
             gap: 10px;
-            margin: 15px 0 20px;
-            flex-wrap: wrap;
         }
-        .avatar-btn {
-            font-size: 2rem;
-            width: 52px;
-            height: 52px;
+        .subtitle-pill {
+            display: inline-block;
+            background: #ffffff;
+            color: #00695c;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 50px;
+            margin-top: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 2px solid #80cbc4;
+        }
+
+        /* Sound Toggle Button */
+        .sound-toggle-btn {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 1000;
+            background: #ffffff;
+            border: 3px solid #ffb74d;
             border-radius: 50%;
-            border: 3px solid #cfd8dc;
-            background: #f5f5f5;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
             cursor: pointer;
-            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s;
         }
-        .avatar-btn.selected {
-            border-color: #ff9800;
-            background: #fff3e0;
-            transform: scale(1.15);
-            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+        .sound-toggle-btn:active { transform: scale(0.9); }
+
+        .card-container {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            max-width: 660px;
+            margin: 10px auto 30px;
+            padding: 28px 24px;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            border: 4px solid #ffffff;
+            animation: bounceIn 0.4s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .student-input { 
-            width: 90%; 
-            max-width: 420px;
-            padding: 14px 18px; 
-            font-size: 18px; 
-            border: 2px solid #b0bec5; 
-            border-radius: 14px; 
-            outline: none; 
-            text-transform: uppercase; 
-            font-weight: bold;
-            text-align: center;
-            color: #37474f;
-            transition: border-color 0.2s;
+        .welcome-badge {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px dashed #ff9800;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #e65100;
+            font-weight: 700;
         }
-        .student-input:focus { border-color: #0288d1; box-shadow: 0 0 10px rgba(2, 136, 209, 0.3); }
 
-        .year-selector-title {
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-label {
+            display: block;
+            font-weight: 700;
             font-size: 15px;
-            color: #546e7a;
-            font-weight: bold;
-            margin: 20px 0 10px;
+            color: #37474f;
+            margin-bottom: 8px;
         }
+
+        .input-text {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: inherit;
+            border: 3px solid #b0bec5;
+            border-radius: 16px;
+            outline: none;
+            text-transform: uppercase;
+            background: #fafafa;
+            transition: all 0.25s;
+        }
+        .input-text:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 12px rgba(2, 136, 209, 0.35);
+        }
+
+        /* Avatar Selection Grid */
+        .avatar-grid {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .avatar-option {
+            font-size: 2rem;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            border: 3px solid #cfd8dc;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .avatar-option:hover { transform: scale(1.12); }
+        .avatar-option.selected {
+            border-color: #ff9800;
+            background: #fff8e1;
+            transform: scale(1.16);
+            box-shadow: 0 6px 14px rgba(255, 152, 0, 0.35);
+        }
+
+        /* Class / Year Level Selector Grid */
         .year-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            max-width: 440px;
-            margin: 0 auto 20px;
+        }
+        @media (max-width: 480px) {
+            .year-grid { grid-template-columns: repeat(2, 1fr); }
         }
         .year-btn {
-            padding: 12px 6px;
-            background: #f1f8e9;
-            border: 2px solid #aed581;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #33691e;
+            background: #eceff1;
+            border: 3px solid #cfd8dc;
+            border-radius: 16px;
+            padding: 12px 8px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 800;
+            color: #455a64;
             cursor: pointer;
             transition: all 0.2s;
-        }
-        .year-btn.selected {
-            background: #43a047;
-            color: white;
-            border-color: #2e7d32;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
-        }
-
-        /* --- GAME CONTAINER --- */
-        .container { 
-            max-width: 960px; 
-            margin: 0 auto; 
-            background: white; 
-            padding: 22px; 
-            border-radius: 26px; 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
-            min-height: 540px; 
-            display: none; 
-            position: relative;
-        }
-
-        .game-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 10px 16px; 
-            background: #e0f2f1; 
-            border-radius: 16px; 
-            margin-bottom: 12px; 
-        }
-        .player-info { text-align: left; font-size: 15px; color: #263238; line-height: 1.4; font-weight: bold; }
-        .lives-box { font-size: 26px; color: #e53935; letter-spacing: 4px; }
-        
-        /* 1-Minute Timer Box */
-        .timer-box { 
-            background-color: #263238; 
-            color: #fff; 
-            padding: 6px 16px; 
-            border-radius: 50px; 
-            font-size: 24px; 
-            font-weight: bold; 
-            border: 3px solid #cfd8dc; 
-            min-width: 65px; 
-            transition: all 0.3s;
-        }
-        .timer-warning { background-color: #d32f2f; border-color: #ff8a80; animation: pulse 0.7s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-        .stat-badge {
-            background: #fff3e0;
-            color: #e65100;
-            padding: 6px 14px;
-            border-radius: 20px;
-            display: inline-block;
-            font-weight: bold;
-            font-size: 14px;
-            margin: 0 4px 10px;
-            border: 1px solid #ffe082;
-        }
-        .streak-badge {
-            background: #fce4ec;
-            color: #c2185b;
-            border: 1px solid #f48fb1;
-            display: none;
-            animation: bounceIn 0.4s ease;
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.6); opacity: 0; }
-            80% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        .phase-banner {
-            background: #e8eaf6;
-            color: #283593;
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .instruction-box {
-            font-size: 16px;
-            color: #006064;
-            background: #e0f7fa;
-            padding: 10px 16px;
-            border-radius: 12px;
-            margin: 8px auto 14px;
-            max-width: 750px;
-            font-weight: bold;
-            border-left: 5px solid #00acc1;
-        }
-
-        /* --- SLOTS & BANK --- */
-        .sentence-row { 
-            display: flex; 
-            justify-content: center; 
-            gap: 10px; 
-            margin: 25px 0 16px; 
-            flex-wrap: wrap; 
-            min-height: 95px; 
-        }
-        .slot { 
-            width: 175px; 
-            min-height: 80px; 
-            border: 2px dashed #90a4ae; 
-            border-radius: 14px; 
-            background-color: #f8fafb; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            position: relative; 
-            margin-top: 25px; 
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 6px;
-        }
-        .slot:hover { border-color: #0288d1; background-color: #e1f5fe; }
-        .slot::before { 
-            content: attr(data-label); 
-            position: absolute; 
-            top: -24px; 
-            left: 0; 
-            right: 0; 
-            font-size: 12px; 
-            color: white; 
-            font-weight: bold; 
-            padding: 3px 6px; 
-            border-radius: 6px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-        .slot[data-type="pos"]::before { background-color: #9c27b0; }
-        .slot[data-type="s"]::before { background-color: #1976d2; }
-        .slot[data-type="v"]::before { background-color: #f57c00; }
-        .slot[data-type="c"]::before { background-color: #388e3c; }
-        .slot[data-type="obj"]::before { background-color: #00897b; }
-        .slot[data-type="adv"]::before { background-color: #7b1fa2; }
-        .slot[data-type="conj"]::before { background-color: #d81b60; }
-        .slot[data-type="story"]::before { background-color: #455a64; }
-        .slot.filled { border-style: solid; background-color: #ffffff; border-color: #81c784; }
-
-        /* Story/Email Boss Slots (Level 100) */
-        .boss-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 780px;
-            margin: 20px auto;
+            align-items: center;
+            gap: 4px;
         }
-        .boss-slot {
-            width: 100% !important;
-            min-height: 56px !important;
-            margin-top: 20px !important;
+        .year-btn span.year-desc {
+            font-size: 11px;
+            color: #78909c;
+            font-weight: 600;
+        }
+        .year-btn:hover { background: #e0f2f1; border-color: #80cbc4; }
+        .year-btn.selected {
+            background: linear-gradient(180deg, #0288d1 0%, #01579b 100%);
+            border-color: #002f6c;
+            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(1, 87, 155, 0.3);
+            transform: translateY(-2px);
+        }
+        .year-btn.selected span.year-desc { color: #b3e5fc; }
+
+        /* Animated CTA Buttons */
+        .btn-launch {
+            width: 100%;
+            padding: 16px;
+            font-size: 21px;
+            font-weight: 900;
+            font-family: inherit;
+            color: white;
+            background: linear-gradient(180deg, #43a047 0%, #2e7d32 100%);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 #1b5e20, 0 12px 20px rgba(46, 125, 50, 0.3);
+            transition: all 0.18s;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 6px 0 #1b5e20, 0 8px 16px rgba(46, 125, 50, 0.25); }
+            100% { transform: scale(1.02); box-shadow: 0 7px 0 #1b5e20, 0 14px 28px rgba(46, 125, 50, 0.45); }
+        }
+        .btn-launch:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1b5e20;
         }
 
-        .word-bank { 
-            display: flex; 
-            justify-content: center; 
-            gap: 10px; 
-            flex-wrap: wrap; 
-            margin-top: 15px; 
-            padding: 16px; 
-            background: #fafafa; 
-            border-radius: 18px; 
-            min-height: 85px; 
-            border: 2px dashed #cfd8dc; 
+        .game-arena {
+            display: none;
+            max-width: 980px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 22px 20px 30px;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            border: 4px solid #ffffff;
+            position: relative;
+            z-index: 2;
         }
-        .draggable { 
-            background: linear-gradient(180deg, #0288d1 0%, #01579b 100%); 
-            color: white; 
-            padding: 12px 18px; 
-            font-size: 16px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            box-shadow: 0 4px 0 #002f6c; 
-            z-index: 100; 
-            touch-action: none; 
-            transition: transform 0.15s;
-            font-weight: bold;
+
+        .hud-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f8e9;
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: 2px solid #c5e1a5;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hud-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+        .hud-avatar {
+            font-size: 2.2rem;
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 50%;
+            border: 2px solid #81c784;
+        }
+        .hud-meta b { font-size: 16px; color: #2e7d32; display: block; }
+        .hud-meta span { font-size: 13px; color: #558b2f; font-weight: 700; }
+
+        .timer-box {
+            background: #263238;
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 900;
+            padding: 6px 18px;
+            border-radius: 50px;
+            border: 3px solid #cfd8dc;
+            min-width: 60px;
+            transition: all 0.25s;
+        }
+        .timer-urgent {
+            background: #d50000;
+            border-color: #ff8a80;
+            animation: pulseTimer 0.6s infinite alternate;
+        }
+        @keyframes pulseTimer {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.12); }
+        }
+
+        .lives-box {
+            font-size: 26px;
+            color: #e53935;
+            letter-spacing: 3px;
+        }
+
+        /* 100-Level Track Progress */
+        .progress-track {
+            background: #cfd8dc;
+            height: 14px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 10px 0 16px;
+            position: relative;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #ff9800, #4caf50, #00acc1);
+            height: 100%;
+            width: 1%;
+            transition: width 0.35s ease;
+        }
+
+        .badges-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .pill-badge {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13.5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill-level { background: #e1f5fe; color: #0277bd; border: 1.5px solid #81d4fa; }
+        .pill-tier { background: #f3e5f5; color: #7b1fa2; border: 1.5px solid #ce93d8; }
+        .pill-phase { background: #e0f2f1; color: #00796b; border: 1.5px solid #80cbc4; }
+        .pill-score { background: #fff8e1; color: #f57f17; border: 1.5px solid #ffe082; }
+        .pill-streak { background: #fbe9e7; color: #d84315; border: 1.5px solid #ffab91; display: none; }
+
+        .helper-text {
+            font-size: 15px;
+            color: #455a64;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: #fdfefe;
+            padding: 8px 14px;
+            border-radius: 12px;
             display: inline-block;
         }
-        .draggable:hover { transform: translateY(-2px); }
-        .draggable:active { transform: scale(0.95); }
 
-        /* --- BUTTONS --- */
-        .btn { 
-            padding: 13px 30px; 
-            font-size: 19px; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            color: white; 
-            margin: 10px; 
-            box-shadow: 0 4px 0 rgba(0,0,0,0.2); 
-            font-weight: bold; 
-            transition: 0.15s ease; 
+        /* Boss Prompt Announcement (Level 100) */
+        .boss-card {
+            display: none;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px dashed #ff9800;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #e65100;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.25); }
-        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.25); }
-        .btn-start { background-color: #2e7d32; width: 100%; max-width: 320px; }
-        .btn-check { background-color: #ef6c00; font-size: 21px; padding: 14px 40px; }
-        .btn-new { background-color: #0277bd; }
-        .sound-toggle-btn {
-            background: #eceff1;
-            border: 2px solid #b0bec5;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 20px;
+
+        /* Sentence Slots Area */
+        .slots-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            min-height: 95px;
+            margin: 16px 0;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+        }
+        .slots-container.stacked-mode {
+            flex-direction: column;
+            max-width: 840px;
+            margin: 12px auto;
+        }
+
+        .target-slot {
+            min-width: 150px;
+            min-height: 72px;
+            border: 2.5px dashed #90a4ae;
+            border-radius: 16px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 24px;
             cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px;
+            flex: 1 1 auto;
+        }
+        .stacked-mode .target-slot {
+            width: 100%;
+            min-height: 60px;
+            margin-top: 22px;
+        }
+        .target-slot:hover { border-color: var(--primary); background: #e1f5fe; }
+        .target-slot.filled {
+            border-style: solid;
+            border-color: #81c784;
+            background: #f1f8e9;
+        }
+
+        .target-slot::before {
+            content: attr(data-slot-label);
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: -24px;
+            left: 8px;
+            right: 8px;
+            font-size: 11.5px;
+            color: #ffffff;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
+        .target-slot[data-slot-role="s"]::before { background: #1976d2; }
+        .target-slot[data-slot-role="v"]::before { background: #f57c00; }
+        .target-slot[data-slot-role="c"]::before { background: #388e3c; }
+        .target-slot[data-slot-role="pos"]::before { background: #6a1b9a; }
+        .target-slot[data-slot-role="adv"]::before { background: #7b1fa2; }
+        .target-slot[data-slot-role="conj"]::before { background: #c2185b; }
+        .target-slot[data-slot-role="rel"]::before { background: #00796b; }
+        .target-slot[data-slot-role="boss"]::before { background: #e65100; }
+
+        /* Word Bank */
+        .word-bank {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+            padding: 16px;
+            background: #eef7f8;
+            border-radius: 20px;
+            min-height: 90px;
+            border: 2px dashed #b0bec5;
         }
 
-        /* --- OVERLAYS --- */
-        .overlay { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            bottom: 0; 
-            background: rgba(255,255,255,0.96); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            border-radius: 26px; 
-            z-index: 2000; 
-            animation: fadeIn 0.2s ease; 
-            padding: 20px;
+        .word-tile {
+            background: linear-gradient(180deg, #0288d1 0%, #01579b 100%);
+            color: white;
+            padding: 11px 18px;
+            font-size: 16.5px;
+            font-weight: 800;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #002f6c;
+            touch-action: none;
+            transition: transform 0.15s ease;
+            display: inline-block;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .word-tile:hover { transform: translateY(-2px); }
+        .word-tile:active { transform: translateY(2px); box-shadow: 0 1px 0 #002f6c; }
+        .word-tile.stacked-text {
+            font-size: 14.5px;
+            text-align: left;
+            line-height: 1.35;
+            padding: 10px 14px;
+        }
 
-        #confettiCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 3000; }
+        /* Action Buttons */
+        .btn-action {
+            font-family: inherit;
+            padding: 13px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            color: white;
+            margin: 6px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.25);
+            font-weight: 800;
+            transition: all 0.15s ease;
+        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(0,0,0,0.25); }
+        .btn-action:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.25); }
+        .btn-check { background-color: var(--accent); }
+        .btn-skip { background-color: #607d8b; font-size: 15px; padding: 11px 20px; }
+
+        .level-selector-row {
+            margin-top: 14px;
+            font-size: 14px;
+            color: #546e7a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .level-select-input {
+            padding: 6px 12px;
+            border-radius: 12px;
+            border: 2px solid #b0bec5;
+            font-family: inherit;
+            font-weight: 700;
+            background: #ffffff;
+        }
+
+        .overlay-modal {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.97);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            z-index: 2000;
+            padding: 24px;
+            animation: bounceIn 0.3s ease;
+        }
+
+        .score-hero-avatar {
+            font-size: 4rem;
+            background: #fff8e1;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffb300;
+            margin-bottom: 8px;
+        }
+        .stars-row {
+            font-size: 2.5rem;
+            color: #ffb300;
+            margin: 6px 0;
+            text-shadow: 0 4px 10px rgba(255, 179, 0, 0.4);
+        }
+        .badge-list {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0 16px;
+        }
+        .award-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #a5d6a7;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13.5px;
+            font-weight: 800;
+        }
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 3500;
+        }
     </style>
 </head>
 <body>
 
-    <button id="soundBtn" class="sound-toggle-btn" onclick="toggleSound()">🔊</button>
+    <!-- Confetti Canvas -->
     <canvas id="confettiCanvas"></canvas>
 
-    <h1 class="main-title">Writing is Fun with Dr Saufi</h1>
-
-    <!-- 1. LOGIN & SETUP SCREEN -->
-    <div id="loginScreen" class="login-card">
-        <h2 style="color:#00838f; margin:0 0 5px;">Welcome Young Writers! ✨</h2>
-        <p style="color:#555; margin-bottom:15px; font-size:15px;">Pick your avatar, enter your name, and choose your grade:</p>
-
-        <!-- Avatar Selection -->
-        <div class="avatar-selection" id="avatarGroup">
-            <button class="avatar-btn selected" onclick="pickAvatar('🐱', this)">🐱</button>
-            <button class="avatar-btn" onclick="pickAvatar('🚀', this)">🚀</button>
-            <button class="avatar-btn" onclick="pickAvatar('🦁', this)">🦁</button>
-            <button class="avatar-btn" onclick="pickAvatar('🦊', this)">🦊</button>
-            <button class="avatar-btn" onclick="pickAvatar('🐼', this)">🐼</button>
-            <button class="avatar-btn" onclick="pickAvatar('🦄', this)">🦄</button>
-            <button class="avatar-btn" onclick="pickAvatar('⚽', this)">⚽</button>
-            <button class="avatar-btn" onclick="pickAvatar('🎨', this)">🎨</button>
-        </div>
-
-        <input type="text" id="studentNameInput" class="student-input" placeholder="ENTER YOUR NAME..." maxlength="25">
-
-        <div class="year-selector-title">SELECT YOUR CLASS (YEAR 1 - YEAR 6):</div>
-        <div class="year-grid" id="yearGrid">
-            <button class="year-btn selected" onclick="pickYear(1, this)">YEAR 1</button>
-            <button class="year-btn" onclick="pickYear(2, this)">YEAR 2</button>
-            <button class="year-btn" onclick="pickYear(3, this)">YEAR 3</button>
-            <button class="year-btn" onclick="pickYear(4, this)">YEAR 4</button>
-            <button class="year-btn" onclick="pickYear(5, this)">YEAR 5</button>
-            <button class="year-btn" onclick="pickYear(6, this)">YEAR 6</button>
-        </div>
-
-        <button class="btn btn-start" onclick="startGame()">START ADVENTURE ▶</button>
-        <br><br>
-        <small style="color:#888;">100 Progressive Levels Per Grade • KSSR / CEFR Aligned</small>
+    <!-- Floating Background Emojis -->
+    <div class="bg-decorations">
+        <span class="float-emoji" style="top:8%; left:6%;">✏️</span>
+        <span class="float-emoji" style="top:25%; right:8%; animation-delay: 2s;">📚</span>
+        <span class="float-emoji" style="bottom:12%; left:12%; animation-delay: 4s;">🚀</span>
+        <span class="float-emoji" style="bottom:18%; right:14%; animation-delay: 1s;">🌟</span>
+        <span class="float-emoji" style="top:50%; left:4%; animation-delay: 3s;">🏆</span>
+        <span class="float-emoji" style="top:60%; right:5%; animation-delay: 5s;">💡</span>
     </div>
 
-    <!-- 2. GAME SCREEN -->
-    <div id="gameScreen" class="container">
-        <div class="game-header">
-            <div class="player-info">
-                <span id="pAvatar" style="font-size:1.8rem; vertical-align:middle;">🐱</span>
-                <span id="pName" style="color:#d84315; margin-left:6px;">PLAYER</span> 
-                <span id="pGradeBadge" style="background:#00897b; color:white; padding:2px 8px; border-radius:10px; font-size:12px; margin-left:5px;">YEAR 1</span>
+    <!-- Mute/Sound Toggle -->
+    <button id="soundToggle" class="sound-toggle-btn" onclick="toggleAudio()" title="Sound On / Off">🔊</button>
+
+    <!-- Header -->
+    <div class="main-header">
+        <h1 class="app-title">✏️ Writing is Fun with Dr Saufi</h1><br>
+        <span class="subtitle-pill">🌟 CEFR KSSR English • 100 Progressive Mastery Levels</span>
+    </div>
+
+    <div id="loginScreen" class="card-container">
+        <div class="welcome-badge">
+            👋 Welcome Young English Writers! Choose your avatar, enter your name, and select your Year level to start your 100-level journey!
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="studentNameInput">1. What is your name?</label>
+            <input type="text" id="studentNameInput" class="input-text" placeholder="TYPE YOUR NAME HERE..." maxlength="35" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">2. Pick Your Adventure Avatar</label>
+            <div class="avatar-grid" id="avatarSelector">
+                <div class="avatar-option selected" data-avatar="🐱">🐱</div>
+                <div class="avatar-option" data-avatar="🚀">🚀</div>
+                <div class="avatar-option" data-avatar="🦁">🦁</div>
+                <div class="avatar-option" data-avatar="🦊">🦊</div>
+                <div class="avatar-option" data-avatar="🐼">🐼</div>
+                <div class="avatar-option" data-avatar="🦄">🦄</div>
+                <div class="avatar-option" data-avatar="⚽">⚽</div>
+                <div class="avatar-option" data-avatar="🎨">🎨</div>
             </div>
-            <!-- Standard round is set to 60s (1 Minute) -->
-            <div class="timer-box" id="timerDisplay">60</div>
-            <div class="lives-box" id="livesDisplay">❤❤❤</div>
         </div>
 
+        <div class="form-group">
+            <label class="form-label">3. Select Your Class / Year Level</label>
+            <div class="year-grid" id="yearSelector">
+                <button type="button" class="year-btn selected" data-year="1">
+                    Year 1
+                    <span class="year-desc">DSKP Phonics & Grammar</span>
+                </button>
+                <button type="button" class="year-btn" data-year="2">
+                    Year 2
+                    <span class="year-desc">DSKP Sentence Builder</span>
+                </button>
+                <button type="button" class="year-btn" data-year="3">
+                    Year 3
+                    <span class="year-desc">Guided Paragraphs</span>
+                </button>
+                <button type="button" class="year-btn" data-year="4">
+                    Year 4
+                    <span class="year-desc">Compound Clauses</span>
+                </button>
+                <button type="button" class="year-btn" data-year="5">
+                    Year 5
+                    <span class="year-desc">Complex Clauses</span>
+                </button>
+                <button type="button" class="year-btn" data-year="6">
+                    Year 6
+                    <span class="year-desc">Email & Story Pro</span>
+                </button>
+            </div>
+        </div>
+
+        <button type="button" class="btn-launch" onclick="beginAdventure()">START ADVENTURE ▶</button>
+    </div>
+
+    <div id="gameArena" class="game-arena">
+        <!-- HUD Header -->
+        <div class="hud-banner">
+            <div class="hud-player">
+                <span id="playerAvatarDisplay" class="hud-avatar">🐱</span>
+                <div class="hud-meta">
+                    <b id="playerNameDisplay">STUDENT</b>
+                    <span id="playerYearDisplay">Year 1 Writer</span>
+                </div>
+            </div>
+
+            <!-- Standard: 60s | Level 100 Boss: 120s -->
+            <div class="timer-box" id="hudTimer">60</div>
+            <div class="lives-box" id="hudLives">❤❤❤</div>
+        </div>
+
+        <!-- 100-Level Track Progress -->
+        <div class="progress-track" title="100-Level Adventure Progress">
+            <div class="progress-fill" id="levelProgressFill"></div>
+        </div>
+
+        <!-- Badges & Statistics -->
+        <div class="badges-row">
+            <div class="pill-badge pill-level">⭐ Level: <span id="hudLevelNumber">1</span> / 100</div>
+            <div class="pill-badge pill-phase" id="hudPhaseBadge">Phase 1: Parts of Speech</div>
+            <div class="pill-badge pill-tier" id="hudDifficultyTier">Noun Recognition</div>
+            <div class="pill-badge pill-score">🏆 Score: <span id="hudScore">0</span></div>
+            <div class="pill-badge pill-streak" id="hudStreakBadge">🔥 COMBO x2</div>
+        </div>
+
+        <div class="helper-text" id="hudInstructions">
+            💡 Select the correct word tile to match the target part of speech!
+        </div>
+
+        <!-- Boss Prompt Announcement (Level 100) -->
+        <div id="bossAnnouncement" class="boss-card"></div>
+
+        <!-- Sentence Slots Area -->
+        <div class="slots-container" id="slotsArea"></div>
+
+        <!-- Draggable / Tappable Word Bank -->
+        <div class="word-bank" id="wordBankArea" ondragover="allowDrop(event)" ondrop="handleDropBackToBank(event)"></div>
+
+        <!-- Action Controls -->
         <div>
-            <div class="phase-banner" id="phaseBanner">Phase 1: Parts of Speech</div><br>
-            <div class="stat-badge">Level: <span id="lvlNum">1</span> / 100</div>
-            <div class="stat-badge">Score: <span id="score">0</span></div>
-            <div class="stat-badge streak-badge" id="streakBadge">🔥 2 IN A ROW!</div>
+            <button class="btn-action btn-check" onclick="checkCurrentAnswer()">Check Answer ✨</button>
+            <button class="btn-action btn-skip" onclick="skipToNextLevel()" title="Skip level for practice">Skip ⏭</button>
         </div>
 
-        <div class="instruction-box" id="instructionBox">
-            Identify the requested word or build the sentence!
-        </div>
-
-        <!-- Target Slot Area -->
-        <div class="sentence-row" id="slotsContainer"></div>
-
-        <!-- Word / Tile Bank -->
-        <div class="word-bank" id="wordBank" ondragover="allowDrop(event)" ondrop="dropBackToBank(event)"></div>
-
-        <div style="margin-top:16px;">
-            <button class="btn btn-check" onclick="checkAnswer()">Check Answer ✨</button>
+        <!-- Jump to any level -->
+        <div class="level-selector-row">
+            <span>Level Quick-Jump:</span>
+            <select id="levelJumpSelect" class="level-select-input" onchange="jumpDirectlyToLevel(this.value)"></select>
         </div>
 
         <!-- Feedback Overlay -->
-        <div id="feedbackOverlay" class="overlay" style="display:none;">
-            <h2 id="fbTitle" style="font-size:2.8rem; margin:0;"></h2>
-            <p id="fbText" style="font-size:1.3rem; color:#455a64; font-weight:bold;"></p>
+        <div id="feedbackModal" class="overlay-modal" style="display:none;">
+            <div id="feedbackEmoji" style="font-size:3.5rem; margin-bottom:4px;">🎉</div>
+            <h2 id="feedbackHeadline" style="font-size:2.2rem; margin:6px 0; color:#2e7d32;">Awesome!</h2>
+            <p id="feedbackExplanation" style="font-size:1.25rem; font-weight:800; color:#455a64;"></p>
         </div>
 
-        <!-- Game Over & Score Card Overlay -->
-        <div id="gameOverOverlay" class="overlay" style="display:none;">
-            <h1 id="goTitle" style="font-size:3rem; margin-bottom:5px;">ADVENTURE SUMMARY</h1>
-            <div style="font-size:4rem; margin:10px 0;" id="goStars">⭐⭐⭐</div>
-            <h3 style="margin:5px 0;">Outstanding effort, <span id="goName"></span>!</h3>
-            <p style="font-size:1.1rem; color:#555; margin:5px 0;">Class: <b id="goGrade"></b> | Highest Level: <b id="goLevel"></b></p>
-            <p style="margin:10px 0;">Final Score: <span id="goScore" style="font-size:2.5rem; font-weight:bold; color:#2e7d32;">0</span></p>
-            <p id="saveStatus" style="color:#777; font-style:italic; font-size:14px;">Saving score...</p>
-            <button class="btn btn-new" onclick="returnHome()">Play Again 🔄</button>
+        <!-- End of Game / Celebration Scorecard -->
+        <div id="scorecardModal" class="overlay-modal" style="display:none;">
+            <div class="score-hero-avatar" id="scorecardAvatar">🐱</div>
+            <h2 id="scorecardTitle" style="font-size:2.2rem; margin:4px 0; color:#2e7d32;">QUEST COMPLETE! 🏆</h2>
+            <p style="font-size:1.2rem; margin:2px 0; color:#37474f;">
+                Player: <b id="scorecardPlayerName">-</b> • <span id="scorecardClass">-</span>
+            </p>
+            <div class="stars-row" id="scorecardStars">⭐⭐⭐</div>
+            <div style="font-size:1.8rem; font-weight:900; color:#e65100; margin:6px 0;">
+                Score: <span id="scorecardScore">0</span>
+            </div>
+
+            <div class="badge-list" id="scorecardBadges">
+                <span class="award-badge">🎖️ DSKP Master</span>
+                <span class="award-badge">⚡ Grammar Pro</span>
+                <span class="award-badge">✍️ Super Writer</span>
+            </div>
+
+            <p id="syncStatus" style="color:#78909c; font-style:italic; font-size:14px; margin: 4px 0 16px;">
+                Syncing with Google Sheet...
+            </p>
+
+            <div>
+                <button class="btn-action" style="background:#0288d1;" onclick="restartRound()">Play Again 🔄</button>
+                <button class="btn-action" style="background:#ff6d00;" onclick="exitToHome()">Change Class / Player 👤</button>
+            </div>
         </div>
     </div>
 
     <script>
-        /* ================= 1. GOOGLE SHEETS / CLOUD INTEGRATION ================= */
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOi2QGNdogGvwGZxBhivuD816CjWxJhw2SNQENT0GPBDY4lwY6Fx8EmHb1Mn-rH730/exec";
-
-        /* ================= 2. SOUND SYNTHESIS ENGINE ================= */
-        let soundEnabled = true;
+        /* ================= Web Audio Synthesizer (No External Files) ================= */
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
 
-        function toggleSound() {
+        function toggleAudio() {
             soundEnabled = !soundEnabled;
-            document.getElementById('soundBtn').innerText = soundEnabled ? "🔊" : "🔇";
+            const btn = document.getElementById('soundToggle');
+            btn.innerText = soundEnabled ? '🔊' : '🔇';
+            btn.title = soundEnabled ? 'Sound is ON' : 'Sound is OFF';
         }
 
-        function playTone(freq, type, duration, delay = 0) {
+        function playSynthBeep(freq, type, duration, delay = 0, volume = 0.12) {
             if (!soundEnabled) return;
             setTimeout(() => {
                 try {
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
                     osc.type = type;
                     osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
                     osc.start();
                     osc.stop(audioCtx.currentTime + duration);
-                } catch(e){}
+                } catch(e) {}
             }, delay * 1000);
         }
 
-        function soundSuccess() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            playTone(523.25, 'triangle', 0.12, 0);     // C5
-            playTone(659.25, 'triangle', 0.12, 0.08);  // E5
-            playTone(783.99, 'triangle', 0.18, 0.16);  // G5
-            playTone(1046.50, 'triangle', 0.28, 0.24); // C6
+        const SFX = {
+            tap() { playSynthBeep(480, 'sine', 0.07, 0, 0.08); },
+            correct() {
+                playSynthBeep(523.25, 'triangle', 0.12, 0);     // C5
+                playSynthBeep(659.25, 'triangle', 0.12, 0.08);  // E5
+                playSynthBeep(783.99, 'triangle', 0.15, 0.16);  // G5
+                playSynthBeep(1046.50, 'triangle', 0.28, 0.24); // C6
+            },
+            wrong() {
+                playSynthBeep(240, 'sawtooth', 0.2, 0, 0.14);
+                playSynthBeep(190, 'sawtooth', 0.3, 0.14, 0.14);
+            },
+            combo() {
+                playSynthBeep(587.33, 'square', 0.1, 0, 0.07);
+                playSynthBeep(880.00, 'square', 0.12, 0.08, 0.07);
+                playSynthBeep(1174.66, 'square', 0.25, 0.16, 0.07);
+            },
+            boss() {
+                [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, idx) => {
+                    playSynthBeep(f, 'triangle', 0.35, idx * 0.11, 0.18);
+                });
+            }
+        };
+
+        /* ================= Confetti Engine ================= */
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const cCtx = confettiCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
         }
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
 
-        function soundWrong() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            playTone(220, 'sawtooth', 0.2, 0);
-            playTone(175, 'sawtooth', 0.25, 0.12);
-        }
-
-        function soundTap() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            playTone(480, 'sine', 0.06, 0);
-        }
-
-        /* ================= 3. CONFETTI PARTICLES ================= */
-        const canvas = document.getElementById('confettiCanvas');
-        const ctx = canvas.getContext('2d');
-        let confetti = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        function burstConfetti() {
-            confetti = [];
-            const colors = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800'];
-            for(let i=0; i<85; i++) {
-                confetti.push({
-                    x: window.innerWidth / 2,
-                    y: window.innerHeight / 2,
+        function fireConfetti(count = 60) {
+            particles = [];
+            const palette = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800', '#00e676'];
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: window.innerWidth * 0.5,
+                    y: window.innerHeight * 0.45,
                     vx: (Math.random() - 0.5) * 18,
-                    vy: (Math.random() - 0.8) * 18,
-                    size: Math.random() * 8 + 5,
-                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vy: (Math.random() - 0.85) * 18,
+                    size: Math.random() * 8 + 6,
+                    color: palette[Math.floor(Math.random() * palette.length)],
                     rot: Math.random() * 360,
                     rotSpeed: (Math.random() - 0.5) * 12
                 });
@@ -521,647 +860,817 @@
         }
 
         function drawConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let alive = false;
-            confetti.forEach(p => {
+            cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            let active = false;
+            particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.42; // gravity
+                p.vy += 0.42; // Gravity
                 p.rot += p.rotSpeed;
-                if(p.y < canvas.height) alive = true;
+                if (p.y < confettiCanvas.height + 25) active = true;
 
-                ctx.save();
-                ctx.translate(p.x, p.y);
-                ctx.rotate((p.rot * Math.PI) / 180);
-                ctx.fillStyle = p.color;
-                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                ctx.restore();
+                cCtx.save();
+                cCtx.translate(p.x, p.y);
+                cCtx.rotate((p.rot * Math.PI) / 180);
+                cCtx.fillStyle = p.color;
+                cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+                cCtx.restore();
             });
-            if (alive) requestAnimationFrame(drawConfetti);
-            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (active) requestAnimationFrame(drawConfetti);
+            else cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
 
-        /* ================= 4. CURRICULUM GENERATOR (100 LEVELS PER GRADE) ================= */
-        function generate100Levels(grade) {
+        function buildYear1Curriculum() {
             const levels = [];
 
-            if (grade === 1 || grade === 2) {
-                // PHASE 1: Levels 1–10 -> Identifying Part of Speech (Noun, Verb, Adjective)
-                const posDataY1 = [
-                    { type: 'Noun', target: 'cat', distractors: ['jump', 'pink'], prompt: 'Find the NOUN (naming word):' },
-                    { type: 'Verb', target: 'run', distractors: ['apple', 'happy'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'happy', distractors: ['book', 'swim'], prompt: 'Find the ADJECTIVE (describing word):' },
-                    { type: 'Noun', target: 'teacher', distractors: ['sing', 'sweet'], prompt: 'Find the NOUN (person):' },
-                    { type: 'Verb', target: 'swim', distractors: ['fish', 'blue'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'big', distractors: ['elephant', 'sleep'], prompt: 'Find the ADJECTIVE (describing word):' },
-                    { type: 'Noun', target: 'ball', distractors: ['kick', 'round'], prompt: 'Find the NOUN (thing):' },
-                    { type: 'Verb', target: 'sleep', distractors: ['bed', 'soft'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'red', distractors: ['flower', 'fly'], prompt: 'Find the ADJECTIVE (colour/describing word):' },
-                    { type: 'Noun', target: 'school', distractors: ['walk', 'tall'], prompt: 'Find the NOUN (place):' }
-                ];
+            // --- Level 1 to 10: Identifying Parts of Speech (Noun, Verb, Adjective) ---
+            const y1PosTasks = [
+                { target: "cat", role: "Noun (Naming Word 🐱)", dist: ["big", "run"], hint: "Find the NOUN (name of an animal):" },
+                { target: "jump", role: "Verb (Action Word 🏃)", dist: ["pencil", "red"], hint: "Find the VERB (action word):" },
+                { target: "happy", role: "Adjective (Describing Word ⭐)", dist: ["apple", "sleep"], hint: "Find the ADJECTIVE (describing feeling):" },
+                { target: "teacher", role: "Noun (Naming Word 👩‍🏫)", dist: ["sweet", "eat"], hint: "Find the NOUN (a person at school):" },
+                { target: "swim", role: "Verb (Action Word 🏊)", dist: ["school", "green"], hint: "Find the VERB (what ducks do):" },
+                { target: "small", role: "Adjective (Describing Word 📏)", dist: ["sister", "read"], hint: "Find the ADJECTIVE (describes size):" },
+                { target: "ball", role: "Noun (Naming Word ⚽)", dist: ["hot", "play"], hint: "Find the NOUN (a toy you kick):" },
+                { target: "sleep", role: "Verb (Action Word 💤)", dist: ["yellow", "book"], hint: "Find the VERB (rest in bed):" },
+                { target: "red", role: "Adjective (Describing Word 🎨)", dist: ["ruler", "sing"], hint: "Find the ADJECTIVE (a bright colour):" },
+                { target: "apple", role: "Noun (Naming Word 🍎)", dist: ["fast", "climb"], hint: "Find the NOUN (a healthy sweet fruit):" }
+            ];
 
-                const posDataY2 = [
-                    { type: 'Noun', target: 'classroom', distractors: ['whisper', 'spicy'], prompt: 'Find the NOUN (place):' },
-                    { type: 'Verb', target: 'climbing', distractors: ['mountain', 'rocky'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'delicious', distractors: ['burger', 'taste'], prompt: 'Find the ADJECTIVE (describing word):' },
-                    { type: 'Noun', target: 'elephant', distractors: ['heavy', 'stomp'], prompt: 'Find the NOUN (animal):' },
-                    { type: 'Verb', target: 'washes', distractors: ['soap', 'clean'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'fluffy', distractors: ['rabbit', 'hop'], prompt: 'Find the ADJECTIVE (describing word):' },
-                    { type: 'Noun', target: 'doctor', distractors: ['cure', 'healthy'], prompt: 'Find the NOUN (person):' },
-                    { type: 'Verb', target: 'cooking', distractors: ['kitchen', 'hot'], prompt: 'Find the VERB (action word):' },
-                    { type: 'Adjective', target: 'dangerous', distractors: ['tiger', 'growl'], prompt: 'Find the ADJECTIVE (describing word):' },
-                    { type: 'Noun', target: 'playground', distractors: ['play', 'cheerful'], prompt: 'Find the NOUN (place):' }
-                ];
-
-                const posDeck = (grade === 1) ? posDataY1 : posDataY2;
-                posDeck.forEach((q, idx) => {
-                    levels.push({
-                        level: idx + 1,
-                        phase: "Phase 1: Parts of Speech Discovery",
-                        instruction: q.prompt,
-                        slots: [{ id: 'pos', label: q.type, expect: q.target }],
-                        words: [q.target, ...q.distractors].sort(() => Math.random() - 0.5)
-                    });
+            for (let i = 0; i < 10; i++) {
+                const item = y1PosTasks[i];
+                levels.push({
+                    level: i + 1,
+                    phase: "Phase 1: Parts of Speech",
+                    tier: "Identifying " + item.role.split(" ")[0],
+                    instruction: item.hint,
+                    type: "pos",
+                    parts: [
+                        { id: 'pos', txt: item.target, label: item.role }
+                    ],
+                    distractors: item.dist
                 });
+            }
 
-                // PHASE 2: Levels 11–30 (20 Levels) -> Subject + Verb (SV)
-                const svY1 = [
-                    ["The cat", "sleeps"], ["Birds", "fly"], ["My brother", "smiles"], ["Ducks", "swim"],
-                    ["The baby", "cries"], ["Frogs", "jump"], ["The dog", "barks"], ["Pupils", "read"],
-                    ["Fishes", "swim"], ["The bell", "rings"], ["My mother", "cooks"], ["The sun", "shines"],
-                    ["Ali", "walks"], ["Horses", "gallop"], ["Stars", "twinkle"], ["The teacher", "speaks"],
-                    ["Rabbits", "hop"], ["Fire", "burns"], ["Children", "play"], ["The clock", "ticks"]
-                ];
+            // --- Level 11 to 30: 2-Part Sentences: Subject + Verb (SV Structure) ---
+            const y1SV = [
+                { s: "The cat", v: "sleeps" },
+                { s: "Birds", v: "fly" },
+                { s: "My mother", v: "cooks" },
+                { s: "Ali", v: "runs" },
+                { s: "Ducks", v: "swim" },
+                { s: "The teacher", v: "smiles" },
+                { s: "A baby", v: "cries" },
+                { s: "Frogs", v: "jump" },
+                { s: "The dog", v: "barks" },
+                { s: "My brother", v: "reads" },
+                { s: "Sister", v: "sings" },
+                { s: "Fish", v: "swim" },
+                { s: "The boy", v: "walks" },
+                { s: "The girl", v: "draws" },
+                { s: "A rabbit", v: "hops" },
+                { s: "Grandfather", v: "rests" },
+                { s: "Kittens", v: "play" },
+                { s: "Pupils", v: "listen" },
+                { s: "The bell", v: "rings" },
+                { s: "The sun", v: "shines" }
+            ];
 
-                const svY2 = [
-                    ["The grey robot", "dances"], ["Wild dolphins", "leap"], ["Our caring teacher", "explains"],
-                    ["The heavy rain", "pours"], ["Little kittens", "purr"], ["The school band", "performs"],
-                    ["Clever monkeys", "swing"], ["Bright butterflies", "flutter"], ["The old locomotive", "chugs"],
-                    ["Honest policemen", "patrol"], ["Tired athletes", "rest"], ["The young seedling", "sprouts"],
-                    ["The fierce lion", "roars"], ["Skilled chefs", "bake"], ["A red airplane", "lands"],
-                    ["Friendly neighbors", "greet"], ["Cold snowflakes", "fall"], ["The noisy parrot", "squawks"],
-                    ["The swift runner", "sprints"], ["Campers", "celebrate"]
-                ];
-
-                const svSource = (grade === 1) ? svY1 : svY2;
-                svSource.forEach((pair, idx) => {
-                    levels.push({
-                        level: idx + 11,
-                        phase: "Phase 2: Building Core Sentences (Subject + Verb)",
-                        instruction: "Arrange the 2 parts to make a complete sentence (Subject + Verb):",
-                        slots: [
-                            { id: 's', label: 'Subject', expect: pair[0] },
-                            { id: 'v', label: 'Verb', expect: pair[1] }
-                        ],
-                        words: [pair[0], pair[1]].sort(() => Math.random() - 0.5)
-                    });
+            for (let i = 0; i < 20; i++) {
+                const pair = y1SV[i];
+                levels.push({
+                    level: i + 11,
+                    phase: "Phase 2: Subject + Verb",
+                    tier: "2-Part Sentence (SV)",
+                    instruction: "Arrange the 2 parts in order: Subject + Verb.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: pair.s, label: 'Subject (Who)' },
+                        { id: 'v', txt: pair.v, label: 'Verb (Action)' }
+                    ]
                 });
+            }
 
-                // PHASE 3: Levels 31–99 (69 Levels) -> Subject + Verb + Complement (SVC)
-                const svcThemes = (grade === 1) ? [
-                    { s: ["My mother", "She", "Sister", "Aunty"], v: ["eats", "likes", "buys"], c: ["an apple", "fresh milk", "sweet cake", "ripe bananas"] },
-                    { s: ["The boys", "They", "The pupils", "We"], v: ["play", "kick", "enjoy"], c: ["football", "board games", "hopscotch", "hide and seek"] },
-                    { s: ["The farmer", "Pak Abu", "The man"], v: ["waters", "grows", "picks"], c: ["tall trees", "sweet corn", "red tomatoes", "green papaya"] },
-                    { s: ["A cat", "The puppy", "My pet"], v: ["chases", "catches", "likes"], c: ["a small mouse", "the red ball", "warm milk", "soft fish"] }
-                ] : [
-                    { s: ["Our English teacher", "Encik Hakim", "Puan Norah"], v: ["reads", "shares", "explains"], c: ["a funny folk tale", "an exciting storybook", "a grammar rule", "the reading text"] },
-                    { s: ["The friendly doctor", "The nurse", "The paramedic"], v: ["treats", "helps", "checks"], c: ["the sick child", "elderly villagers", "injured patients", "my feverish cousin"] },
-                    { s: ["The clever robot", "Our school scout", "The inventor"], v: ["builds", "programs", "designs"], c: ["a miniature bridge", "a solar gadget", "a useful craft", "the smart vehicle"] },
-                    { s: ["Wild tigers", "Hungry leopards", "Fierce lions"], v: ["hunt", "chase", "protect"], c: ["their young cubs", "in deep jungles", "wild forest prey", "the animal pack"] }
-                ];
+            // --- Level 31 to 99: 3-Part Sentences: Subject + Verb + Complement (SVC Structure) ---
+            const y1Subjects = [
+                "The polite boy", "My sister", "A cute kitten", "Ali", "The caring teacher",
+                "Grandfather", "The little girl", "Our friendly doctor", "Uncle Ben", "The smart pupil",
+                "My loving mother", "The active scout", "A gentle deer", "The fast swimmer", "A brown puppy",
+                "The tall policeman", "My elder brother", "The quiet student", "Cousin Mei", "The happy farmer",
+                "Two lovely birds", "The baker", "A green parrot", "The kind nurse"
+            ];
+            const y1Verbs = [
+                "likes", "eats", "reads", "cleans", "waters", "draws", "brushes", "catches",
+                "washes", "holds", "opens", "buys", "plants", "drinks", "carries", "shares",
+                "feeds", "finds", "picks", "fixes", "kicks", "paints", "loves"
+            ];
+            const y1Complements = [
+                "fresh red apples", "a funny storybook", "his wooden desk", "blooming garden roses",
+                "a glass of warm milk", "a bright blue ball", "crispy yellow bananas", "her tidy pencil case",
+                "sweet chocolate cake", "a new green ruler", "his leather shoes", "hot vegetable soup",
+                "a colourful picture", "three ripe mangoes", "a heavy school bag", "the cute hamsters",
+                "a red toy car", "the white whiteboard", "a golden key", "delicious chicken rice",
+                "fresh orange juice", "a large cardboard box", "his yellow raincoat"
+            ];
 
-                let svcCombinations = [];
-                svcThemes.forEach(theme => {
-                    theme.s.forEach(s => {
-                        theme.v.forEach(v => {
-                            theme.c.forEach(c => {
-                                svcCombinations.push([s, v, c]);
-                            });
-                        });
-                    });
+            for (let lvl = 31; lvl <= 99; lvl++) {
+                const sIdx = (lvl * 7 + 3) % y1Subjects.length;
+                const vIdx = (lvl * 11 + 5) % y1Verbs.length;
+                const cIdx = (lvl * 13 + 7) % y1Complements.length;
+
+                levels.push({
+                    level: lvl,
+                    phase: "Phase 3: Subject + Verb + Complement",
+                    tier: "3-Part Sentence (SVC)",
+                    instruction: "Arrange the 3 cards in order: Subject + Verb + Complement.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: y1Subjects[sIdx], label: 'Subject' },
+                        { id: 'v', txt: y1Verbs[vIdx], label: 'Verb' },
+                        { id: 'c', txt: y1Complements[cIdx], label: 'Complement' }
+                    ]
                 });
-                svcCombinations.sort(() => Math.random() - 0.5);
+            }
 
-                for (let i = 0; i < 69; i++) {
-                    const combo = svcCombinations[i % svcCombinations.length];
+            // --- Level 100: Guided Narrative Sequencing Boss Challenge ---
+            levels.push({
+                level: 100,
+                phase: "Boss: Master Story Builder",
+                tier: "👑 Level 100 Guided Story Boss!",
+                instruction: "Arrange the chronological sequence to tell the story of 'A Day with Whiskers'!",
+                type: "boss",
+                storyHeader: "Topic: A Day with Whiskers (Year 1 Guided Story)",
+                parts: [
+                    { id: 'boss', txt: "First, Ali finds a tiny lost kitten under a shady tree.", label: "Beginning / Opening" },
+                    { id: 'boss', txt: "Next, he gently carries the cute kitten back home.", label: "Next Action" },
+                    { id: 'boss', txt: "Then, he gives the hungry kitten a bowl of warm milk.", label: "Subsequent Action" },
+                    { id: 'boss', txt: "Finally, the happy kitten purrs and curls up to sleep peacefully.", label: "Resolution / Ending" }
+                ]
+            });
+
+            return levels;
+        }
+
+        function buildYear2Curriculum() {
+            const levels = [];
+
+            // --- Level 1 to 10: Identifying Parts of Speech (Expanded Nouns, Verbs, Adjectives) ---
+            const y2PosTasks = [
+                { target: "classroom", role: "Noun (Place / Thing 🏫)", dist: ["fluffy", "swimming"], hint: "Find the NOUN (a place in school):" },
+                { target: "climbing", role: "Verb (Action Word 🧗)", dist: ["delicious", "doctor"], hint: "Find the VERB (action ending in -ing):" },
+                { target: "delicious", role: "Adjective (Describing Word 😋)", dist: ["kitchen", "washes"], hint: "Find the ADJECTIVE (describing taste):" },
+                { target: "elephant", role: "Noun (Animal Name 🐘)", dist: ["tidy", "running"], hint: "Find the NOUN (a large mammal):" },
+                { target: "washes", role: "Verb (Action Word 🧼)", dist: ["colorful", "playground"], hint: "Find the VERB (cleaning action):" },
+                { target: "fluffy", role: "Adjective (Describing Word ☁️)", dist: ["umbrella", "painted"], hint: "Find the ADJECTIVE (soft touch):" },
+                { target: "doctor", role: "Noun (Occupation 👨‍⚕️)", dist: ["noisy", "cooking"], hint: "Find the NOUN (medical professional):" },
+                { target: "cooking", role: "Verb (Action Word 🍳)", dist: ["bright", "hospital"], hint: "Find the VERB (making food):" },
+                { target: "dangerous", role: "Adjective (Describing Word ⚠️)", dist: ["pencil", "walking"], hint: "Find the ADJECTIVE (describes risk):" },
+                { target: "playground", role: "Noun (Place 🛝)", dist: ["sweet", "barking"], hint: "Find the NOUN (outdoor play area):" }
+            ];
+
+            for (let i = 0; i < 10; i++) {
+                const item = y2PosTasks[i];
+                levels.push({
+                    level: i + 1,
+                    phase: "Phase 1: Parts of Speech",
+                    tier: "Identifying " + item.role.split(" ")[0],
+                    instruction: item.hint,
+                    type: "pos",
+                    parts: [
+                        { id: 'pos', txt: item.target, label: item.role }
+                    ],
+                    distractors: item.dist
+                });
+            }
+
+            // --- Level 11 to 30: 2-Part Sentences: Subject + Verb ---
+            const y2SV = [
+                { s: "The grey robot", v: "dances" },
+                { s: "Tired swimmers", v: "rest" },
+                { s: "Hungry monkeys", v: "chatter" },
+                { s: "Young seedlings", v: "sprout" },
+                { s: "Strong athletes", v: "train" },
+                { s: "The friendly doctor", v: "listens" },
+                { s: "Heavy rain", v: "pours" },
+                { s: "The cute puppy", v: "barks" },
+                { s: "Brave firefighters", v: "work" },
+                { s: "Little ducklings", v: "waddle" },
+                { s: "Clever pupils", v: "study" },
+                { s: "The school bus", v: "arrives" },
+                { s: "Green crickets", v: "chirp" },
+                { s: "The diligent baker", v: "kneads" },
+                { s: "Wild deer", v: "graze" },
+                { s: "Happy children", v: "cheer" },
+                { s: "The tall windmill", v: "spins" },
+                { s: "The swift swimmer", v: "dives" },
+                { s: "Honest prefects", v: "patrol" },
+                { s: "Kind volunteers", v: "help" }
+            ];
+
+            for (let i = 0; i < 20; i++) {
+                const pair = y2SV[i];
+                levels.push({
+                    level: i + 11,
+                    phase: "Phase 2: Subject + Verb",
+                    tier: "2-Part Sentence (SV)",
+                    instruction: "Arrange the subject and action verb in proper order.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: pair.s, label: 'Subject' },
+                        { id: 'v', txt: pair.v, label: 'Verb' }
+                    ]
+                });
+            }
+
+            // --- Level 31 to 99: 3-Part Sentences: Subject + Verb + Complement ---
+            const y2Subjects = [
+                "The energetic boy", "Mother", "The little girl", "Clever dolphins", "Pak Mat",
+                "The hardworking farmer", "Our school driver", "The polite scout", "My grandfather",
+                "The caring nurse", "Aminah", "The creative artist", "The brown bear", "The diligent tailor",
+                "A clever squirrel", "The playground cleaner", "Encik Hakim", "My elder cousin", "The zoo keeper",
+                "The friendly shopkeeper", "A gentle deer", "The library monitor", "The sports captain"
+            ];
+            const y2Verbs = [
+                "plays", "bakes", "cleans", "jumps through", "waters", "grows", "drives", "prepares",
+                "repairs", "gathers", "sweeps", "paints", "serves", "protects", "organizes", "washes",
+                "picks", "draws", "recycles", "delivers", "borrows", "practices", "shares"
+            ];
+            const y2Complements = [
+                "badminton on Saturdays", "sweet banana muffins", "her tidy bedroom", "the big hoop",
+                "fresh green vegetables", "tall coconut palms", "the yellow school bus", "tasty sandwiches",
+                "his broken bicycle", "wild brown nuts", "the leaf-covered porch", "a scenic mountain view",
+                "warm vegetable broth", "the playful cubs", "old comic books", "the dusty classroom windows",
+                "ripe red strawberries", "a colourful map", "used plastic bottles", "important letters",
+                "interesting science books", "his football skills", "delicious fruit salad"
+            ];
+
+            for (let lvl = 31; lvl <= 99; lvl++) {
+                const sIdx = (lvl * 5 + 2) % y2Subjects.length;
+                const vIdx = (lvl * 9 + 4) % y2Verbs.length;
+                const cIdx = (lvl * 15 + 1) % y2Complements.length;
+
+                levels.push({
+                    level: lvl,
+                    phase: "Phase 3: Subject + Verb + Complement",
+                    tier: "3-Part Sentence (SVC)",
+                    instruction: "Construct the full sentence: Subject + Verb + Complement.",
+                    type: "standard",
+                    parts: [
+                        { id: 's', txt: y2Subjects[sIdx], label: 'Subject' },
+                        { id: 'v', txt: y2Verbs[vIdx], label: 'Verb' },
+                        { id: 'c', txt: y2Complements[cIdx], label: 'Complement' }
+                    ]
+                });
+            }
+
+            // --- Level 100: Guided Story Narrative Boss Challenge ---
+            levels.push({
+                level: 100,
+                phase: "Boss: Master Story Builder",
+                tier: "👑 Level 100 Guided Story Boss!",
+                instruction: "Arrange the chronological sequence to assemble 'Our School Recycling Day'!",
+                type: "boss",
+                storyHeader: "Topic: Our School Gotong-Royong Recycling Day (Year 2 Guided Story)",
+                parts: [
+                    { id: 'boss', txt: "Early on Saturday morning, all pupils gathered at the school field with excitement.", label: "Orientation / Time & Setting" },
+                    { id: 'boss', txt: "First, Mr. Lim distributed safety gloves and heavy trash bags to every team.", label: "First Sequence" },
+                    { id: 'boss', txt: "Next, the energetic children collected empty plastic bottles and paper cartons.", label: "Second Sequence" },
+                    { id: 'boss', txt: "Later, they carefully sorted all recyclables into the blue, brown, and orange bins.", label: "Third Sequence" },
+                    { id: 'boss', txt: "Finally, the entire school compound looked spotless, green, and beautiful.", label: "Final Outcome" }
+                ]
+            });
+
+            return levels;
+        }
+
+        function buildUpperCurriculum(year) {
+            const isY3 = (year === 3);
+
+            const subY3 = [
+                "The talented artist", "Puan Salmah", "The young painter", "Fierce tigers", "A pride of lions",
+                "The caring doctor", "The school prefects", "Our head chef", "The green club scouts", "The brave lifeguard",
+                "A clever mechanic", "The sports teacher", "The friendly librarian", "The enthusiastic choir", "A skilled carpenter"
+            ];
+            const vrbY3 = [
+                "paints", "examines", "prepares", "arranges", "rescues", "repairs", "conducts", "serves", "supervises", "organizes"
+            ];
+            const objY3 = [
+                "a colourful landscape mural", "the sick patient gently", "crispy curry puffs for recess", "new science encyclopedias",
+                "swimmers during high tide", "the broken wooden desk", "the weekly assembly choir", "hot chicken porridge", "outdoor sporting events", "a modern birdhouse"
+            ];
+            const advY3 = [
+                "every Monday morning", "inside the spacious art room", "at the district hospital", "before the final bell rings",
+                "near the sunny beach", "with great concentration", "during co-curricular practice", "inside the school canteen", "under the shade of rain trees", "with handy wooden tools"
+            ];
+
+            const subY46 = [
+                "The proactive environmentalists", "Malaysian scientists", "Dedicated healthcare frontliners", "Our visionary headmaster",
+                "Cautious motorists", "The creative robotic engineers", "Youth volunteer societies", "The state debate champions",
+                "Forest conservation rangers", "Compassionate charity workers", "Responsible digital citizens", "The local municipal council"
+            ];
+            const vrbY46 = [
+                "systematically implemented", "actively promoted", "strictly enforce", "advocate for",
+                "tirelessly rehabilitated", "comprehensively investigated", "enthusiastically presented", "cautiously monitored",
+                "regularly broadcast", "skillfully restored", "urgently appealed for", "consistently maintain"
+            ];
+            const objY46 = [
+                "stringent traffic safety regulations", "sustainable eco-friendly solutions", "endangered tropical wildlife habitats", "modern smart recycling facilities",
+                "balanced nutritional dietary habits", "traditional cultural craftsmanship", "advanced artificial intelligence software", "essential disaster relief supplies",
+                "youth financial literacy workshops", "clean renewable solar installations", "safe public transportation routes", "historical national heritage archives"
+            ];
+            const advY46 = [
+                "throughout the neighboring districts", "in order to inspire the community", "with extraordinary perseverance", "during the national awareness campaign",
+                "without compromising ecological harmony", "across various media platforms", "to minimize carbon footprints", "under rigorous scientific standards",
+                "to empower future generations", "at the state convention center", "despite unpredictable weather conditions", "to prevent serious accidents"
+            ];
+            const clausesY46 = [
+                "because they value sustainable living for all citizens",
+                "although unforeseen weather challenges emerged suddenly",
+                "so that future generations will inherit pristine nature",
+                "while local residents cooperated with genuine enthusiasm",
+                "since community welfare remains our highest collective priority",
+                "even though modern technologies require ongoing training"
+            ];
+
+            const poolS = isY3 ? subY3 : subY46;
+            const poolV = isY3 ? vrbY3 : vrbY46;
+            const poolO = isY3 ? objY3 : objY46;
+            const poolA = isY3 ? advY3 : advY46;
+
+            const levels = [];
+
+            for (let lvl = 1; lvl <= 99; lvl++) {
+                const s = poolS[(lvl * 3 + year) % poolS.length];
+                const v = poolV[(lvl * 7 + year * 2) % poolV.length];
+                const o = poolO[(lvl * 5 + year * 3) % poolO.length];
+
+                if (lvl <= 30) {
                     levels.push({
-                        level: i + 31,
-                        phase: "Phase 3: Expanding Sentence Power (Subject + Verb + Complement)",
-                        instruction: "Form a meaningful sentence in order: Subject + Verb + Complement",
-                        slots: [
-                            { id: 's', label: 'Subject', expect: combo[0] },
-                            { id: 'v', label: 'Verb', expect: combo[1] },
-                            { id: 'c', label: 'Complement', expect: combo[2] }
-                        ],
-                        words: [combo[0], combo[1], combo[2]].sort(() => Math.random() - 0.5)
+                        level: lvl,
+                        phase: "Phase 1: Core Clause Formation",
+                        tier: "Subject + Verb + Complement",
+                        instruction: "Form the complete sentence: Subject + Verb + Complement.",
+                        type: "standard",
+                        parts: [
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Complement / Object' }
+                        ]
                     });
-                }
-
-                // PHASE 4: Level 100 Boss -> Guided Story Sequencing
-                if (grade === 1) {
+                } else if (lvl <= 70) {
+                    const adv = poolA[(lvl * 11 + year) % poolA.length];
                     levels.push({
-                        level: 100,
-                        boss: true,
-                        phase: "FINAL BOSS: Guided Story Sequencing",
-                        instruction: "Arrange the 4 sentences in chronological order to form a story!",
-                        slots: [
-                            { id: 'story', label: 'Sentence 1 (Beginning)', expect: "One morning, Adam found a tiny hungry kitten." },
-                            { id: 'story', label: 'Sentence 2 (Action)', expect: "He brought it home and gave it fresh warm milk." },
-                            { id: 'story', label: 'Sentence 3 (Next)', expect: "The little kitten purred happily and fell asleep." },
-                            { id: 'story', label: 'Sentence 4 (Ending)', expect: "Adam smiled and decided to keep it as his pet." }
-                        ],
-                        words: [
-                            "One morning, Adam found a tiny hungry kitten.",
-                            "The little kitten purred happily and fell asleep.",
-                            "Adam smiled and decided to keep it as his pet.",
-                            "He brought it home and gave it fresh warm milk."
-                        ].sort(() => Math.random() - 0.5)
+                        level: lvl,
+                        phase: "Phase 2: Expanded Modifiers",
+                        tier: "4-Part Extended Sentence",
+                        instruction: "Order the sentence with time, place, or manner adverbials.",
+                        type: "standard",
+                        parts: [
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Object' },
+                            { id: 'adv', txt: adv, label: 'Adverbial Context' }
+                        ]
                     });
                 } else {
+                    const adv = poolA[(lvl * 2 + 5) % poolA.length];
+                    const extraClause = isY3
+                        ? "while the supportive crowd cheered with great joy"
+                        : clausesY46[lvl % clausesY46.length];
+
                     levels.push({
-                        level: 100,
-                        boss: true,
-                        phase: "FINAL BOSS: Guided Story Sequencing",
-                        instruction: "Arrange the 5 sentences into a structured story about Recycling Day!",
-                        slots: [
-                            { id: 'story', label: '1. Orientation', expect: "Last Saturday, our school held a massive recycling campaign." },
-                            { id: 'story', label: '2. Gathering', expect: "Pupils gathered used plastics, aluminum cans, and newspapers." },
-                            { id: 'story', label: '3. Sorting', expect: "Teachers guided everyone to sort the recyclables into bins." },
-                            { id: 'story', label: '4. Reward', expect: "The headmaster praised all classes for their teamwork and spirit." },
-                            { id: 'story', label: '5. Reflection', expect: "We felt proud to keep our lovely school green and clean." }
-                        ],
-                        words: [
-                            "Last Saturday, our school held a massive recycling campaign.",
-                            "We felt proud to keep our lovely school green and clean.",
-                            "Pupils gathered used plastics, aluminum cans, and newspapers.",
-                            "The headmaster praised all classes for their teamwork and spirit.",
-                            "Teachers guided everyone to sort the recyclables into bins."
-                        ].sort(() => Math.random() - 0.5)
+                        level: lvl,
+                        phase: "Phase 3: Multi-Clause Complex Synthesis",
+                        tier: "5-Part Complex Compound",
+                        instruction: "Connect clauses using appropriate logical linkers and relative phrases.",
+                        type: "standard",
+                        parts: [
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Direct Object' },
+                            { id: 'adv', txt: adv, label: 'Adverbial' },
+                            { id: 'rel', txt: extraClause, label: 'Subordinate Clause' }
+                        ]
                     });
                 }
+            }
 
+            // Level 100: Boss Challenge
+            if (isY3) {
+                levels.push({
+                    level: 100,
+                    phase: "Boss: Master Story Builder",
+                    tier: "👑 Level 100 Guided Story Boss!",
+                    instruction: "Arrange the chronological sequence to narrate the school camping trip!",
+                    type: "boss",
+                    storyHeader: "Topic: The Annual Scout Camping Expedition (Year 3 Guided Story)",
+                    parts: [
+                        { id: 'boss', txt: "Last Friday afternoon, thirty enthusiastic scouts arrived at the lush jungle campsite.", label: "Orientation / Setting" },
+                        { id: 'boss', txt: "First, they pitched their waterproof tents and tied sturdy ropes between trees.", label: "Step 1: Tent Pitching" },
+                        { id: 'boss', txt: "Next, the scout leaders demonstrated how to build a safe campfire and cook noodles.", label: "Step 2: Campfire Setup" },
+                        { id: 'boss', txt: "At night, everyone gathered under the twinkling stars to sing traditional campfire songs.", label: "Step 3: Campfire Fellowship" },
+                        { id: 'boss', txt: "Finally, they cleaned the campsite thoroughly before heading home with happy memories.", label: "Ending & Reflection" }
+                    ]
+                });
             } else {
-                // YEARS 3, 4, 5, 6
-                // Levels 1–25: 3-part Core (S + V + C)
-                for (let i = 1; i <= 25; i++) {
-                    const sample = getGradeSample3Part(grade, i);
-                    levels.push({
-                        level: i,
-                        phase: "Stage 1: Core Foundation",
-                        instruction: "Assemble the sentence components (Subject + Verb + Complement):",
-                        slots: [
-                            { id: 's', label: 'Subject', expect: sample[0] },
-                            { id: 'v', label: 'Verb', expect: sample[1] },
-                            { id: 'c', label: 'Complement', expect: sample[2] }
-                        ],
-                        words: [sample[0], sample[1], sample[2]].sort(() => Math.random() - 0.5)
-                    });
-                }
-
-                // Levels 26–55: 4-part (S + V + Object + Adverbial)
-                for (let i = 26; i <= 55; i++) {
-                    const sample = getGradeSample4Part(grade, i);
-                    levels.push({
-                        level: i,
-                        phase: "Stage 2: Adding Detail (Time, Place & Manner)",
-                        instruction: "Arrange the sentence: Subject + Verb + Object + Adverbial Phrase",
-                        slots: [
-                            { id: 's', label: 'Subject', expect: sample[0] },
-                            { id: 'v', label: 'Verb', expect: sample[1] },
-                            { id: 'obj', label: 'Object', expect: sample[2] },
-                            { id: 'adv', label: 'Adverbial', expect: sample[3] }
-                        ],
-                        words: [sample[0], sample[1], sample[2], sample[3]].sort(() => Math.random() - 0.5)
-                    });
-                }
-
-                // Levels 56–80: 5-part Compound sentences with Conjunctions
-                for (let i = 56; i <= 80; i++) {
-                    const sample = getGradeSample5Part(grade, i);
-                    levels.push({
-                        level: i,
-                        phase: "Stage 3: Compound & Complex Clauses",
-                        instruction: "Connect the two ideas using the conjunction in the middle:",
-                        slots: [
-                            { id: 's', label: 'Clause 1', expect: sample[0] },
-                            { id: 'v', label: 'Action 1', expect: sample[1] },
-                            { id: 'conj', label: 'Conjunction', expect: sample[2] },
-                            { id: 's', label: 'Clause 2', expect: sample[3] },
-                            { id: 'c', label: 'Result/Detail', expect: sample[4] }
-                        ],
-                        words: [sample[0], sample[1], sample[2], sample[3], sample[4]].sort(() => Math.random() - 0.5)
-                    });
-                }
-
-                // Levels 81–99: Advanced Sentence Mastery
-                for (let i = 81; i <= 99; i++) {
-                    const sample = getGradeSampleAdvanced(grade, i);
-                    levels.push({
-                        level: i,
-                        phase: "Stage 4: Advanced Stylistic Writing",
-                        instruction: "Assemble the high-level descriptive sentence:",
-                        slots: [
-                            { id: 's', label: 'Subject/Clause', expect: sample[0] },
-                            { id: 'v', label: 'Main Verb', expect: sample[1] },
-                            { id: 'obj', label: 'Object/Complement', expect: sample[2] },
-                            { id: 'conj', label: 'Connector', expect: sample[3] },
-                            { id: 'adv', label: 'Final Clause', expect: sample[4] }
-                        ],
-                        words: [sample[0], sample[1], sample[2], sample[3], sample[4]].sort(() => Math.random() - 0.5)
-                    });
-                }
-
-                // Level 100 Boss Stage (Guided Story or Email)
-                if (grade === 3) {
-                    levels.push({
-                        level: 100,
-                        boss: true,
-                        phase: "FINAL BOSS: Guided Narrative Story",
-                        instruction: "Arrange the full narrative paragraphs to form a complete short story!",
-                        slots: [
-                            { id: 'story', label: 'Paragraph 1: Setup', expect: "During the school holidays, Danish and his father went fishing at the river." },
-                            { id: 'story', label: 'Paragraph 2: Event', expect: "Suddenly, Danish's fishing rod bent sharply as a big fish bit the bait." },
-                            { id: 'story', label: 'Paragraph 3: Teamwork', expect: "With his father's gentle guidance, he reeled in a shiny freshwater tilapia." },
-                            { id: 'story', label: 'Paragraph 4: Ending', expect: "They returned home happily and enjoyed a delicious grilled dinner." }
-                        ],
-                        words: [
-                            "With his father's gentle guidance, he reeled in a shiny freshwater tilapia.",
-                            "During the school holidays, Danish and his father went fishing at the river.",
-                            "They returned home happily and enjoyed a delicious grilled dinner.",
-                            "Suddenly, Danish's fishing rod bent sharply as a big fish bit the bait."
-                        ].sort(() => Math.random() - 0.5)
-                    });
-                } else {
-                    levels.push({
-                        level: 100,
-                        boss: true,
-                        phase: "FINAL BOSS: Formal Email & Letter Architecture",
-                        instruction: "Arrange the email components from header to sign-off!",
-                        slots: [
-                            { id: 'story', label: '1. Subject Header', expect: "Subject: Invitation to SK Cherating English Carnival 2026" },
-                            { id: 'story', label: '2. Formal Salutation', expect: "Dear Encik Rosli and Honorable Teachers," },
-                            { id: 'story', label: '3. Purpose Statement', expect: "We are pleased to invite your school to participate in our upcoming carnival." },
-                            { id: 'story', label: '4. Event Logistics', expect: "The event will feature storytelling, public speaking, and choral speaking contests." },
-                            { id: 'story', label: '5. Call to Action', expect: "Please submit your completed registration forms by next Friday afternoon." },
-                            { id: 'story', label: '6. Sign-off', expect: "Yours sincerely, The English Language Committee" }
-                        ],
-                        words: [
-                            "Dear Encik Rosli and Honorable Teachers,",
-                            "Yours sincerely, The English Language Committee",
-                            "Subject: Invitation to SK Cherating English Carnival 2026",
-                            "The event will feature storytelling, public speaking, and choral speaking contests.",
-                            "Please submit your completed registration forms by next Friday afternoon.",
-                            "We are pleased to invite your school to participate in our upcoming carnival."
-                        ].sort(() => Math.random() - 0.5)
-                    });
-                }
+                levels.push({
+                    level: 100,
+                    phase: "Boss: Email & Story Pro",
+                    tier: "👑 Level 100 Email & Story Architect!",
+                    instruction: "Arrange the structured email from Header & Salutation down to the Sign-Off!",
+                    type: "boss",
+                    storyHeader: "Topic: Formal Email Requesting Permission for an Inter-School Eco-Camp",
+                    parts: [
+                        { id: 'boss', txt: "Subject: Request for Official Approval to Host Inter-School Eco-Camp 2026", label: "Email Subject Header" },
+                        { id: 'boss', txt: "Dear Headmaster Mr. Razak,", label: "Formal Salutation" },
+                        { id: 'boss', txt: "I am writing on behalf of the Nature Club to kindly request approval to organize our annual three-day eco-camp.", label: "Opening Purpose Statement" },
+                        { id: 'boss', txt: "The program includes tree-planting, composting workshops, and an interactive renewable energy exhibition for all students.", label: "Body Paragraph / Objectives" },
+                        { id: 'boss', txt: "We have finalized all necessary safety precautions and parental consent forms for your kind review.", label: "Logistics & Enclosure" },
+                        { id: 'boss', txt: "Thank you very much for your continuous guidance. Yours sincerely, The Nature Club Prefects.", label: "Formal Sign-Off & Closing" }
+                    ]
+                });
             }
 
             return levels;
         }
 
-        // Helper generators for Years 3-6
-        function getGradeSample3Part(g, idx) {
-            const list = [
-                ["Diligent students", "clean", "the spacious science room"],
-                ["The school principal", "announced", "the sports day winners"],
-                ["The brave firefighter", "rescued", "the frightened kitten"],
-                ["Creative architects", "design", "sustainable modern houses"],
-                ["Our badminton squad", "won", "the district championship trophy"],
-                ["The village headman", "organized", "a weekend gotong-royong"],
-                ["Skilled mechanics", "repaired", "the broken school van"],
-                ["The young poet", "wrote", "an inspiring patriotic poem"],
-                ["Marine biologists", "protect", "fragile coral reef colonies"],
-                ["Local volunteers", "distributed", "emergency food packs"]
-            ];
-            return list[idx % list.length];
+        function getYearLevels(year) {
+            if (year === 1) return buildYear1Curriculum();
+            if (year === 2) return buildYear2Curriculum();
+            return buildUpperCurriculum(year);
         }
 
-        function getGradeSample4Part(g, idx) {
-            const list = [
-                ["The green club members", "planted", "herbal saplings", "around the school garden"],
-                ["Excited pupils", "observed", "solar flares", "through high-power telescopes"],
-                ["Caring prefects", "monitored", "the student traffic", "during morning arrival"],
-                ["The young athlete", "practiced", "sprinting drills", "at the district stadium"],
-                ["Talented bakers", "decorated", "huge chocolate cakes", "with fresh strawberries"],
-                ["The scout patrol", "built", "bamboo shelters", "inside the national park"],
-                ["Our librarian", "arranged", "new encyclopedia volumes", "along the wooden shelves"],
-                ["Local fishermen", "anchored", "their wooden boats", "safely before the storm"]
-            ];
-            return list[idx % list.length];
-        }
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOi2QGNdogGvwGZxBhivuD816CjWxJhw2SNQENT0GPBDY4lwY6Fx8EmHb1Mn-rH730/exec";
 
-        function getGradeSample5Part(g, idx) {
-            const list = [
-                ["We washed our hands", "thoroughly", "because", "germs spread", "very quickly"],
-                ["The scouts packed tents", "hurriedly", "although", "the sudden storm", "seemed far away"],
-                ["Pupils revised their notes", "consistently", "so that", "they could score", "flying colors"],
-                ["Drivers slowed down", "patiently", "while", "children crossed", "the zebra crossing"],
-                ["The chef simmered soup", "slowly", "in order that", "the rich herbs", "blended well"]
-            ];
-            return list[idx % list.length];
-        }
-
-        function getGradeSampleAdvanced(g, idx) {
-            const list = [
-                ["Responsible citizens", "must minimize", "single-use plastic trash", "so that", "our oceans remain clean"],
-                ["The courageous astronaut", "successfully docked", "the space capsule", "after", "navigating asteroid dust"],
-                ["Modern digital technology", "rapidly transforms", "educational classrooms", "while", "empowering rural learners"],
-                ["The dedicated research team", "faithfully protected", "endangered leatherback turtles", "whenever", "nesting seasons arrived"],
-                ["Talented local artists", "proudly showcased", "handwoven batik textiles", "before", "the international cultural showcase"]
-            ];
-            return list[idx % list.length];
-        }
-
-        /* ================= 5. GAME ENGINE & STATE ================= */
-        let studentData = { name: "Player", avatar: "🐱", year: 1 };
+        let selectedAvatar = "🐱";
+        let selectedYear = 1;
+        let playerName = "Player";
         let currentYearLevels = [];
-        let currentLevelIdx = 0;
-        let score = 0;
+        let currentLevelIdx = 0; // 0 to 99 (100 levels)
         let lives = 3;
+        let score = 0;
         let streak = 0;
-        let timeLeft = 60; // 1 Minute default
+        let timeLeft = 60; // 60s for Levels 1-99, 120s for Level 100
         let timerInterval = null;
 
-        function pickAvatar(emoji, btn) {
-            studentData.avatar = emoji;
-            document.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            soundTap();
-        }
+        // Avatar selector clicks
+        document.querySelectorAll('.avatar-option').forEach(el => {
+            el.addEventListener('click', () => {
+                document.querySelectorAll('.avatar-option').forEach(a => a.classList.remove('selected'));
+                el.classList.add('selected');
+                selectedAvatar = el.getAttribute('data-avatar');
+                SFX.tap();
+            });
+        });
 
-        function pickYear(yr, btn) {
-            studentData.year = yr;
-            document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            soundTap();
-        }
+        // Year selector clicks
+        document.querySelectorAll('.year-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedYear = parseInt(btn.getAttribute('data-year'));
+                SFX.tap();
+            });
+        });
 
-        function startGame() {
-            const nameInput = document.getElementById('studentNameInput').value.trim();
-            studentData.name = nameInput ? nameInput.toUpperCase() : "CHAMPION";
-            
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'block';
+        function beginAdventure() {
+            const nameInput = document.getElementById('studentNameInput');
+            const cleanName = nameInput.value.trim().toUpperCase();
 
-            document.getElementById('pAvatar').innerText = studentData.avatar;
-            document.getElementById('pName').innerText = studentData.name;
-            document.getElementById('pGradeBadge').innerText = "YEAR " + studentData.year;
-
-            // Generate full 100 level suite
-            currentYearLevels = generate100Levels(studentData.year);
-            currentLevelIdx = 0;
-            score = 0;
-            lives = 3;
-            streak = 0;
-
-            updateLivesUI();
-            updateStreakUI();
-            loadLevel(currentLevelIdx);
-        }
-
-        function loadLevel(idx) {
-            if (idx >= currentYearLevels.length) {
-                gameVictory();
+            if (cleanName.length < 2) {
+                alert("Please type your name before starting!");
+                nameInput.focus();
                 return;
             }
 
-            const q = currentYearLevels[idx];
-            document.getElementById('lvlNum').innerText = q.level;
-            document.getElementById('phaseBanner').innerText = q.phase;
-            document.getElementById('instructionBox').innerHTML = q.instruction;
-            document.getElementById('feedbackOverlay').style.display = 'none';
+            playerName = cleanName;
+            currentYearLevels = getYearLevels(selectedYear);
+            currentLevelIdx = 0;
+            lives = 3;
+            score = 0;
+            streak = 0;
 
-            // Configure Slots Container
-            const slotsDiv = document.getElementById('slotsContainer');
-            slotsDiv.innerHTML = '';
-            if (q.boss) {
-                slotsDiv.className = "boss-container";
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('gameArena').style.display = 'block';
+
+            document.getElementById('playerNameDisplay').innerText = playerName;
+            document.getElementById('playerAvatarDisplay').innerText = selectedAvatar;
+            document.getElementById('playerYearDisplay').innerText = `Year ${selectedYear} Writer`;
+
+            populateJumpDropdown();
+            renderLevel();
+            SFX.combo();
+        }
+
+        function populateJumpDropdown() {
+            const selectEl = document.getElementById('levelJumpSelect');
+            selectEl.innerHTML = '';
+            for (let i = 1; i <= 100; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.text = (i === 100) ? "👑 Level 100 (Boss Challenge)" : `Level ${i}`;
+                selectEl.appendChild(opt);
+            }
+            selectEl.value = (currentLevelIdx + 1);
+        }
+
+        function jumpDirectlyToLevel(lvl) {
+            currentLevelIdx = parseInt(lvl) - 1;
+            renderLevel();
+            SFX.tap();
+        }
+
+        function renderLevel() {
+            stopTimer();
+            const levelData = currentYearLevels[currentLevelIdx];
+            const levelNum = currentLevelIdx + 1;
+            const isBoss = (levelNum === 100);
+
+            // Exactly 60s for Levels 1-99; Exactly 120s for Level 100 Boss
+            const allottedSeconds = isBoss ? 120 : 60;
+
+            document.getElementById('hudLevelNumber').innerText = levelNum;
+            document.getElementById('hudScore').innerText = score;
+            document.getElementById('hudPhaseBadge').innerText = levelData.phase || "Level Phase";
+            document.getElementById('hudDifficultyTier').innerText = levelData.tier;
+            document.getElementById('hudInstructions').innerText = "💡 " + levelData.instruction;
+            document.getElementById('levelJumpSelect').value = levelNum;
+
+            const progressPct = (levelNum / 100) * 100;
+            document.getElementById('levelProgressFill').style.width = progressPct + '%';
+
+            const bossBox = document.getElementById('bossAnnouncement');
+            const slotsContainer = document.getElementById('slotsArea');
+
+            if (isBoss) {
+                bossBox.style.display = 'block';
+                bossBox.innerHTML = `⭐ <b>LEVEL 100 BOSS MISSION (120 SECONDS):</b> ${levelData.storyHeader}`;
+                slotsContainer.classList.add('stacked-mode');
+                SFX.boss();
             } else {
-                slotsDiv.className = "sentence-row";
+                bossBox.style.display = 'none';
+                slotsContainer.classList.remove('stacked-mode');
             }
 
-            q.slots.forEach(s => {
+            slotsContainer.innerHTML = '';
+            levelData.parts.forEach(part => {
                 const slot = document.createElement('div');
-                slot.className = q.boss ? "slot boss-slot" : "slot";
-                slot.setAttribute('data-label', s.label);
-                slot.setAttribute('data-type', s.id);
-                slot.setAttribute('data-expect', s.expect);
+                slot.className = 'target-slot';
+                slot.setAttribute('data-slot-label', part.label);
+                slot.setAttribute('data-slot-role', part.id);
+                slot.setAttribute('data-expected-text', part.txt);
 
                 slot.addEventListener('dragover', (e) => e.preventDefault());
-                slot.addEventListener('drop', dropInSlot);
+                slot.addEventListener('drop', handleDropInSlot);
 
-                // Tap-to-remove
-                slot.addEventListener('click', () => {
-                    const item = slot.querySelector('.draggable');
-                    if (item) {
-                        soundTap();
-                        document.getElementById('wordBank').appendChild(item);
+                slot.addEventListener('click', (e) => {
+                    const tile = slot.querySelector('.word-tile');
+                    if (tile) {
+                        SFX.tap();
+                        document.getElementById('wordBankArea').appendChild(tile);
                         slot.classList.remove('filled');
                     }
                 });
 
-                slotsDiv.appendChild(slot);
+                slotsContainer.appendChild(slot);
             });
 
-            // Configure Word Bank
-            const bankDiv = document.getElementById('wordBank');
-            bankDiv.innerHTML = '';
-            q.words.forEach((txt, i) => {
-                const el = document.createElement('div');
-                el.className = 'draggable';
-                el.id = 'tile-' + i + '-' + Date.now();
-                el.draggable = true;
-                el.innerText = txt;
+            const bank = document.getElementById('wordBankArea');
+            bank.innerHTML = '';
 
-                el.addEventListener('dragstart', dragStart);
-                el.addEventListener('click', () => tapTile(el));
+            let tilesToRender = [];
+            if (levelData.type === 'pos') {
+                tilesToRender.push({ txt: levelData.parts[0].txt, isAnswer: true });
+                if (levelData.distractors) {
+                    levelData.distractors.forEach(d => tilesToRender.push({ txt: d, isAnswer: false }));
+                }
+            } else {
+                tilesToRender = levelData.parts.map(p => ({ txt: p.txt, isAnswer: true }));
+            }
 
-                // Touch support
-                el.addEventListener('touchstart', touchStart, {passive:false});
-                el.addEventListener('touchmove', touchMove, {passive:false});
-                el.addEventListener('touchend', touchEnd);
+            tilesToRender.sort(() => Math.random() - 0.5);
 
-                bankDiv.appendChild(el);
+            tilesToRender.forEach((item, index) => {
+                const tile = document.createElement('div');
+                tile.className = 'word-tile' + (isBoss ? ' stacked-text' : '');
+                tile.id = `tile-${index}-${Date.now()}`;
+                tile.draggable = true;
+                tile.innerText = item.txt;
+
+                tile.addEventListener('dragstart', handleDragStart);
+                tile.addEventListener('click', () => handleTileTap(tile));
+
+                tile.addEventListener('touchstart', handleTouchStart, { passive: false });
+                tile.addEventListener('touchmove', handleTouchMove, { passive: false });
+                tile.addEventListener('touchend', handleTouchEnd);
+
+                bank.appendChild(tile);
             });
 
-            // Timer: 120s for boss, 60s (1 full minute) for standard levels
-            startTimer(q.boss ? 120 : 60);
+            updateLivesDisplay();
+            updateStreakDisplay();
+            startCountdownTimer(allottedSeconds);
         }
 
-        function tapTile(el) {
-            soundTap();
-            if (el.parentElement.classList.contains('word-bank')) {
-                const firstEmptySlot = Array.from(document.querySelectorAll('.slot')).find(s => s.children.length === 0);
-                if (firstEmptySlot) {
-                    firstEmptySlot.appendChild(el);
-                    firstEmptySlot.classList.add('filled');
+        // Tap-to-place helper
+        function handleTileTap(tile) {
+            SFX.tap();
+            if (tile.parentElement.classList.contains('word-bank')) {
+                const emptySlot = Array.from(document.querySelectorAll('.target-slot')).find(s => s.children.length === 0);
+                if (emptySlot) {
+                    emptySlot.appendChild(tile);
+                    emptySlot.classList.add('filled');
                 }
-            } else if (el.parentElement.classList.contains('slot')) {
-                el.parentElement.classList.remove('filled');
-                document.getElementById('wordBank').appendChild(el);
+            } else if (tile.parentElement.classList.contains('target-slot')) {
+                const slot = tile.parentElement;
+                slot.classList.remove('filled');
+                document.getElementById('wordBankArea').appendChild(tile);
             }
         }
 
-        /* 1-Minute Countdown System */
-        function startTimer(seconds) {
+        // Exact timer implementation: 60s for standard, 120s for boss
+        function startCountdownTimer(seconds) {
             stopTimer();
             timeLeft = seconds;
-            const disp = document.getElementById('timerDisplay');
-            disp.innerText = timeLeft;
-            disp.classList.remove('timer-warning');
+            const timerDisplay = document.getElementById('hudTimer');
+            timerDisplay.innerText = timeLeft;
+            timerDisplay.classList.remove('timer-urgent');
 
             timerInterval = setInterval(() => {
                 timeLeft--;
-                disp.innerText = timeLeft;
-
-                // Warning indicator when 15 seconds remain
+                timerDisplay.innerText = timeLeft;
                 if (timeLeft <= 15) {
-                    disp.classList.add('timer-warning');
-                    playTone(650, 'sine', 0.04, 0); // Gentle audio reminder tick
+                    timerDisplay.classList.add('timer-urgent');
+                    SFX.tap();
                 }
                 if (timeLeft <= 0) {
-                    handleError("TIME'S UP! ⏰");
+                    triggerMistake("⏰ TIME'S UP! Keep trying!");
                 }
             }, 1000);
         }
 
-        function stopTimer() { clearInterval(timerInterval); }
-
-        function checkAnswer() {
-            stopTimer();
-            const slots = document.querySelectorAll('.slot');
-            let allCorrect = true;
-            let filledCount = 0;
-
-            slots.forEach(slot => {
-                if (slot.children.length > 0) {
-                    filledCount++;
-                    const childText = slot.children[0].innerText.trim();
-                    const expectText = slot.getAttribute('data-expect').trim();
-                    if (childText !== expectText) {
-                        allCorrect = false;
-                    }
-                } else {
-                    allCorrect = false;
-                }
-            });
-
-            if (filledCount < slots.length) {
-                startTimer(timeLeft);
-                alert("Please fill in all empty slots before checking!");
-                return;
-            }
-
-            if (allCorrect) {
-                streak++;
-                const bonus = (streak >= 3) ? 20 : 10;
-                score += bonus;
-                document.getElementById('score').innerText = score;
-                updateStreakUI();
-                soundSuccess();
-                burstConfetti();
-
-                const praise = currentYearLevels[currentLevelIdx].boss ? "MISSION ACCOMPLISHED! 👑" : (streak >= 3 ? "STREAK COMBO! 🔥" : "BRILLIANT! ⭐");
-                showFeedback(praise, "#2e7d32", 1200, () => {
-                    currentLevelIdx++;
-                    loadLevel(currentLevelIdx);
-                });
-            } else {
-                handleError("TRY AGAIN! ❌");
-            }
+        function stopTimer() {
+            if (timerInterval) clearInterval(timerInterval);
         }
 
-        function handleError(msg) {
+        function triggerMistake(msg) {
             stopTimer();
-            soundWrong();
+            SFX.wrong();
             lives--;
             streak = 0;
-            updateStreakUI();
-            updateLivesUI();
+            updateStreakDisplay();
+            updateLivesDisplay();
 
             if (lives <= 0) {
-                gameOverScreen(false);
+                concludeGame(false);
             } else {
-                showFeedback(msg, "#c62828", 1400, () => {
-                    startTimer(timeLeft > 10 ? timeLeft : 60);
-                });
+                showFeedbackModal(msg, "#d50000", 1400);
             }
         }
 
-        function showFeedback(title, color, duration, callback) {
-            const overlay = document.getElementById('feedbackOverlay');
-            document.getElementById('fbTitle').innerText = title;
-            document.getElementById('fbTitle').style.color = color;
-            document.getElementById('fbText').innerText = lives > 0 ? "Keep going!" : "";
-            overlay.style.display = 'flex';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                if (callback) callback();
-            }, duration);
-        }
-
-        function updateLivesUI() {
+        function updateLivesDisplay() {
             let hearts = "";
             for (let i = 0; i < lives; i++) hearts += "❤";
-            document.getElementById('livesDisplay').innerText = hearts;
+            document.getElementById('hudLives').innerText = hearts || "💔";
         }
 
-        function updateStreakUI() {
-            const badge = document.getElementById('streakBadge');
+        function updateStreakDisplay() {
+            const badge = document.getElementById('hudStreakBadge');
             if (streak >= 2) {
-                badge.innerText = `🔥 ${streak} IN A ROW!`;
-                badge.style.display = 'inline-block';
+                badge.innerText = `🔥 COMBO x${streak}! (+${streak * 5} pts)`;
+                badge.style.display = 'inline-flex';
             } else {
                 badge.style.display = 'none';
             }
         }
 
-        function gameVictory() {
+        function checkCurrentAnswer() {
             stopTimer();
-            burstConfetti();
-            soundSuccess();
-            gameOverScreen(true);
-        }
+            const slots = document.querySelectorAll('.target-slot');
+            let allFilled = true;
+            let allCorrect = true;
 
-        function gameOverScreen(victory) {
-            const overlay = document.getElementById('gameOverOverlay');
-            overlay.style.display = 'flex';
-            document.getElementById('goTitle').innerText = victory ? "CONGRATULATIONS! 🏆" : "GAME OVER";
-            document.getElementById('goTitle').style.color = victory ? "#2e7d32" : "#c62828";
-            document.getElementById('goName').innerText = studentData.name;
-            document.getElementById('goGrade').innerText = "Year " + studentData.year;
-            document.getElementById('goLevel').innerText = currentLevelIdx + " / 100";
-            document.getElementById('goScore').innerText = score;
+            slots.forEach(slot => {
+                if (slot.children.length > 0) {
+                    const userText = slot.children[0].innerText.trim();
+                    const expectedText = slot.getAttribute('data-expected-text').trim();
+                    if (userText !== expectedText) allCorrect = false;
+                } else {
+                    allFilled = false;
+                    allCorrect = false;
+                }
+            });
 
-            let starString = "⭐";
-            if (score > 300) starString = "⭐⭐";
-            if (score > 700 || victory) starString = "⭐⭐⭐";
-            document.getElementById('goStars').innerText = starString;
-
-            saveScoreToCloud();
-        }
-
-        function returnHome() {
-            stopTimer();
-            document.getElementById('gameOverOverlay').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('loginScreen').style.display = 'block';
-        }
-
-        function saveScoreToCloud() {
-            const status = document.getElementById('saveStatus');
-            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
-                status.innerText = "Demo mode • Score not recorded to Google Sheets";
+            if (!allFilled) {
+                alert("Please fill all slots before checking!");
+                startCountdownTimer(timeLeft);
                 return;
             }
 
-            status.innerText = "Syncing score with teacher dashboard...";
+            if (allCorrect) {
+                streak++;
+                const bonus = (streak >= 2) ? (10 + streak * 5) : 10;
+                score += bonus;
+                document.getElementById('hudScore').innerText = score;
+
+                if (streak >= 2) SFX.combo();
+                else SFX.correct();
+                fireConfetti(streak >= 3 ? 90 : 50);
+
+                // Level 100 Victory Check
+                if (currentLevelIdx === 99) {
+                    concludeGame(true);
+                    return;
+                }
+
+                const praise = streak >= 3 ? "SUPER COMBO! 🔥" : "EXCELLENT WORK! 🎉";
+                showFeedbackModal(praise, "#2e7d32", 1200, () => {
+                    currentLevelIdx++;
+                    renderLevel();
+                });
+            } else {
+                triggerMistake("❌ Incorrect arrangement. Check the grammar labels!");
+            }
+        }
+
+        function showFeedbackModal(msg, color, duration, nextAction) {
+            const modal = document.getElementById('feedbackModal');
+            document.getElementById('feedbackHeadline').innerText = msg;
+            document.getElementById('feedbackHeadline').style.color = color;
+            document.getElementById('feedbackEmoji').innerText = (color === "#2e7d32") ? "🌟" : "💡";
+            document.getElementById('feedbackExplanation').innerText = lives > 0 ? "Loading next challenge..." : "No lives left!";
+            modal.style.display = 'flex';
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+                if (nextAction && lives > 0) nextAction();
+            }, duration);
+        }
+
+        function skipToNextLevel() {
+            if (currentLevelIdx < 99) {
+                currentLevelIdx++;
+                renderLevel();
+            } else {
+                alert("You are at the final Level 100 challenge!");
+            }
+        }
+
+        function concludeGame(isWinner) {
+            stopTimer();
+            if (isWinner) {
+                SFX.boss();
+                fireConfetti(160);
+            }
+
+            const modal = document.getElementById('scorecardModal');
+            document.getElementById('scorecardAvatar').innerText = selectedAvatar;
+            document.getElementById('scorecardPlayerName').innerText = playerName;
+            document.getElementById('scorecardClass').innerText = `Year ${selectedYear}`;
+            document.getElementById('scorecardScore').innerText = score;
+
+            const stars = (score >= 300 || isWinner) ? "⭐⭐⭐" : (score >= 120 ? "⭐⭐" : "⭐");
+            document.getElementById('scorecardStars').innerText = stars;
+
+            if (isWinner) {
+                document.getElementById('scorecardTitle').innerText = "LEVEL 100 CONQUERED! 👑";
+                document.getElementById('scorecardTitle').style.color = "#2e7d32";
+            } else {
+                document.getElementById('scorecardTitle').innerText = "QUEST FINISHED 💔";
+                document.getElementById('scorecardTitle').style.color = "#d50000";
+            }
+
+            modal.style.display = 'flex';
+            saveScoreGoogleSheet(isWinner ? 100 : currentLevelIdx + 1);
+        }
+
+        function restartRound() {
+            document.getElementById('scorecardModal').style.display = 'none';
+            lives = 3;
+            renderLevel();
+        }
+
+        function exitToHome() {
+            stopTimer();
+            document.getElementById('scorecardModal').style.display = 'none';
+            document.getElementById('gameArena').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('studentNameInput').value = '';
+        }
+
+        function saveScoreGoogleSheet(reachedLevel) {
+            const syncEl = document.getElementById('syncStatus');
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
+                syncEl.innerText = "Score recorded locally.";
+                return;
+            }
+
+            syncEl.innerText = "Saving score to Google Sheet...";
             const payload = {
-                name: studentData.name,
-                year: studentData.year,
+                name: playerName,
+                class: `Year ${selectedYear}`,
                 score: score,
-                levelReached: currentLevelIdx,
+                level: reachedLevel,
                 timestamp: new Date().toISOString()
             };
 
@@ -1171,81 +1680,88 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
-            .then(() => { status.innerText = "✅ Score successfully saved!"; })
-            .catch(() => { status.innerText = "⚠️ Network offline. Score not saved."; });
+            .then(() => { syncEl.innerText = "✅ Score successfully synced with teacher!"; })
+            .catch(() => { syncEl.innerText = "⚠️ Network offline. Saved locally."; });
         }
 
-        /* ================= 6. DRAG AND DROP HANDLERS ================= */
         let draggedTile = null;
-        let touchElem = null;
+        let touchTargetTile = null;
 
-        function dragStart(e) {
+        function handleDragStart(e) {
             draggedTile = e.target;
-            e.dataTransfer.setData("text", e.target.id);
-            soundTap();
+            e.dataTransfer.setData("text/plain", e.target.id);
+            SFX.tap();
         }
 
         function allowDrop(e) { e.preventDefault(); }
 
-        function dropInSlot(e) {
+        function handleDropInSlot(e) {
             e.preventDefault();
-            const slot = e.target.closest('.slot');
+            const slot = e.target.closest('.target-slot');
             if (!slot) return;
-            const id = e.dataTransfer.getData("text");
-            const item = document.getElementById(id);
-            if (!item) return;
+            const tileId = e.dataTransfer.getData("text/plain");
+            const tile = document.getElementById(tileId);
+            if (!tile) return;
 
             if (slot.children.length > 0) {
-                document.getElementById('wordBank').appendChild(slot.children[0]);
+                document.getElementById('wordBankArea').appendChild(slot.children[0]);
             }
-            slot.appendChild(item);
+            slot.appendChild(tile);
             slot.classList.add('filled');
-            soundTap();
+            SFX.tap();
         }
 
-        function dropBackToBank(e) {
+        function handleDropBackToBank(e) {
             e.preventDefault();
-            const id = e.dataTransfer.getData("text");
-            const item = document.getElementById(id);
-            if (!item) return;
-            if (item.parentElement.classList.contains('slot')) {
-                item.parentElement.classList.remove('filled');
+            const tileId = e.dataTransfer.getData("text/plain");
+            const tile = document.getElementById(tileId);
+            if (!tile) return;
+
+            if (tile.parentElement.classList.contains('target-slot')) {
+                tile.parentElement.classList.remove('filled');
             }
-            document.getElementById('wordBank').appendChild(item);
-            soundTap();
+            document.getElementById('wordBankArea').appendChild(tile);
+            SFX.tap();
         }
 
-        /* Mobile Touch-Drag Handlers */
-        function touchStart(e) {
-            touchElem = e.target;
-            touchElem.style.opacity = '0.6';
+        // Touch Handlers for Mobile & Tablet Devices
+        function handleTouchStart(e) {
+            touchTargetTile = e.target;
+            touchTargetTile.style.opacity = '0.65';
         }
 
-        function touchMove(e) {
+        function handleTouchMove(e) {
             e.preventDefault();
             const t = e.touches[0];
-            touchElem.style.position = 'fixed';
-            touchElem.style.left = (t.clientX - 50) + 'px';
-            touchElem.style.top = (t.clientY - 25) + 'px';
+            touchTargetTile.style.position = 'fixed';
+            touchTargetTile.style.left = (t.clientX - 50) + 'px';
+            touchTargetTile.style.top = (t.clientY - 25) + 'px';
+            touchTargetTile.style.zIndex = '5000';
         }
 
-        function touchEnd(e) {
+        function handleTouchEnd(e) {
             const t = e.changedTouches[0];
-            touchElem.style.opacity = '1';
-            touchElem.style.position = 'static';
-            const dropTarget = document.elementFromPoint(t.clientX, t.clientY);
-            const slot = dropTarget ? dropTarget.closest('.slot') : null;
-            const bank = dropTarget ? dropTarget.closest('.word-bank') : null;
+            touchTargetTile.style.opacity = '1';
+            touchTargetTile.style.position = 'static';
+            touchTargetTile.style.zIndex = '100';
+
+            const hitEl = document.elementFromPoint(t.clientX, t.clientY);
+            const slot = hitEl ? hitEl.closest('.target-slot') : null;
+            const bank = hitEl ? hitEl.closest('.word-bank') : null;
 
             if (slot) {
-                if (slot.children.length > 0) document.getElementById('wordBank').appendChild(slot.children[0]);
-                slot.appendChild(touchElem);
+                if (slot.children.length > 0) {
+                    document.getElementById('wordBankArea').appendChild(slot.children[0]);
+                }
+                slot.appendChild(touchTargetTile);
                 slot.classList.add('filled');
-                soundTap();
+                SFX.tap();
             } else if (bank) {
-                if (touchElem.parentElement.classList.contains('slot')) touchElem.parentElement.classList.remove('filled');
-                bank.appendChild(touchElem);
-                soundTap();
+                if (touchTargetTile.parentElement.classList.contains('target-slot')) {
+                    touchTargetTile.parentElement.classList.remove('filled');
+                }
+                bank.appendChild(touchTargetTile);
+                SFX.tap();
             }
         }
     </script>
