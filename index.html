@@ -3,231 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Writing is Fun with Dr Saufi - 100 Levels Mastery</title>
+    <title>Writing is Fun with Dr Saufi - 100 Levels English Adventure</title>
+    <!-- Google Fonts for playful and legible typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
         :root {
             --primary: #0288d1;
             --primary-dark: #01579b;
-            --accent: #ff6f00;
+            --accent: #ff6d00;
+            --accent-yellow: #ffd600;
             --success: #2e7d32;
-            --danger: #d32f2f;
-            --bg-light: #e0f7fa;
-            --card-bg: #ffffff;
-            --text-dark: #263238;
+            --danger: #d50000;
+            --purple: #7b1fa2;
+            --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 40%, #80deea 100%);
+            --card-shadow: 0 16px 36px rgba(0, 77, 64, 0.15);
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #e0f7fa 0%, #80deea 50%, #b2ebf2 100%);
-            color: var(--text-dark);
-            text-align: center;
-            padding: 12px;
+            font-family: 'Fredoka', 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+            background: var(--bg-gradient);
             margin: 0;
-            user-select: none;
+            padding: 12px;
             min-height: 100vh;
+            color: #263238;
+            text-align: center;
             overflow-x: hidden;
+            position: relative;
         }
 
-        h1.main-title {
-            color: #d84315;
+        /* Floating background icons */
+        .bg-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .float-emoji {
+            position: absolute;
             font-size: 2.2rem;
-            margin: 8px 0 4px 0;
-            text-shadow: 2px 2px 0px #ffccbc, 4px 4px 0px rgba(0,0,0,0.06);
+            opacity: 0.22;
+            animation: floatSlow 12s infinite ease-in-out alternate;
+        }
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(20px) rotate(-10deg); }
+        }
+
+        /* Main Header Banner */
+        .main-header {
+            position: relative;
+            z-index: 2;
+            margin: 8px 0 12px;
+        }
+        h1.app-title {
+            margin: 0;
+            font-size: 2.4rem;
+            color: #e65100;
+            text-shadow: 3px 3px 0 #ffe082, 5px 5px 0 rgba(0,0,0,0.06);
             letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .subtitle {
-            font-size: 1rem;
+        .subtitle-pill {
+            display: inline-block;
+            background: #ffffff;
             color: #00695c;
-            margin: 0 0 16px 0;
-            font-weight: bold;
+            font-size: 14.5px;
+            font-weight: 700;
+            padding: 5px 16px;
+            border-radius: 50px;
+            margin-top: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 2px solid #80cbc4;
         }
 
-        /* --- LOGIN & SELECTION SCREEN --- */
-        .login-card {
-            background: var(--card-bg);
-            max-width: 650px;
-            margin: 15px auto;
+        /* Sound Toggle Button */
+        .sound-toggle-btn {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 1000;
+            background: #ffffff;
+            border: 3px solid #ffb74d;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .sound-toggle-btn:active { transform: scale(0.9); }
+
+        .card-container {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            max-width: 660px;
+            margin: 10px auto 30px;
             padding: 30px 24px;
-            border-radius: 28px;
-            box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
             border: 4px solid #ffffff;
-            animation: popIn 0.35s ease;
+            animation: bounceIn 0.4s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .search-container { position: relative; width: 100%; margin: 15px 0; }
-        .student-input {
-            width: 92%;
-            padding: 16px 20px;
-            font-size: 16px;
-            font-weight: bold;
+        .welcome-badge {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px dashed #ff9800;
+            padding: 12px 18px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+            font-size: 1.1rem;
+            color: #e65100;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+        .form-label {
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+            color: #37474f;
+            margin-bottom: 8px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 15px 18px;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: inherit;
             border: 3px solid #b0bec5;
             border-radius: 16px;
             outline: none;
             text-transform: uppercase;
-            transition: all 0.25s ease;
-            font-family: inherit;
+            background: #fafafa;
+            transition: all 0.25s;
         }
-        .student-input:focus {
+        .input-text:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 12px rgba(2, 136, 209, 0.4);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 4%;
-            right: 4%;
             background: #ffffff;
-            border: 2px solid var(--primary);
-            border-radius: 0 0 16px 16px;
-            max-height: 250px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-            text-align: left;
-        }
-        .dropdown-item {
-            padding: 12px 18px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 14px;
-            transition: background 0.15s;
-        }
-        .dropdown-item:hover { background-color: #e1f5fe; color: var(--primary-dark); font-weight: bold; }
-
-        .profile-badge {
-            margin: 15px auto;
-            padding: 14px;
-            background: #e8f5e9;
-            border-radius: 16px;
-            color: #1b5e20;
-            font-weight: bold;
-            display: none;
-            border: 2px dashed #81c784;
-            max-width: 90%;
-            font-size: 1.15rem;
+            box-shadow: 0 0 12px rgba(2, 136, 209, 0.35);
         }
 
-        /* --- GAME ARENA --- */
-        .game-card {
-            max-width: 980px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            padding: 22px;
-            border-radius: 28px;
-            box-shadow: 0 18px 40px rgba(0,0,0,0.14);
-            display: none;
-            position: relative;
-        }
-
-        .hud-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f1f8e9;
-            padding: 12px 18px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            border: 2px solid #dcedc8;
-        }
-        .player-info-tag { text-align: left; font-size: 14px; line-height: 1.4; }
-        .player-info-tag b { color: #d84315; font-size: 15px; }
-
-        .progress-bar-container {
-            width: 100%;
-            background: #cfd8dc;
-            border-radius: 10px;
-            height: 14px;
-            overflow: hidden;
-            margin: 10px 0 15px;
-            position: relative;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #43a047, #00acc1);
-            width: 1%;
-            transition: width 0.4s ease;
-        }
-
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .chip {
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .chip-level { background: #e3f2fd; color: #0277bd; border: 1.5px solid #90caf9; }
-        .chip-score { background: #fff8e1; color: #f57f17; border: 1.5px solid #ffe082; }
-        .chip-tier { background: #f3e5f5; color: #7b1fa2; border: 1.5px solid #ce93d8; }
-        .chip-streak { background: #fbe9e7; color: #d84315; border: 1.5px solid #ffab91; display: none; }
-
-        .timer-badge {
-            background-color: #263238;
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: 900;
-            padding: 6px 16px;
-            border-radius: 50px;
-            border: 3px solid #b0bec5;
-            min-width: 55px;
-        }
-        .timer-panic { background-color: #c62828; animation: pulse 0.7s infinite alternate; }
-
-        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.12); } }
-        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-        /* --- SENTENCE SLOTS & WORD BANK --- */
-        .stage-prompt {
-            font-size: 15px;
-            color: #455a64;
-            margin: 6px 0 14px;
-            font-weight: bold;
-        }
-        .boss-memo-header {
-            background: #fff3e0;
-            color: #e65100;
-            padding: 10px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 2px dashed #ffb74d;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .sentence-slots {
+        /* Avatar Selection Grid */
+        .avatar-grid {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
-            min-height: 100px;
-            margin: 15px 0;
-            padding: 10px;
-            background: #fafafa;
-            border-radius: 20px;
-            border: 2px solid #eceff1;
         }
-        .sentence-slots.stacked-view {
-            flex-direction: column;
-            align-items: stretch;
-            max-width: 820px;
-            margin: 10px auto;
+        .avatar-option {
+            font-size: 2rem;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            border: 3px solid #cfd8dc;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .avatar-option:hover { transform: scale(1.12); }
+        .avatar-option.selected {
+            border-color: #ff9800;
+            background: #fff8e1;
+            transform: scale(1.16);
+            box-shadow: 0 6px 14px rgba(255, 152, 0, 0.35);
         }
 
-        .slot {
-            min-width: 140px;
+        /* Class / Year Level Selector Grid */
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 480px) {
+            .year-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .year-btn {
+            background: #eceff1;
+            border: 3px solid #cfd8dc;
+            border-radius: 16px;
+            padding: 12px 8px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 800;
+            color: #455a64;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .year-btn span.year-desc {
+            font-size: 11px;
+            color: #78909c;
+            font-weight: 600;
+        }
+        .year-btn:hover { background: #e0f2f1; border-color: #80cbc4; }
+        .year-btn.selected {
+            background: linear-gradient(180deg, #0288d1 0%, #01579b 100%);
+            border-color: #002f6c;
+            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(1, 87, 155, 0.3);
+            transform: translateY(-2px);
+        }
+        .year-btn.selected span.year-desc { color: #b3e5fc; }
+
+        /* Animated CTA Buttons */
+        .btn-launch {
+            width: 100%;
+            padding: 16px;
+            font-size: 22px;
+            font-weight: 900;
+            font-family: inherit;
+            color: white;
+            background: linear-gradient(180deg, #43a047 0%, #2e7d32 100%);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 #1b5e20, 0 12px 20px rgba(46, 125, 50, 0.3);
+            transition: all 0.18s;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 6px 0 #1b5e20, 0 8px 16px rgba(46, 125, 50, 0.25); }
+            100% { transform: scale(1.02); box-shadow: 0 7px 0 #1b5e20, 0 14px 28px rgba(46, 125, 50, 0.45); }
+        }
+        .btn-launch:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #1b5e20;
+        }
+
+        .game-arena {
+            display: none;
+            max-width: 980px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 22px 20px 30px;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            border: 4px solid #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hud-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f8e9;
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: 2px solid #c5e1a5;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hud-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+        .hud-avatar {
+            font-size: 2.2rem;
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 50%;
+            border: 2px solid #81c784;
+        }
+        .hud-meta b { font-size: 16px; color: #2e7d32; display: block; }
+        .hud-meta span { font-size: 13px; color: #558b2f; font-weight: 700; }
+
+        .timer-box {
+            background: #263238;
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 900;
+            padding: 6px 18px;
+            border-radius: 50px;
+            border: 3px solid #cfd8dc;
+            min-width: 55px;
+        }
+        .timer-urgent {
+            background: #d50000;
+            border-color: #ff8a80;
+            animation: pulseTimer 0.6s infinite alternate;
+        }
+        @keyframes pulseTimer {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .lives-box {
+            font-size: 26px;
+            color: #e53935;
+            letter-spacing: 3px;
+        }
+
+        /* 100-Level Track Progress */
+        .progress-track {
+            background: #cfd8dc;
+            height: 14px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 10px 0 16px;
+            position: relative;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #ff9800, #4caf50, #00acc1);
+            height: 100%;
+            width: 1%;
+            transition: width 0.35s ease;
+        }
+
+        .badges-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .pill-badge {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13.5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill-level { background: #e1f5fe; color: #0277bd; border: 1.5px solid #81d4fa; }
+        .pill-tier { background: #f3e5f5; color: #7b1fa2; border: 1.5px solid #ce93d8; }
+        .pill-score { background: #fff8e1; color: #f57f17; border: 1.5px solid #ffe082; }
+        .pill-streak { background: #fbe9e7; color: #d84315; border: 1.5px solid #ffab91; display: none; }
+
+        .helper-text {
+            font-size: 14.5px;
+            color: #546e7a;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* Boss Prompt Announcement (Level 100) */
+        .boss-card {
+            display: none;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px dashed #ff9800;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #e65100;
+        }
+
+        /* Sentence Slots */
+        .slots-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            min-height: 95px;
+            margin: 16px 0;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+        }
+        .slots-container.stacked-mode {
+            flex-direction: column;
+            max-width: 840px;
+            margin: 12px auto;
+        }
+
+        .target-slot {
+            min-width: 150px;
             min-height: 72px;
             border: 2.5px dashed #90a4ae;
             border-radius: 16px;
@@ -242,43 +427,48 @@
             padding: 8px;
             flex: 1 1 auto;
         }
-        .stacked-view .slot {
+        .stacked-mode .target-slot {
             width: 100%;
             min-height: 60px;
-            margin-top: 20px;
+            margin-top: 22px;
         }
-        .slot:hover { border-color: var(--primary); background: #e1f5fe; }
-        .slot.filled { border-style: solid; border-color: #81c784; background: #f1f8e9; }
+        .target-slot:hover { border-color: var(--primary); background: #e1f5fe; }
+        .target-slot.filled {
+            border-style: solid;
+            border-color: #81c784;
+            background: #f1f8e9;
+        }
 
-        .slot::before {
-            content: attr(data-label);
+        .target-slot::before {
+            content: attr(data-slot-label);
             position: absolute;
             top: -24px;
             left: 8px;
             right: 8px;
-            font-size: 11px;
+            font-size: 11.5px;
             color: #ffffff;
             font-weight: 800;
-            padding: 3px 6px;
+            padding: 3px 8px;
             border-radius: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             pointer-events: none;
         }
-        .slot[data-type="part-s"]::before { background: #1976d2; }
-        .slot[data-type="part-v"]::before { background: #f57c00; }
-        .slot[data-type="part-c"]::before { background: #388e3c; }
-        .slot[data-type="part-adv"]::before { background: #7b1fa2; }
-        .slot[data-type="part-conj"]::before { background: #c2185b; }
-        .slot[data-type="part-clause"]::before { background: #00796b; }
-        .slot[data-type="boss-line"]::before { background: #e65100; }
+        .target-slot[data-slot-role="s"]::before { background: #1976d2; }
+        .target-slot[data-slot-role="v"]::before { background: #f57c00; }
+        .target-slot[data-slot-role="c"]::before { background: #388e3c; }
+        .target-slot[data-slot-role="adv"]::before { background: #7b1fa2; }
+        .target-slot[data-slot-role="conj"]::before { background: #c2185b; }
+        .target-slot[data-slot-role="rel"]::before { background: #00796b; }
+        .target-slot[data-slot-role="boss"]::before { background: #e65100; }
 
+        /* Word Bank */
         .word-bank {
             display: flex;
             justify-content: center;
             gap: 10px;
             flex-wrap: wrap;
-            margin: 20px 0;
+            margin: 18px 0;
             padding: 16px;
             background: #eef7f8;
             border-radius: 20px;
@@ -286,69 +476,67 @@
             border: 2px dashed #b0bec5;
         }
 
-        .tile {
+        .word-tile {
             background: linear-gradient(180deg, #0288d1 0%, #01579b 100%);
             color: white;
-            padding: 10px 16px;
-            font-size: 15.5px;
-            border-radius: 12px;
+            padding: 11px 18px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 14px;
             cursor: pointer;
             box-shadow: 0 4px 0 #002f6c;
             touch-action: none;
-            transition: transform 0.15s ease, background 0.2s;
-            font-weight: bold;
+            transition: transform 0.15s ease;
             display: inline-block;
         }
-        .tile:hover { transform: translateY(-2px); }
-        .tile:active { transform: translateY(2px); box-shadow: 0 1px 0 #002f6c; }
-        .tile.stacked-tile {
-            font-size: 14px;
+        .word-tile:hover { transform: translateY(-2px); }
+        .word-tile:active { transform: translateY(2px); box-shadow: 0 1px 0 #002f6c; }
+        .word-tile.stacked-text {
+            font-size: 14.5px;
             text-align: left;
             line-height: 1.35;
             padding: 10px 14px;
         }
 
-        /* --- BUTTONS & CONTROLS --- */
-        .btn {
+        /* Action Buttons */
+        .btn-action {
             font-family: inherit;
-            padding: 12px 28px;
+            padding: 13px 30px;
             font-size: 18px;
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             cursor: pointer;
             color: white;
             margin: 6px;
-            box-shadow: 0 5px 0 rgba(0,0,0,0.22);
-            font-weight: 900;
-            letter-spacing: 0.5px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.25);
+            font-weight: 800;
             transition: all 0.15s ease;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(0,0,0,0.22); }
-        .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,0.22); }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(0,0,0,0.25); }
+        .btn-action:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.25); }
         .btn-check { background-color: var(--accent); }
-        .btn-start { background-color: var(--success); width: 90%; font-size: 20px; }
-        .btn-skip { background-color: #607d8b; font-size: 15px; padding: 10px 20px; }
-        .btn-blue { background-color: var(--primary); }
+        .btn-skip { background-color: #607d8b; font-size: 15px; padding: 11px 20px; }
 
-        .level-jumper-row {
-            margin: 15px 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+        .level-selector-row {
+            margin-top: 14px;
             font-size: 14px;
             color: #546e7a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        .level-select {
+        .level-select-input {
             padding: 6px 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 2px solid #b0bec5;
             font-family: inherit;
-            font-weight: bold;
+            font-weight: 700;
+            background: #ffffff;
         }
 
-        /* --- FULL SCREEN OVERLAYS --- */
-        .game-overlay {
+        .overlay-modal {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(255, 255, 255, 0.97);
@@ -356,10 +544,45 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 28px;
+            border-radius: 30px;
             z-index: 2000;
             padding: 24px;
-            animation: popIn 0.3s ease;
+            animation: bounceIn 0.3s ease;
+        }
+
+        .score-hero-avatar {
+            font-size: 4rem;
+            background: #fff8e1;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffb300;
+            margin-bottom: 8px;
+        }
+        .stars-row {
+            font-size: 2.5rem;
+            color: #ffb300;
+            margin: 6px 0;
+            text-shadow: 0 4px 10px rgba(255, 179, 0, 0.4);
+        }
+        .badge-list {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0 16px;
+        }
+        .award-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #a5d6a7;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13.5px;
+            font-weight: 800;
         }
 
         #confettiCanvas {
@@ -373,152 +596,243 @@
     </style>
 </head>
 <body>
+
     <canvas id="confettiCanvas"></canvas>
 
-    <h1 class="main-title">Writing is Fun with Dr Saufi</h1>
-    <div class="subtitle">🎯 CEFR KSSR English Mastery Challenge • Levels 1 to 100</div>
-
-    <div id="loginScreen" class="login-card">
-        <h2 style="color:#00838f; margin-top:0;">Student Login 🎒</h2>
-        <p style="color:#546e7a; font-size: 15px;">Search and pick your name to load your Year and 100 Levels:</p>
-        
-        <div class="search-container">
-            <input type="text" id="studentSearchInput" class="student-input" placeholder="TYPE YOUR FULL NAME HERE..." oninput="filterStudents()">
-            <div id="studentDropdown" class="dropdown-menu"></div>
-        </div>
-
-        <div id="selectedClassDisplay" class="profile-badge"></div>
-
-        <div style="margin-top: 15px;">
-            <button id="startGameBtn" class="btn btn-start" style="display:none;" onclick="startGameSession()">START MISSION ▶</button>
-        </div>
-        
-        <p style="margin-top: 25px; color:#90a4ae; font-size:13px;">
-            100 Levels per Year • Structured Guided Writing • Auto-Progress Sync
-        </p>
+    <div class="bg-decorations">
+        <span class="float-emoji" style="top:8%; left:6%;">✏️</span>
+        <span class="float-emoji" style="top:25%; right:8%; animation-delay: 2s;">📚</span>
+        <span class="float-emoji" style="bottom:12%; left:12%; animation-delay: 4s;">🚀</span>
+        <span class="float-emoji" style="bottom:18%; right:14%; animation-delay: 1s;">🌟</span>
+        <span class="float-emoji" style="top:50%; left:4%; animation-delay: 3s;">🏆</span>
+        <span class="float-emoji" style="top:60%; right:5%; animation-delay: 5s;">💡</span>
     </div>
 
-    <div id="gameArena" class="game-card">
-        <div class="hud-header">
-            <div class="player-info-tag">
-                STUDENT: <b id="hudName">-</b><br>
-                CLASS: <span id="hudClass" style="color:#00796b; font-weight:bold;">-</span>
+    <!-- Mute/Sound Toggle -->
+    <button id="soundToggle" class="sound-toggle-btn" onclick="toggleAudio()" title="Sound On / Off">🔊</button>
+
+    <!-- Header -->
+    <div class="main-header">
+        <h1 class="app-title">✏️ Writing is Fun with Dr Saufi</h1><br>
+        <span class="subtitle-pill">🌟 CEFR KSSR English • 100 Levels Mastery Adventure</span>
+    </div>
+
+    <div id="loginScreen" class="card-container">
+        <div class="welcome-badge">
+            👋 Welcome Young Writers! Choose your avatar, name, and class to begin your 100-level quest!
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="studentNameInput">1. Your Full Name</label>
+            <input type="text" id="studentNameInput" class="input-text" placeholder="ENTER YOUR FULL NAME..." maxlength="40" autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">2. Pick Your Avatar</label>
+            <div class="avatar-grid" id="avatarSelector">
+                <div class="avatar-option selected" data-avatar="🐱">🐱</div>
+                <div class="avatar-option" data-avatar="🚀">🚀</div>
+                <div class="avatar-option" data-avatar="🦁">🦁</div>
+                <div class="avatar-option" data-avatar="🦊">🦊</div>
+                <div class="avatar-option" data-avatar="🐼">🐼</div>
+                <div class="avatar-option" data-avatar="🦄">🦄</div>
+                <div class="avatar-option" data-avatar="⚽">⚽</div>
+                <div class="avatar-option" data-avatar="🎨">🎨</div>
             </div>
-            <div class="timer-badge" id="hudTimer">35</div>
-            <div id="hudLives" style="font-size:26px; color:#e53935; letter-spacing:4px;">❤❤❤</div>
         </div>
 
-        <div class="progress-bar-container" title="100 Levels Progress">
-            <div id="levelProgressFill" class="progress-bar-fill"></div>
+        <div class="form-group">
+            <label class="form-label">3. Select Your Class / Year Level</label>
+            <div class="year-grid" id="yearSelector">
+                <button type="button" class="year-btn selected" data-year="1">
+                    Year 1
+                    <span class="year-desc">Beginner Sentence</span>
+                </button>
+                <button type="button" class="year-btn" data-year="2">
+                    Year 2
+                    <span class="year-desc">Sentence Expansion</span>
+                </button>
+                <button type="button" class="year-btn" data-year="3">
+                    Year 3
+                    <span class="year-desc">Guided Paragraphs</span>
+                </button>
+                <button type="button" class="year-btn" data-year="4">
+                    Year 4
+                    <span class="year-desc">Compound Sentences</span>
+                </button>
+                <button type="button" class="year-btn" data-year="5">
+                    Year 5
+                    <span class="year-desc">Complex Clauses</span>
+                </button>
+                <button type="button" class="year-btn" data-year="6">
+                    Year 6
+                    <span class="year-desc">Email & Story Pro</span>
+                </button>
+            </div>
         </div>
 
-        <div class="stats-bar">
-            <div class="chip chip-level">⭐ Level: <span id="hudLevelNumber">1</span> / 100</div>
-            <div class="chip chip-tier" id="hudDifficultyTier">Novice (3 Parts)</div>
-            <div class="chip chip-score">🏆 Score: <span id="hudScore">0</span></div>
-            <div class="chip chip-streak" id="hudStreakBadge">🔥 COMBO x2</div>
+        <button type="button" class="btn-launch" onclick="beginAdventure()">START ADVENTURE ▶</button>
+    </div>
+
+    <div id="gameArena" class="game-arena">
+        <!-- HUD Header -->
+        <div class="hud-banner">
+            <div class="hud-player">
+                <span id="playerAvatarDisplay" class="hud-avatar">🐱</span>
+                <div class="hud-meta">
+                    <b id="playerNameDisplay">PLAYER</b>
+                    <span id="playerYearDisplay">Year 1</span>
+                </div>
+            </div>
+
+            <div class="timer-box" id="hudTimer">35</div>
+            <div class="lives-box" id="hudLives">❤❤❤</div>
         </div>
 
-        <div id="stageInstruction" class="stage-prompt">
-            💡 Drag tiles or tap them to build the correct grammatical structure!
+        <!-- Level progress line (1 to 100) -->
+        <div class="progress-track" title="100-Level Adventure Bar">
+            <div class="progress-fill" id="levelProgressFill"></div>
         </div>
 
-        <div id="bossPromptCard" class="boss-memo-header" style="display:none;"></div>
-
-        <!-- Target Placement Slots -->
-        <div class="sentence-slots" id="slotsArea"></div>
-
-        <!-- Word Bank of Draggable Tiles -->
-        <div class="word-bank" id="wordBankArea" ondragover="allowDrop(event)" ondrop="handleDropToBank(event)"></div>
-
-        <div style="margin-top: 10px;">
-            <button class="btn btn-check" onclick="evaluateAnswer()">Check Sentence ✨</button>
-            <button class="btn btn-skip" onclick="skipToNextLevel()" title="Skip for practice">Skip ⏭</button>
+        <!-- Badges & Statistics -->
+        <div class="badges-row">
+            <div class="pill-badge pill-level">⭐ Level: <span id="hudLevelNumber">1</span> / 100</div>
+            <div class="pill-badge pill-tier" id="hudDifficultyTier">Novice 3-Part</div>
+            <div class="pill-badge pill-score">🏆 Score: <span id="hudScore">0</span></div>
+            <div class="pill-badge pill-streak" id="hudStreakBadge">🔥 COMBO x2</div>
         </div>
 
-        <div class="level-jumper-row">
-            <span>Jump to unlocked level:</span>
-            <select id="levelSelectDropdown" class="level-select" onchange="jumpToLevel(this.value)"></select>
+        <div class="helper-text" id="hudInstructions">
+            💡 Drag tiles or tap any word tile to place it into the sentence!
+        </div>
+
+        <!-- Grand Boss Alert (Level 100) -->
+        <div id="bossAnnouncement" class="boss-card"></div>
+
+        <!-- Sentence Slots Area -->
+        <div class="slots-container" id="slotsArea"></div>
+
+        <!-- Draggable / Tappable Word Bank -->
+        <div class="word-bank" id="wordBankArea" ondragover="allowDrop(event)" ondrop="handleDropBackToBank(event)"></div>
+
+        <!-- Action Controls -->
+        <div>
+            <button class="btn-action btn-check" onclick="checkCurrentAnswer()">Check Answer ✨</button>
+            <button class="btn-action btn-skip" onclick="skipToNextLevel()" title="Skip level for practice">Skip ⏭</button>
+        </div>
+
+        <!-- Jump to any unlocked level -->
+        <div class="level-selector-row">
+            <span>Level quick-jump:</span>
+            <select id="levelJumpSelect" class="level-select-input" onchange="jumpDirectlyToLevel(this.value)"></select>
         </div>
 
         <!-- Feedback Overlay -->
-        <div id="feedbackModal" class="game-overlay" style="display:none;">
-            <h2 id="feedbackEmoji" style="font-size: 3.5rem; margin:0;">🎉</h2>
-            <h2 id="feedbackHeadline" style="font-size: 2.2rem; margin:5px 0;">Correct!</h2>
-            <p id="feedbackExplanation" style="font-size: 1.25rem; color:#37474f; font-weight:bold;"></p>
+        <div id="feedbackModal" class="overlay-modal" style="display:none;">
+            <div id="feedbackEmoji" style="font-size:3.5rem; margin-bottom:4px;">🎉</div>
+            <h2 id="feedbackHeadline" style="font-size:2.2rem; margin:6px 0; color:#2e7d32;">Awesome!</h2>
+            <p id="feedbackExplanation" style="font-size:1.25rem; font-weight:800; color:#455a64;"></p>
         </div>
 
-        <!-- Level 100 Boss Victory or Game Over Overlay -->
-        <div id="summaryModal" class="game-overlay" style="display:none;">
-            <h1 id="summaryTitle" style="font-size:2.8rem; margin:0; color:#2e7d32;">LEVEL 100 CONQUERED! 👑</h1>
-            <h3 id="summarySubtitle" style="color:#37474f; margin:10px 0;">Outstanding English Writing!</h3>
-            <p style="font-size:1.6rem; color:#f57f17; font-weight:900;">Final Score: <span id="summaryScore">0</span></p>
-            <p id="sheetStatusText" style="color:#78909c; font-style:italic; font-size:14px;">Syncing with school database...</p>
-            <div style="margin-top:10px;">
-                <button class="btn btn-blue" onclick="restartLevel()">Play Again 🔄</button>
-                <button class="btn btn-check" onclick="logoutStudent()">Change Student 👤</button>
+        <!-- End of Game / Celebration Scorecard -->
+        <div id="scorecardModal" class="overlay-modal" style="display:none;">
+            <div class="score-hero-avatar" id="scorecardAvatar">🐱</div>
+            <h2 id="scorecardTitle" style="font-size:2.2rem; margin:4px 0; color:#2e7d32;">QUEST FINISHED! 🏆</h2>
+            <p style="font-size:1.2rem; margin:2px 0; color:#37474f;">
+                Player: <b id="scorecardPlayerName">-</b> • <span id="scorecardClass">-</span>
+            </p>
+            <div class="stars-row" id="scorecardStars">⭐⭐⭐</div>
+            <div style="font-size:1.8rem; font-weight:900; color:#e65100; margin:6px 0;">
+                Score: <span id="scorecardScore">0</span>
+            </div>
+
+            <div class="badge-list" id="scorecardBadges">
+                <span class="award-badge">🎖️ Grammar Explorer</span>
+                <span class="award-badge">⚡ Quick Thinker</span>
+                <span class="award-badge">✍️ Super Writer</span>
+            </div>
+
+            <p id="syncStatus" style="color:#78909c; font-style:italic; font-size:14px; margin: 4px 0 16px;">
+                Syncing with teacher's Google Sheet...
+            </p>
+
+            <div>
+                <button class="btn-action" style="background:#0288d1;" onclick="restartRound()">Play Again 🔄</button>
+                <button class="btn-action" style="background:#ff6d00;" onclick="exitToHome()">Change Class / Player 👤</button>
             </div>
         </div>
     </div>
 
     <script>
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        function playChime(freq, type, duration, delay = 0, volume = 0.15) {
+        /* ================= Web Audio Synthesizer (No External Files) ================= */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundToggle');
+            btn.innerText = soundEnabled ? '🔊' : '🔇';
+            btn.title = soundEnabled ? 'Sound is ON' : 'Sound is OFF';
+        }
+
+        function playSynthBeep(freq, type, duration, delay = 0, volume = 0.12) {
+            if (!soundEnabled) return;
             setTimeout(() => {
                 try {
-                    if (audioContext.state === 'suspended') audioContext.resume();
-                    const osc = audioContext.createOscillator();
-                    const gain = audioContext.createGain();
+                    if (audioCtx.state === 'suspended') audioCtx.resume();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
                     osc.type = type;
-                    osc.frequency.setValueAtTime(freq, audioContext.currentTime);
-                    gain.gain.setValueAtTime(volume, audioContext.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
                     osc.connect(gain);
-                    gain.connect(audioContext.destination);
+                    gain.connect(audioCtx.destination);
                     osc.start();
-                    osc.stop(audioContext.currentTime + duration);
+                    osc.stop(audioCtx.currentTime + duration);
                 } catch(e) {}
             }, delay * 1000);
         }
 
-        const Sound = {
-            tap() { playChime(480, 'sine', 0.08, 0, 0.1); },
+        const SFX = {
+            tap() { playSynthBeep(480, 'sine', 0.07, 0, 0.08); },
             correct() {
-                playChime(523.25, 'triangle', 0.14, 0);     // C5
-                playChime(659.25, 'triangle', 0.14, 0.08);  // E5
-                playChime(783.99, 'triangle', 0.16, 0.16);  // G5
-                playChime(1046.50, 'triangle', 0.35, 0.24); // C6
+                playSynthBeep(523.25, 'triangle', 0.12, 0);     // C5
+                playSynthBeep(659.25, 'triangle', 0.12, 0.08);  // E5
+                playSynthBeep(783.99, 'triangle', 0.15, 0.16);  // G5
+                playSynthBeep(1046.50, 'triangle', 0.28, 0.24); // C6
             },
             wrong() {
-                playChime(240, 'sawtooth', 0.22, 0, 0.15);
-                playChime(190, 'sawtooth', 0.35, 0.14, 0.15);
+                playSynthBeep(240, 'sawtooth', 0.2, 0, 0.14);
+                playSynthBeep(190, 'sawtooth', 0.3, 0.14, 0.14);
             },
             combo() {
-                playChime(587.33, 'square', 0.1, 0, 0.08);
-                playChime(880.00, 'square', 0.12, 0.08, 0.08);
-                playChime(1174.66, 'square', 0.25, 0.16, 0.08);
+                playSynthBeep(587.33, 'square', 0.1, 0, 0.07);
+                playSynthBeep(880.00, 'square', 0.12, 0.08, 0.07);
+                playSynthBeep(1174.66, 'square', 0.25, 0.16, 0.07);
             },
-            bossTrumpet() {
+            boss() {
                 [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, idx) => {
-                    playChime(f, 'triangle', 0.4, idx * 0.12, 0.2);
+                    playSynthBeep(f, 'triangle', 0.35, idx * 0.11, 0.18);
                 });
             }
         };
 
-        const canvas = document.getElementById('confettiCanvas');
-        const ctx = canvas.getContext('2d');
+        /* ================= Confetti Engine ================= */
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const cCtx = confettiCanvas.getContext('2d');
         let particles = [];
 
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', setCanvasSize);
-        setCanvasSize();
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
 
-        function blastConfetti(count = 70) {
+        function fireConfetti(count = 60) {
             particles = [];
-            const hues = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800', '#00e676'];
+            const palette = ['#f44336', '#e91e63', '#9c27b0', '#2196f3', '#4caf50', '#ffeb3b', '#ff9800', '#00e676'];
             for (let i = 0; i < count; i++) {
                 particles.push({
                     x: window.innerWidth * 0.5,
@@ -526,100 +840,72 @@
                     vx: (Math.random() - 0.5) * 18,
                     vy: (Math.random() - 0.85) * 18,
                     size: Math.random() * 8 + 6,
-                    color: hues[Math.floor(Math.random() * hues.length)],
-                    angle: Math.random() * 360,
-                    spin: (Math.random() - 0.5) * 12
+                    color: palette[Math.floor(Math.random() * palette.length)],
+                    rot: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 12
                 });
             }
-            requestAnimationFrame(animateConfetti);
+            requestAnimationFrame(drawConfetti);
         }
 
-        function animateConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let alive = false;
+        function drawConfetti() {
+            cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            let active = false;
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 p.vy += 0.42; // Gravity
-                p.angle += p.spin;
-                if (p.y < canvas.height + 20) alive = true;
+                p.rot += p.rotSpeed;
+                if (p.y < confettiCanvas.height + 25) active = true;
 
-                ctx.save();
-                ctx.translate(p.x, p.y);
-                ctx.rotate((p.angle * Math.PI) / 180);
-                ctx.fillStyle = p.color;
-                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
-                ctx.restore();
+                cCtx.save();
+                cCtx.translate(p.x, p.y);
+                cCtx.rotate((p.rot * Math.PI) / 180);
+                cCtx.fillStyle = p.color;
+                cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+                cCtx.restore();
             });
-            if (alive) requestAnimationFrame(animateConfetti);
-            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (active) requestAnimationFrame(drawConfetti);
+            else cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
 
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOi2QGNdogGvwGZxBhivuD816CjWxJhw2SNQENT0GPBDY4lwY6Fx8EmHb1Mn-rH730/exec";
+        /* ================= 100 Progressive Level Curriculum Generator ================= */
+        function build100Curriculum(year) {
+            const isLower = (year <= 3);
 
-        const STUDENT_DATABASE = [
-            // Year 1
-            {n:"ABDUL RAYYAN MIKAIL BIN ABDUL RASHID", c:"1 AL BIRUNI"},{n:"AHMAD DANISH AQEEL BIN AHMAD BARDAIN", c:"1 AL BIRUNI"},{n:"KHALISH NAUFAL BIN KHAIRUL ARMAN", c:"1 AL BIRUNI"},{n:"MOHAMAD AMMAR IRFAN BIN MOHAMAD SYARAFUDDIN", c:"1 AL BIRUNI"},{n:"MOHAMAD ZULFAN NAIM KHALISH BIN MOHD ZULKARNAIN", c:"1 AL BIRUNI"},{n:"MUHAMAD AFEEF ILYAS BIN MUHAMAD GHADAFFI", c:"1 AL BIRUNI"},{n:"MUHAMAD NAQIB RASYDAN BIN MOHAMAD RASYID", c:"1 AL BIRUNI"},{n:"MUHAMMAD ADYAN NAUFAL BIN ABDUL HANIF", c:"1 AL BIRUNI"},{n:"MUHAMMAD AISY FIRDAUS BIN MUHAMAAD FITRI", c:"1 AL BIRUNI"},{n:"MUHAMMAD DAYYAN ZAFFRAN BIN ABDULLAH", c:"1 AL BIRUNI"},{n:"MUHAMMAD FIRAS RIZQI BIN MUHD FADZLI", c:"1 AL BIRUNI"},{n:"MUHAMMAD IRFAN NAUFAL BIN MUHAMMAD ILYAS", c:"1 AL BIRUNI"},{n:"MUHAMMAD NUH RIFQI BIN AHMAD BAZLI", c:"1 AL BIRUNI"},{n:"MUHAMMAD RIZWAN HAQIMIE BIN ABDUL MUZIL", c:"1 AL BIRUNI"},{n:"MUHAMMAD UMAR AL-KHATTAB BIN MUHAMMAD FIRDAUS", c:"1 AL BIRUNI"},{n:"MUHAMMAD UMAR SHARIF BIN ZUL", c:"1 AL BIRUNI"},{n:"WAN MUHAMMAD AMZAR BIN WAN AZMAN", c:"1 AL BIRUNI"},{n:"ALYA ADRIANA BINTI MOHD RIZUAN", c:"1 AL BIRUNI"},{n:"HANA MEDINA BINTI MOHD. AIMAN NURHAKIM", c:"1 AL BIRUNI"},{n:"KYAYRA NADEERA HAURA BINTI MOHAMAD KHAIRUL NIZAM", c:"1 AL BIRUNI"},{n:"NAURA AISYAH BINTI MOHD ASRI", c:"1 AL BIRUNI"},{n:"NOR AIRA JANNAH BINTI MOHD ASNAWI", c:"1 AL BIRUNI"},{n:"NUR AAIRA QAISARA BINTI MOHD RIZAL", c:"1 AL BIRUNI"},{n:"NUR AIRA AMANI BINTI ALIAS", c:"1 AL BIRUNI"},{n:"NUR ASSYIFA HANEEM BINTI MOHD IKBAL HAKIM", c:"1 AL BIRUNI"},{n:"NUR AYRA AISYAH BINTI MOHD KHAIRI", c:"1 AL BIRUNI"},{n:"NUR FATHIA NAYLA BINTI MUHAMMAD YUSRI", c:"1 AL BIRUNI"},{n:"NUR HUMAIRA BINTI MUHD LUQMAN", c:"1 AL BIRUNI"},{n:"NUR JASMINE HANA MEDINA BINTI HIZWAN FAZRI", c:"1 AL BIRUNI"},{n:"NUR QALESYA BINTI YUSOF", c:"1 AL BIRUNI"},{n:"NUR SOFEA MEDINA BINTI MOHD SYUFIAN", c:"1 AL BIRUNI"},{n:"NURDIYANA AWFIYAH BINTI ZULKIFLI", c:"1 AL BIRUNI"},{n:"PUTERI EILYANA BINTI MUHAMMAD SHAFID", c:"1 AL BIRUNI"},{n:"ROS AMIRA SAFIYA BINTI ABDULLAH", c:"1 AL BIRUNI"},{n:"SITI SABARISHA BINTI MOHD SALEH", c:"1 AL BIRUNI"},{n:"SITI NORAAFIYAH INSYIRAH BT ABU HASSAN", c:"1 AL BIRUNI"},
-            {n:"ADAM DANIEL BIN MOHD SUKRI", c:"1 AL FARABI"},{n:"DANIAL NUQMAN BIN ABDUL HANIF SAFWAN", c:"1 AL FARABI"},{n:"MOHAMAD MIQAEL BIN MOHAMAD FAIZIE", c:"1 AL FARABI"},{n:"MOHAMAD ZULFAQAR BIN MOHAMAD NAKIAH", c:"1 AL FARABI"},{n:"MUHAMAD ANAS MIKAIL BIN MUHAMAD NASSRUDIN", c:"1 AL FARABI"},{n:"MUHAMMAD ADAM BIN ABDUL RAUFF", c:"1 AL FARABI"},{n:"MUHAMMAD ALIFF NAUFAL BIN ZULNIZAN", c:"1 AL FARABI"},{n:"MUHAMMAD AQIB BIN MOHD ZAMZIRO", c:"1 AL FARABI"},{n:"MUHAMMAD ELMAN AUS BIN MOHD ADILA", c:"1 AL FARABI"},{n:"MUHAMMAD IMAN NAUFAL BIN ABDUL FATTAH", c:"1 AL FARABI"},{n:"MUHAMMAD IZZ AYAAZ BIN MOHD NAZARUDI", c:"1 AL FARABI"},{n:"MUHAMMAD SYAKIR NASRAN BIN MUHAMAD SHAZUAN", c:"1 AL FARABI"},{n:"NOAH MIQAEL BIN MOHAMMAD KHAIRIL MUZAFFAR", c:"1 AL FARABI"},{n:"NOR AISY ZUFAR BIN NOR ZULHAIRIE", c:"1 AL FARABI"},{n:"NUR MUHAMMAD AAFI MUSLIM BIN ARIF FADILLAH", c:"1 AL FARABI"},{n:"WAN MUHAMMAD HARITH BIN WAN MOHD FAHMI NASRI", c:"1 AL FARABI"},{n:"ZAYYAN AAKIF BIN MOHAMAD ZULAZLAN", c:"1 AL FARABI"},{n:"ADRIANA AMANDA A/P JEFFRY", c:"1 AL FARABI"},{n:"ATHIA ZARA BINTI MOHD ZAKI", c:"1 AL FARABI"},{n:"HAURA HASNA BINTI MOHD SHASRUL HASRA", c:"1 AL FARABI"},{n:"MARYAM FATHIYYAH BINTI ABD ZUKHRUFUDDIN", c:"1 AL FARABI"},{n:"NIA QALESYA BINTI MOHAMAD AZWAN IFRAM", c:"1 AL FARABI"},{n:"NOOR SYAFILA NATASYA BINTI ABD MALIK", c:"1 AL FARABI"},{n:"NUR AFEEYA FAQIHAH BINTI MOHAMAD FARID", c:"1 AL FARABI"},{n:"NUR AIREEN MEDINA BINTI AHMAD AIZAT", c:"1 AL FARABI"},{n:"NUR ATIYA AILEEN BINTI MOHD SOBRE", c:"1 AL FARABI"},{n:"NUR AZZAHRA SAFIYYAH BINTI MOHD SIDEK", c:"1 AL FARABI"},{n:"NUR FATIHAH AMALIA BINTI MOHD ROSNI", c:"1 AL FARABI"},{n:"NUR HUMAIRA BINTI ABDUL MUEIZ", c:"1 AL FARABI"},{n:"NUR QISYA ZAHRA BINTI ROIS", c:"1 AL FARABI"},{n:"NUR SYAHIRAH SOLEHAH BINTI BADRUL HISYAM", c:"1 AL FARABI"},{n:"NURIN AMNA HUWAIDA BINTI MOHD ROKMAN", c:"1 AL FARABI"},{n:"QHADEEJA AINNUR MEDINA BINTI ANWAR SHAFIQ", c:"1 AL FARABI"},{n:"SITI AFIA MIKAYLA BINTI SH.FIZULREZUAN", c:"1 AL FARABI"},{n:"TENGKU TEH ANNISAA BINTI TENGKU MOHD IKMAN HANIFF", c:"1 AL FARABI"},{n:"WAN AISYAH NABILAH BINTI WAN MOHAMAD HAFIQ", c:"1 AL FARABI"},{n:"WAN IMAN SAFA BINTI WAN MOHAMMAD SHUKRI", c:"1 AL FARABI"},
-            {n:"ADAM MUQRI BIN MOHD ZAIMI", c:"1 AL KINDI"},{n:"AHMAD NAUFAL BIN AHMAD NASRI", c:"1 AL KINDI"},{n:"AR RAYYAN MAULANA BIN ABDUL SALAM", c:"1 AL KINDI"},{n:"MOHAMAD PUTERA RAMADHAN BIN ASRAH @ SHAFIE", c:"1 AL KINDI"},{n:"MOHAMMAD HAFIZOL BIN MOHD SHAIFUDDIN", c:"1 AL KINDI"},{n:"MUHAMAD ANAS MIKHAIL BIN ABDULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD ADAM FARIS BIN MUHAMMAD JEFRI", c:"1 AL KINDI"},{n:"MUHAMMAD AIDAN KHALISH BIN MOHD WAN ABDUL WAHAB", c:"1 AL KINDI"},{n:"MUHAMMAD ALIF AIDAN BIN MPHD AIMAN", c:"1 AL KINDI"},{n:"MUHAMMAD AZRAIKAL BIN MOHD AFFENDI", c:"1 AL KINDI"},{n:"MUHAMMAD FARHAN DANISH BIN MOHD FAIRUZ", c:"1 AL KINDI"},{n:"MUHAMMAD HAYYAN BIN MOHD HIDAYATULLAH", c:"1 AL KINDI"},{n:"MUHAMMAD KHAZEEN BIN MUHAMMAD FADHIL", c:"1 AL KINDI"},{n:"MUHAMMAD RIDHWAN BIN MOHD ASRI", c:"1 AL KINDI"},{n:"MUHAMMAD SYAZWAN HAIKAL BIN YAHYA", c:"1 AL KINDI"},{n:"NASHRULLAH WAFI BIN MOHD KHAIRULDDIN", c:"1 AL KINDI"},{n:"NIK MUHAMMAD AMJAD BIN NIK MOHD ARIF", c:"1 AL KINDI"},{n:"YURI BIN MOHD YUNUS", c:"1 AL KINDI"},{n:"AMIRA SYAFIRA BINTI UMAR", c:"1 AL KINDI"},{n:"CHE UMMIE SAIDATUL AMINAH BINTI CHE ANUAR", c:"1 AL KINDI"},{n:"DEANDRA NUR AMMARA BINTI DANISH BAARATHMOGAN", c:"1 AL KINDI"},{n:"INARA NUR AYESHA BINTI CHE MOHD FISWAN", c:"1 AL KINDI"},{n:"MARYAM NUR MEDINA BINTI ABU BAKAR", c:"1 AL KINDI"},{n:"NOOR IZZARA IMELDA BINTI MOHD SAFWAN SARIY", c:"1 AL KINDI"},{n:"NOR HANA SOFEA BINTI FADZLI SHAH", c:"1 AL KINDI"},{n:"NUR AFEEYA HUMAIRA BINTI MUHAMMAD ABRAR", c:"1 AL KINDI"},{n:"NUR ALYA FARISHA BINTI MOHD FAIZ", c:"1 AL KINDI"},{n:"NUR ATIYA HUMAIRA BINTI MAT YASIN", c:"1 AL KINDI"},{n:"NUR DAYANA HAZWANI BINTI MOHD SHADAT", c:"1 AL KINDI"},{n:"NUR HANA WARDINA BINTI MOHD KHAIRUL MUZZAMIR", c:"1 AL KINDI"},{n:"NUR NADIA BINTI YAAKUB", c:"1 AL KINDI"},{n:"NUR NAYLA QAISARA BINTI MOHD HAFIZ", c:"1 AL KINDI"},{n:"NUR RAYSHA RANIA BINTI MOHD QATAMAN", c:"1 AL KINDI"},{n:"NUR WIDAD SAFIYA BINTI KHAIRUL IZAT", c:"1 AL KINDI"},{n:"NURUL RAISHA RABIATUL ADAWIYAH BINTI KHOSIM", c:"1 AL KINDI"},{n:"RAJA NOR AMANDA AQILAH BINTI RAJA MOHAMAD AZLAN", c:"1 AL KINDI"},{n:"SITI NORAIN ASYIQIN BINTI ABDUL HAFIZ", c:"1 AL KINDI"},{n:"NUR INARA HUSNA BINTI MOHD FIRDAUS", c:"1 AL KINDI"},
-            {n:"AMAR AUS BIN MOHD EMMAR ZAMSHAH", c:"1 AL RAZI"},{n:"CHE WAN AHMAD AYDAN ZHARIF BIN CHE WAN MOHD FIRDAUS", c:"1 AL RAZI"},{n:"MOHAMAD ZULFAHMI BIN MOHAMAD ZULFADELI", c:"1 AL RAZI"},{n:"MOHAMMAD IAN RIZQI BIN MOHAMAD IMAN FAIZ", c:"1 AL RAZI"},{n:"MUHAMAD ANIQ RAFIQI BIN MUHAMAD RAHMAN", c:"1 AL RAZI"},{n:"MUHAMMAD ADAM FIRAS BIN SAMSUDIN", c:"1 AL RAZI"},{n:"MUHAMMAD AFIQ DHANNI BIN ABDUL AZHIM", c:"1 AL RAZI"},{n:"MUHAMMAD AZZAM SYAREEF BIN MOHAMAD ASYRAF", c:"1 AL RAZI"},{n:"MUHAMMAD FATEH HILMAN BIN MOHD ARIS", c:"1 AL RAZI"},{n:"MUHAMMAD HANIF MIKAIL BIN MUHAMAD HAKIMI", c:"1 AL RAZI"},{n:"MUHAMMAD ILHAN EQBAL BIN AHMAD", c:"1 AL RAZI"},{n:"MUHAMMAD LUTH RIZQI BIN AHMAD BAZLI", c:"1 AL RAZI"},{n:"MUHAMMAD RIFFQIE ARFAN BIN MOHD KHAIRUL IEZWAN", c:"1 AL RAZI"},{n:"MUHAMMAD SYAQIF AMMAR BIN SAIMI", c:"1 AL RAZI"},{n:"MUHAMMAD UMAR BIN MOHD ADIB", c:"1 AL RAZI"},{n:"MUHAMMAD ZARIF AZIZ BIN MOHD ZAMRI", c:"1 AL RAZI"},{n:"WAN MUHAMMAD AMMAR IRFAN BIN WAN MOHD ARIF AMIRUDDIN", c:"1 AL RAZI"},{n:"WA'QEEL ALTHAF BIN MOHAMAD EFFENDI", c:"1 AL RAZI"},{n:"AISYA AFIA BINTI MUHAMMAD AMIR", c:"1 AL RAZI"},{n:"ARWA ALESYA NURZAHRA BINTI MOHD KHAIRI AZLI", c:"1 AL RAZI"},{n:"DHIA AULIYA BINTI MUHAMAD TAQIYUDDIN", c:"1 AL RAZI"},{n:"MARYAM SYAFIRA BINTI MOHAMAD KHAIRUL HAFIZ", c:"1 AL RAZI"},{n:"NIK NUR HUSNA BINTI MUHAMAD SHAHARUDDIN", c:"1 AL RAZI"},{n:"NOR ZAHIRA AQILAH BINTI ZULKIFLI", c:"1 AL RAZI"},{n:"NUR AFRINA RAISYA BINTI OTHMAN", c:"1 AL RAZI"},{n:"NUR ASSYIFA HANAN BINTI MOHD IKBAL HAKIM", c:"1 AL RAZI"},{n:"NUR AULIYA HAURA BINTI AZLAN", c:"1 AL RAZI"},{n:"NUR DHAFWATUL AISY HAYANI BINTI ROAZAMI", c:"1 AL RAZI"},{n:"NUR HAURA' HUMAIRAA BINTI MOHD FADZIRUL EAFFENDY", c:"1 AL RAZI"},{n:"NUR INARA HANA BINTI MOHD FIRDAUS", c:"1 AL RAZI"},{n:"NUR IZARA RAISHA BINTI MOHD NIZAM FAZRUL", c:"1 AL RAZI"},{n:"NUR NAIRA AQILA BINTI MUHAMMAD KHAIRUL NIZAM", c:"1 AL RAZI"},{n:"NUR SARA MIKAYLA BINTI MUHAMMAD IKHTIYARUDDIN BAKHTIAR", c:"1 AL RAZI"},{n:"NUR ZAHRA SOFFIA BINTI AZHAR", c:"1 AL RAZI"},{n:"PUTERI ANGGUN ZENIA BINTI ZULHELMI", c:"1 AL RAZI"},{n:"SHAHEEN IMANI BINTI MD YASROL", c:"1 AL RAZI"},{n:"SITI RAWDHA ALFIA BINTI MOHD YUSDY BULHAQS", c:"1 AL RAZI"},{n:"TUAN AYRA MIKAYLA BINTI TUAN SHAMSUDIN", c:"1 AL RAZI"},
-
-            // Year 2 to 6 Sample (Representative subset with matching classes)
-            {n:"ARIIQ MIKAIL BIN MOHD HERISAH", c:"2 AL BIRUNI"},{n:"HANNAH HASEENA BINTI HASWAWI", c:"2 AL BIRUNI"},{n:"ABDULLAH AMMAR BIN AHMAD KAMIL HAFIZ", c:"2 AL FARABI"},{n:"AHMAD DANISH RAYYAN BIN ABDUL KARIM", c:"2 AL KINDI"},{n:"AFEEF HARIS BIN ANUAR", c:"2 AL RAZI"},
-            {n:"FAYYAD IFFAT BIN FAIYRUL", c:"3 AL BIRUNI"},{n:"ABU HAZIQ HUZAIFAH BIN ABU HURAIRAH", c:"3 AL FARABI"},{n:"AHMAD MUAYYAD BIN MANSOR MAJDI", c:"3 AL KINDI"},{n:"AMSYAR RAFIQI BIN ZAHARI", c:"3 AL RAZI"},
-            {n:"DANIAL NAUFAL BIN ABDUL HANIF SAFWAN", c:"4 AL BIRUNI"},{n:"ABDULLAH KASYAF BIN MOHD SUHAIMI", c:"4 AL FARABI"},{n:"AHMAD ANEEQ FIRMAN BIN MOHD RAZDI", c:"4 AL KINDI"},
-            {n:"AHMAD ALIF NAZRULLAH BIN MOHD KHAIRI AZLI", c:"5 AL BIRUNI"},{n:"AAKIF ZAFWAN BIN ABDULLAH", c:"5 AL FARABI"},{n:"AHMAD DANIAL HAZEEQ BIN AHMAD BARDAIN", c:"5 AL KINDI"},
-            {n:"ATIQURRAHMAN BIN MOHD YUSOFF", c:"6 AL BIRUNI"},{n:"ARMAAN YOUSSEF BIN AMIRUDDIN", c:"6 AL FARABI"},{n:"AMMAR ZIQRI BIN ZAHARI", c:"6 AL KINDI"}
-        ];
-
-        // Comprehensive syntactic generator that deterministically constructs 100 unique, strictly distinct levels
-        function generate100LevelsForYear(year) {
-            const levels = [];
-
-            // Tier Definitions across 100 levels:
-            // L1 - L25 : 3-Part (Subject, Verb, Object/Complement)
-            // L26 - L55: 4-Part (Subject, Verb, Object, Adverbial of Time/Place/Manner)
-            // L56 - L80: 5-Part (Complex/Compound with Conjunctions, Adjectives, Adverbs)
-            // L81 - L99: High-Order Multi-clause & Prepositional Structures
-            // L100     : Ultimate Boss Challenge (Guided Story for Y1-3, Email/Story for Y4-6)
-
-            const subjectsY13 = [
-                "My caring mother", "The active boy", "A clever pupil", "Uncle Rosli",
-                "The fluffy white cat", "Our gentle teacher", "Pak Cik Hassan", "The cheerful girl",
-                "Two playful monkeys", "A little brown dog", "My older brother", "A green frog",
+            // Pool sets for Lower Primary (Years 1 - 3)
+            const subY13 = [
+                "My loving mother", "The active boy", "A clever pupil", "Uncle Rosli",
+                "The fluffy kitten", "Our gentle teacher", "Pak Cik Hassan", "The cheerful girl",
+                "Two playful monkeys", "A little brown puppy", "My elder brother", "A green frog",
                 "The polite prefect", "The kind nurse", "A hungry rabbit", "My dear grandmother",
-                "The fast runner", "A colorful parrot", "Our friendly neighbor", "The tall policeman",
-                "Cousin Daniel", "The stray kitten", "The quiet student", "A wise owl", "The swift deer"
+                "The fast athlete", "A colorful parrot", "Our friendly neighbor", "The tall policeman",
+                "Cousin Daniel", "The stray cat", "The quiet student", "A wise owl", "The swift deer"
             ];
-
-            const verbsY13 = [
+            const vrbY13 = [
                 "bakes", "eats", "reads", "cleans", "waters", "draws", "brushes", "catches",
                 "washes", "feeds", "collects", "kicks", "carries", "opens", "writes",
                 "buys", "finds", "fixes", "paints", "hugs", "plants", "observes", "protects", "serves", "shares"
             ];
-
-            const objectsY13 = [
+            const objY13 = [
                 "fresh red apples", "a picture book", "the wooden table", "blooming flowers", "a glass of milk",
                 "colourful butterflies", "a bright blue shirt", "tasty chocolate muffins", "a football", "his pet fish",
                 "crispy curry puffs", "a handwritten letter", "ripe yellow bananas", "warm mushroom soup", "a storybook",
                 "the garden vegetables", "a new bicycle", "a paper boat", "sweet honeydew melon", "the front porch",
                 "a warm blanket", "colourful crayons", "a heavy backpack", "delicious nasi lemak", "a tall tree"
             ];
-
-            const adverbsY13 = [
+            const advY13 = [
                 "every single morning", "in the living room", "behind the school canteen", "very neatly",
                 "under the leafy tree", "after school hours", "with a bright smile", "at the public playground",
                 "during the weekend", "inside the kitchen", "near the clear river", "at the quiet library",
                 "before bedtime", "on the front lawn", "very cheerfully", "with great care",
                 "beside his best friend", "during recess time", "around the garden", "at the pet shop",
-                "in the sunny yard", "with warm milk", "without any sound", "before dinner", "outside the house",
-                "near the wooden gate", "inside the classroom", "with lots of joy", "every Saturday", "at five o'clock"
+                "in the sunny yard", "with warm milk", "without any sound", "before dinner", "outside the house"
             ];
+            const conjY13 = ["because", "although", "so that", "while", "and therefore"];
 
-            const conjunctionsY13 = ["because", "although", "so that", "and therefore", "while"];
-
-            // Vocabularies tailored for Upper Primary (Year 4 - 6)
-            const subjectsY46 = [
+            // Pool sets for Upper Primary (Years 4 - 6)
+            const subY46 = [
                 "The proactive environmentalists", "Malaysian scientists", "Dedicated healthcare frontliners", "Our visionary headmaster",
                 "Cautious motorists", "The creative robotic engineers", "Youth volunteer societies", "The state debate champions",
                 "Forest conservation rangers", "Compassionate charity workers", "Responsible digital citizens", "The local town council",
@@ -627,8 +913,7 @@
                 "Inspiring national athletes", "Experienced marine biologists", "The disaster response committee", "The consumer protection board",
                 "Passionate history teachers", "Innovative software coders", "The organic farming collective", "Brave emergency rescue teams", "Local artisan craftsmen"
             ];
-
-            const verbsY46 = [
+            const vrbY46 = [
                 "systematically implemented", "actively promoted", "strictly enforce", "advocate for",
                 "tirelessly rehabilitated", "comprehensively investigated", "enthusiastically presented", "cautiously monitored",
                 "regularly broadcast", "skillfully restored", "urgently appealed for", "consistently maintain",
@@ -636,8 +921,7 @@
                 "diligently cultivated", "innovatively revolutionized", "rigorously evaluated", "thoughtfully designed",
                 "openly encouraged", "judiciously distributed", "earnestly spearheaded", "harmoniously united", "critically analyzed"
             ];
-
-            const objectsY46 = [
+            const objY46 = [
                 "stringent traffic safety regulations", "sustainable eco-friendly solutions", "endangered tropical wildlife habitats", "modern smart recycling facilities",
                 "balanced nutritional dietary habits", "traditional cultural craftsmanship", "advanced artificial intelligence software", "essential relief supplies",
                 "youth financial literacy workshops", "clean renewable solar installations", "safe public transportation routes", "historical national archives",
@@ -645,18 +929,15 @@
                 "high-standard hygienic conditions", "scientific agricultural breakthroughs", "civic responsibilities and virtues", "authentic regional literature",
                 "reliable energy efficiency devices", "positive mental wellness habits", "modern medical diagnostic systems", "sustainable organic irrigation methods", "endangered turtle sanctuary grounds"
             ];
-
-            const adverbsY46 = [
+            const advY46 = [
                 "throughout the neighboring districts", "in order to inspire the community", "with extraordinary perseverance", "during the national awareness campaign",
                 "without compromising ecological harmony", "across various public platforms", "to minimize carbon footprints", "under rigorous scientific standards",
                 "to empower future generations", "at the state convention center", "despite unpredictable weather conditions", "to prevent serious accidents",
                 "in accordance with international guidelines", "to assist underprivileged families", "with undeniable dedication and passion", "through practical collaborative efforts",
                 "around the Clock Tower square", "along coastal mangrove estuaries", "during peak rush hours", "for sustainable community development",
-                "with immediate and tangible results", "inside modern educational laboratories", "across remote rural communities", "to promote civic unity", "for the welfare of society",
-                "with utmost diligence and integrity", "during international cultural summits", "at every critical juncture", "under proper governmental oversight", "to preserve native heritage"
+                "with immediate and tangible results", "inside modern educational laboratories", "across remote rural communities", "to promote civic unity", "for the welfare of society"
             ];
-
-            const conjClausesY46 = [
+            const clausesY46 = [
                 "because they value sustainable living",
                 "although unforeseen challenges emerged suddenly",
                 "so that future generations will thrive",
@@ -665,124 +946,121 @@
                 "even though modern technologies are complex"
             ];
 
-            const isLower = (year <= 3);
-            const subPool = isLower ? subjectsY13 : subjectsY46;
-            const vrbPool = isLower ? verbsY13 : verbsY46;
-            const objPool = isLower ? objectsY13 : objectsY46;
-            const advPool = isLower ? adverbsY13 : adverbsY46;
+            const poolS = isLower ? subY13 : subY46;
+            const poolV = isLower ? vrbY13 : vrbY46;
+            const poolO = isLower ? objY13 : objY46;
+            const poolA = isLower ? advY13 : advY46;
 
-            // Generate levels 1 to 99 strictly without repeating
+            const levels = [];
+
+            // Generate levels 1 to 99 with guaranteed non-overlapping sentences
             for (let lvl = 1; lvl <= 99; lvl++) {
-                const s = subPool[(lvl * 3 + 2) % subPool.length];
-                const v = vrbPool[(lvl * 7 + 1) % vrbPool.length];
-                const o = objPool[(lvl * 5 + 4) % objPool.length];
+                const s = poolS[(lvl * 3 + year) % poolS.length];
+                const v = poolV[(lvl * 7 + year * 2) % poolV.length];
+                const o = poolO[(lvl * 5 + year * 3) % poolO.length];
 
                 if (lvl <= 25) {
-                    // 3-Part: S + V + C
+                    // Level 1 - 25: 3 Slots (Subject + Verb + Complement / Object)
                     levels.push({
                         level: lvl,
                         tier: "Novice (3 Parts)",
-                        instruction: "Arrange the 3 parts in standard Subject + Verb + Complement order.",
+                        instruction: "Put the 3 cards in order: Subject + Verb + Complement.",
                         type: "standard",
                         parts: [
-                            { id: 'part-s', txt: s, label: 'Subject' },
-                            { id: 'part-v', txt: v, label: 'Verb' },
-                            { id: 'part-c', txt: o, label: 'Complement / Object' }
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Complement' }
                         ]
                     });
                 } else if (lvl <= 55) {
-                    // 4-Part: S + V + O + Adverbial (Time/Place/Manner)
-                    const adv = advPool[(lvl * 11 + 3) % advPool.length];
+                    // Level 26 - 55: 4 Slots (Subject + Verb + Object + Place/Time/Manner)
+                    const adv = poolA[(lvl * 11 + year) % poolA.length];
                     levels.push({
                         level: lvl,
                         tier: "Intermediate (4 Parts)",
-                        instruction: "Construct an expanded sentence with Subject, Verb, Object, and Adverbial modifier.",
+                        instruction: "Construct the sentence: Subject + Verb + Object + Adverbial modifier.",
                         type: "standard",
                         parts: [
-                            { id: 'part-s', txt: s, label: 'Subject' },
-                            { id: 'part-v', txt: v, label: 'Verb' },
-                            { id: 'part-c', txt: o, label: 'Object' },
-                            { id: 'part-adv', txt: adv, label: 'Place / Time / Manner' }
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Object' },
+                            { id: 'adv', txt: adv, label: 'Time / Place / Manner' }
                         ]
                     });
                 } else if (lvl <= 80) {
-                    // 5-Part: Conjunction / Dependent clause integration
-                    const adv = advPool[(lvl * 2 + 5) % advPool.length];
-                    const conj = isLower 
-                        ? conjunctionsY13[lvl % conjunctionsY13.length]
-                        : "because";
-                    const secondCl = isLower 
-                        ? "everyone cheered excitedly" 
-                        : "it protects the environment";
+                    // Level 56 - 80: 5 Slots (Compound sentences with conjunctions)
+                    const adv = poolA[(lvl * 2 + 5) % poolA.length];
+                    const conj = isLower ? conjY13[lvl % conjY13.length] : "because";
+                    const secondClause = isLower ? "everyone cheered with delight" : "it protects local natural resources";
 
                     levels.push({
                         level: lvl,
                         tier: "Advanced Compound (5 Parts)",
-                        instruction: "Assemble the compound sentence using the coordinating connector.",
+                        instruction: "Connect the two clauses using the appropriate conjunction.",
                         type: "standard",
                         parts: [
-                            { id: 'part-s', txt: s, label: 'Main Subject' },
-                            { id: 'part-v', txt: v, label: 'Verb' },
-                            { id: 'part-c', txt: o, label: 'Direct Object' },
-                            { id: 'part-conj', txt: conj, label: 'Conjunction' },
-                            { id: 'part-clause', txt: secondCl, label: 'Dependent Clause' }
+                            { id: 's', txt: s, label: 'Main Subject' },
+                            { id: 'v', txt: v, label: 'Verb' },
+                            { id: 'c', txt: o, label: 'Direct Object' },
+                            { id: 'conj', txt: conj, label: 'Conjunction' },
+                            { id: 'rel', txt: secondClause, label: 'Joined Clause' }
                         ]
                     });
                 } else {
-                    // 81 - 99: High-Order Multi-clause Syntactic Mastery
-                    const adv = advPool[(lvl * 4 + 7) % advPool.length];
-                    const complexClause = isLower 
-                        ? "while the warm sun shone brightly" 
-                        : conjClausesY46[lvl % conjClausesY46.length];
+                    // Level 81 - 99: Master Complex Clauses (5 parts)
+                    const adv = poolA[(lvl * 4 + 7) % poolA.length];
+                    const extraClause = isLower
+                        ? "while the bright sun shone over the field"
+                        : clausesY46[lvl % clausesY46.length];
 
                     levels.push({
                         level: lvl,
-                        tier: "Master Syntactic Architect (5 Parts)",
-                        instruction: "Mastery sentence with adverbial prepositional clause!",
+                        tier: "Mastery Syntactic (5 Parts)",
+                        instruction: "Order the complex sentence with relative and adverbial structures.",
                         type: "standard",
                         parts: [
-                            { id: 'part-s', txt: s, label: 'Subject' },
-                            { id: 'part-v', txt: v, label: 'Predicate Verb' },
-                            { id: 'part-c', txt: o, label: 'Complemented Object' },
-                            { id: 'part-adv', txt: adv, label: 'Context Adverbial' },
-                            { id: 'part-clause', txt: complexClause, label: 'Relative Clause' }
+                            { id: 's', txt: s, label: 'Subject' },
+                            { id: 'v', txt: v, label: 'Action Verb' },
+                            { id: 'c', txt: o, label: 'Complemented Object' },
+                            { id: 'adv', txt: adv, label: 'Context Adverbial' },
+                            { id: 'rel', txt: extraClause, label: 'Subordinate Clause' }
                         ]
                     });
                 }
             }
 
-            // LEVEL 100: ULTIMATE BOSS CHALLENGE!
+            // LEVEL 100: Grand Boss Challenge
             if (isLower) {
-                // Year 1-3: Guided Writing Master Challenge (Chronological Story Construction)
+                // Year 1-3: Guided Writing Challenge (Story Sequencing)
                 levels.push({
                     level: 100,
-                    tier: "👑 Level 100 Guided Writing Boss!",
-                    instruction: "Arrange the chronological sequence to complete the guided story!",
-                    type: "boss-story",
-                    storyHeader: "Title: A Meaningful Gotong-Royong at Kampung Damai",
+                    tier: "👑 Level 100 Guided Story Boss!",
+                    instruction: "Arrange the chronological sequence to assemble the guided story!",
+                    type: "boss",
+                    storyHeader: "Topic: The Helpful Children of Kampung Sentosa",
                     parts: [
-                        { id: 'boss-line', txt: "1. Early last Saturday, the villagers gathered at the community hall with brooms and rakes.", label: "Beginning / Introduction" },
-                        { id: 'boss-line', txt: "2. First, the energetic men cleared the clogged drains and collected dried leaves.", label: "Sequencing Action (First)" },
-                        { id: 'boss-line', txt: "3. Meanwhile, the caring women prepared delicious fried noodles and cold syrup drinks.", label: "Middle Action (Meanwhile)" },
-                        { id: 'boss-line', txt: "4. By noon, the entire village was sparkling clean, safe, and pleasant.", label: "Resolution / Outcome" },
-                        { id: 'boss-line', txt: "5. Everyone felt truly proud because teamwork made the difficult chore enjoyable.", label: "Moral & Reflection" }
+                        { id: 'boss', txt: "1. Early last Saturday, the pupils gathered at the town park with rakes and trash bags.", label: "Beginning / Introduction" },
+                        { id: 'boss', txt: "2. First, they worked as a team to pick up empty plastic bottles along the path.", label: "First Sequence" },
+                        { id: 'boss', txt: "3. Next, the teacher helped them plant lovely blooming flower saplings.", label: "Second Sequence" },
+                        { id: 'boss', txt: "4. Soon, the entire public park looked pristine, tidy, and welcoming.", label: "Climax / Outcome" },
+                        { id: 'boss', txt: "5. Everyone smiled happily because their teamwork made their neighborhood beautiful.", label: "Ending & Reflection" }
                     ]
                 });
             } else {
-                // Year 4-6: Formal / Informal Email or Short Story Master Challenge
+                // Year 4-6: Email / Short Story Construction Challenge
                 levels.push({
                     level: 100,
                     tier: "👑 Level 100 Email & Story Architect!",
-                    instruction: "Arrange the complete structured email in professional format from Greeting to Sign-Off!",
-                    type: "boss-email",
-                    storyHeader: "Topic: Formal Email Requesting Permission for an Educational Earth Camp",
+                    instruction: "Arrange the structured email from Header & Salutation down to the Sign-Off!",
+                    type: "boss",
+                    storyHeader: "Topic: Formal Email Requesting Permission for an Eco-Camp",
                     parts: [
-                        { id: 'boss-line', txt: "Subject: Request for Approval to Organize an Environmental Camp at School", label: "Email Subject Header" },
-                        { id: 'boss-line', txt: "Dear Headmaster Encik Ridzuan,", label: "Formal Salutation" },
-                        { id: 'boss-line', txt: "I am writing on behalf of the Nature Club to seek your approval for a three-day Earth Awareness Camp.", label: "Purpose Statement / Opening" },
-                        { id: 'boss-line', txt: "The program aims to nurture environmental leadership through tree-planting, composting workshops, and river-cleaning drives.", label: "Body Paragraph / Objectives" },
-                        { id: 'boss-line', txt: "We have enclosed the full safety schedule and parent consent letters for your kind consideration.", label: "Enclosure & Logistics" },
-                        { id: 'boss-line', txt: "We eagerly look forward to receiving your favorable response. Thank you.", label: "Formal Sign-off & Closing" }
+                        { id: 'boss', txt: "Subject: Request for Permission to Host School Earth Camp 2026", label: "Email Subject Header" },
+                        { id: 'boss', txt: "Dear Headmaster Mr. Razak,", label: "Formal Salutation" },
+                        { id: 'boss', txt: "I am writing on behalf of the Nature Club to kindly request approval to organize our annual three-day eco-camp.", label: "Opening Purpose Statement" },
+                        { id: 'boss', txt: "The program includes tree-planting, composting workshops, and an interactive renewable energy exhibition for all students.", label: "Body Paragraph / Objectives" },
+                        { id: 'boss', txt: "We have finalized all necessary safety precautions and parental consent forms for your kind review.", label: "Logistics & Enclosure" },
+                        { id: 'boss', txt: "Thank you very much for your continuous guidance. Yours sincerely, The Nature Club Prefects.", label: "Formal Sign-Off & Closing" }
                     ]
                 });
             }
@@ -790,169 +1068,136 @@
             return levels;
         }
 
-        let currentStudent = null;
-        let currentYear = 1;
-        let activeLevelIndex = 0; // 0 to 99 corresponds to Level 1 to 100
-        let levelCurriculum = [];
+        /* ================= Global State Management ================= */
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOi2QGNdogGvwGZxBhivuD816CjWxJhw2SNQENT0GPBDY4lwY6Fx8EmHb1Mn-rH730/exec";
+
+        let selectedAvatar = "🐱";
+        let selectedYear = 1;
+        let playerName = "Player";
+        let currentYearLevels = [];
+        let currentLevelIdx = 0; // 0 to 99
         let lives = 3;
         let score = 0;
         let streak = 0;
         let timeLeft = 35;
         let timerInterval = null;
-        let userHighLevel = 1;
 
-        // Auto-load high level from localStorage if available
-        function getSavedProgress(studentName) {
-            try {
-                const saved = localStorage.getItem("dr_saufi_prog_" + studentName);
-                return saved ? parseInt(saved) : 1;
-            } catch(e) { return 1; }
-        }
+        // Avatar selector clicks
+        document.querySelectorAll('.avatar-option').forEach(el => {
+            el.addEventListener('click', () => {
+                document.querySelectorAll('.avatar-option').forEach(a => a.classList.remove('selected'));
+                el.classList.add('selected');
+                selectedAvatar = el.getAttribute('data-avatar');
+                SFX.tap();
+            });
+        });
 
-        function saveStudentProgress(studentName, lvl) {
-            try {
-                localStorage.setItem("dr_saufi_prog_" + studentName, lvl);
-            } catch(e) {}
-        }
+        // Year selector clicks
+        document.querySelectorAll('.year-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedYear = parseInt(btn.getAttribute('data-year'));
+                SFX.tap();
+            });
+        });
 
-        function filterStudents() {
-            const query = document.getElementById('studentSearchInput').value.toUpperCase().trim();
-            const listEl = document.getElementById('studentDropdown');
-            const startBtn = document.getElementById('startGameBtn');
-            const classBadge = document.getElementById('selectedClassDisplay');
+        function beginAdventure() {
+            const nameInput = document.getElementById('studentNameInput');
+            const cleanName = nameInput.value.trim().toUpperCase();
 
-            listEl.innerHTML = '';
-            startBtn.style.display = 'none';
-            classBadge.style.display = 'none';
-
-            if (query.length < 2) {
-                listEl.style.display = 'none';
+            if (cleanName.length < 2) {
+                alert("Please type your name before starting!");
+                nameInput.focus();
                 return;
             }
 
-            const matches = STUDENT_DATABASE.filter(s => s.n.includes(query));
-            if (matches.length > 0) {
-                listEl.style.display = 'block';
-                matches.slice(0, 18).forEach(st => {
-                    const row = document.createElement('div');
-                    row.className = 'dropdown-item';
-                    row.innerHTML = `<strong>${st.n}</strong> <span style="color:#00796b">(${st.c})</span>`;
-                    row.onclick = () => selectStudent(st);
-                    listEl.appendChild(row);
-                });
-            } else {
-                listEl.style.display = 'none';
-            }
-        }
-
-        function selectStudent(st) {
-            currentStudent = st;
-            const yearMatch = st.c.match(/\d+/);
-            currentYear = yearMatch ? parseInt(yearMatch[0]) : 1;
-
-            document.getElementById('studentSearchInput').value = st.n;
-            document.getElementById('studentDropdown').style.display = 'none';
-
-            userHighLevel = getSavedProgress(st.n);
-
-            const classBadge = document.getElementById('selectedClassDisplay');
-            classBadge.innerHTML = `🎓 <b>${st.c}</b> (Level 1 to 100 Curriculum Activated) • Best Saved Level: ${userHighLevel}`;
-            classBadge.style.display = 'block';
-
-            document.getElementById('startGameBtn').style.display = 'inline-block';
-            Sound.tap();
-        }
-
-        function startGameSession() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('gameArena').style.display = 'block';
-
-            document.getElementById('hudName').innerText = currentStudent.n;
-            document.getElementById('hudClass').innerText = currentStudent.c;
-
-            // Generate the strictly distinct 100-level deck
-            levelCurriculum = generate100LevelsForYear(currentYear);
-
+            playerName = cleanName;
+            currentYearLevels = build100Curriculum(selectedYear);
+            currentLevelIdx = 0;
             lives = 3;
             score = 0;
             streak = 0;
-            activeLevelIndex = Math.min(userHighLevel - 1, 99);
 
-            populateLevelDropdown();
+            // Switch to game UI
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('gameArena').style.display = 'block';
+
+            // Populate HUD
+            document.getElementById('playerNameDisplay').innerText = playerName;
+            document.getElementById('playerAvatarDisplay').innerText = selectedAvatar;
+            document.getElementById('playerYearDisplay').innerText = `Year ${selectedYear} Writer`;
+
+            populateJumpDropdown();
             renderLevel();
+            SFX.combo();
         }
 
-        function populateLevelDropdown() {
-            const selectEl = document.getElementById('levelSelectDropdown');
+        function populateJumpDropdown() {
+            const selectEl = document.getElementById('levelJumpSelect');
             selectEl.innerHTML = '';
             for (let i = 1; i <= 100; i++) {
                 const opt = document.createElement('option');
                 opt.value = i;
                 opt.text = (i === 100) ? "👑 Level 100 (Boss Challenge)" : `Level ${i}`;
-                if (i > userHighLevel) {
-                    opt.disabled = true;
-                    opt.text += " 🔒";
-                }
                 selectEl.appendChild(opt);
             }
-            selectEl.value = (activeLevelIndex + 1);
+            selectEl.value = (currentLevelIdx + 1);
         }
 
-        function jumpToLevel(lvl) {
-            activeLevelIndex = parseInt(lvl) - 1;
+        function jumpDirectlyToLevel(lvl) {
+            currentLevelIdx = parseInt(lvl) - 1;
             renderLevel();
+            SFX.tap();
         }
 
         function renderLevel() {
             stopTimer();
-            const currentData = levelCurriculum[activeLevelIndex];
-            const currentLevelNum = activeLevelIndex + 1;
+            const levelData = currentYearLevels[currentLevelIdx];
+            const levelNum = currentLevelIdx + 1;
 
-            // Update HUD
-            document.getElementById('hudLevelNumber').innerText = currentLevelNum;
+            // Update Progress & Badges
+            document.getElementById('hudLevelNumber').innerText = levelNum;
             document.getElementById('hudScore').innerText = score;
-            document.getElementById('hudDifficultyTier').innerText = currentData.tier;
-            document.getElementById('stageInstruction').innerText = currentData.instruction;
+            document.getElementById('hudDifficultyTier').innerText = levelData.tier;
+            document.getElementById('hudInstructions').innerText = levelData.instruction;
+            document.getElementById('levelJumpSelect').value = levelNum;
 
-            // Update Progress Bar
-            const percent = (currentLevelNum / 100) * 100;
-            document.getElementById('levelProgressFill').style.width = percent + '%';
+            const progressPct = (levelNum / 100) * 100;
+            document.getElementById('levelProgressFill').style.width = progressPct + '%';
 
-            // Sync level dropdown
-            document.getElementById('levelSelectDropdown').value = currentLevelNum;
-
-            // Check if this is the Level 100 Boss Stage
-            const bossCard = document.getElementById('bossPromptCard');
+            // Boss Notice Check
+            const bossBox = document.getElementById('bossAnnouncement');
             const slotsContainer = document.getElementById('slotsArea');
 
-            if (currentData.type.startsWith('boss')) {
-                bossCard.style.display = 'block';
-                bossCard.innerHTML = `⭐ <b>BOSS WRITING CHALLENGE:</b> ${currentData.storyHeader}`;
-                slotsContainer.classList.add('stacked-view');
-                Sound.bossTrumpet();
+            if (levelData.type === 'boss') {
+                bossBox.style.display = 'block';
+                bossBox.innerHTML = `⭐ <b>LEVEL 100 BOSS MISSION:</b> ${levelData.storyHeader}`;
+                slotsContainer.classList.add('stacked-mode');
+                SFX.boss();
             } else {
-                bossCard.style.display = 'none';
-                slotsContainer.classList.remove('stacked-view');
+                bossBox.style.display = 'none';
+                slotsContainer.classList.remove('stacked-mode');
             }
 
-            // Render Target Slots
+            // Create target placement slots
             slotsContainer.innerHTML = '';
-            currentData.parts.forEach(part => {
+            levelData.parts.forEach(part => {
                 const slot = document.createElement('div');
-                slot.className = 'slot';
-                slot.setAttribute('data-label', part.label);
-                slot.setAttribute('data-type', part.id);
-                slot.setAttribute('data-expected', part.txt);
+                slot.className = 'target-slot';
+                slot.setAttribute('data-slot-label', part.label);
+                slot.setAttribute('data-slot-role', part.id);
+                slot.setAttribute('data-expected-text', part.txt);
 
-                // Desktop Drag & Drop Support
+                // Desktop Drag & Drop
                 slot.addEventListener('dragover', (e) => e.preventDefault());
-                slot.addEventListener('drop', handleDropToSlot);
+                slot.addEventListener('drop', handleDropInSlot);
 
-                // Click/Tap to return tile back to bank
+                // Tap slot to send occupied tile back to bank
                 slot.addEventListener('click', (e) => {
-                    const tile = slot.querySelector('.tile');
+                    const tile = slot.querySelector('.word-tile');
                     if (tile) {
-                        Sound.tap();
+                        SFX.tap();
                         document.getElementById('wordBankArea').appendChild(tile);
                         slot.classList.remove('filled');
                     }
@@ -961,28 +1206,26 @@
                 slotsContainer.appendChild(slot);
             });
 
-            // Prepare and Shuffle Tiles for Word Bank
+            // Populate Word Bank with randomized order
             const bank = document.getElementById('wordBankArea');
             bank.innerHTML = '';
 
-            const shuffledParts = [...currentData.parts];
-            // Deterministic randomized shuffle
-            shuffledParts.sort(() => Math.random() - 0.5);
+            const shuffledParts = [...levelData.parts].sort(() => Math.random() - 0.5);
 
-            shuffledParts.forEach((part, idx) => {
+            shuffledParts.forEach((part, index) => {
                 const tile = document.createElement('div');
-                tile.className = 'tile' + (currentData.type.startsWith('boss') ? ' stacked-tile' : '');
-                tile.id = `tile-${idx}-${Date.now()}`;
+                tile.className = 'word-tile' + (levelData.type === 'boss' ? ' stacked-text' : '');
+                tile.id = `tile-${index}-${Date.now()}`;
                 tile.draggable = true;
                 tile.innerText = part.txt;
 
-                // Drag Events
+                // Dragging
                 tile.addEventListener('dragstart', handleDragStart);
 
-                // Tap-to-Place (Super convenient on tablets, mobile and Chromebooks)
+                // Tap-to-place helper (Direct placement for touch/tablets)
                 tile.addEventListener('click', () => handleTileTap(tile));
 
-                // Mobile Touch Drag
+                // Mobile Touch Handlers
                 tile.addEventListener('touchstart', handleTouchStart, { passive: false });
                 tile.addEventListener('touchmove', handleTouchMove, { passive: false });
                 tile.addEventListener('touchend', handleTouchEnd);
@@ -990,44 +1233,43 @@
                 bank.appendChild(tile);
             });
 
-            updateLivesUI();
-            updateStreakUI();
-            startTimerForLevel(currentData.type.startsWith('boss') ? 90 : 35);
+            updateLivesDisplay();
+            updateStreakDisplay();
+            startCountdownTimer(levelData.type === 'boss' ? 90 : 35);
         }
 
-        // Tap tile to auto-move into first empty slot, or back to bank if already slotted
+        // Tap-to-place tile: sends to first empty slot, or back to bank
         function handleTileTap(tile) {
-            Sound.tap();
+            SFX.tap();
             if (tile.parentElement.classList.contains('word-bank')) {
-                // Find first unfilled slot
-                const availableSlot = Array.from(document.querySelectorAll('.slot')).find(s => s.children.length === 0);
-                if (availableSlot) {
-                    availableSlot.appendChild(tile);
-                    availableSlot.classList.add('filled');
+                const emptySlot = Array.from(document.querySelectorAll('.target-slot')).find(s => s.children.length === 0);
+                if (emptySlot) {
+                    emptySlot.appendChild(tile);
+                    emptySlot.classList.add('filled');
                 }
-            } else if (tile.parentElement.classList.contains('slot')) {
-                const parentSlot = tile.parentElement;
-                parentSlot.classList.remove('filled');
+            } else if (tile.parentElement.classList.contains('target-slot')) {
+                const slot = tile.parentElement;
+                slot.classList.remove('filled');
                 document.getElementById('wordBankArea').appendChild(tile);
             }
         }
 
-        function startTimerForLevel(sec) {
+        function startCountdownTimer(seconds) {
             stopTimer();
-            timeLeft = sec;
-            const timerEl = document.getElementById('hudTimer');
-            timerEl.innerText = timeLeft;
-            timerEl.classList.remove('timer-panic');
+            timeLeft = seconds;
+            const timerDisplay = document.getElementById('hudTimer');
+            timerDisplay.innerText = timeLeft;
+            timerDisplay.classList.remove('timer-urgent');
 
             timerInterval = setInterval(() => {
                 timeLeft--;
-                timerEl.innerText = timeLeft;
+                timerDisplay.innerText = timeLeft;
                 if (timeLeft <= 7) {
-                    timerEl.classList.add('timer-panic');
-                    Sound.tap();
+                    timerDisplay.classList.add('timer-urgent');
+                    SFX.tap();
                 }
                 if (timeLeft <= 0) {
-                    processPenalty("⏰ TIME'S UP! Keep trying!");
+                    triggerMistake("⏰ TIME'S UP! Keep going!");
                 }
             }, 1000);
         }
@@ -1036,28 +1278,28 @@
             if (timerInterval) clearInterval(timerInterval);
         }
 
-        function processPenalty(reasonMsg) {
+        function triggerMistake(msg) {
             stopTimer();
-            Sound.wrong();
+            SFX.wrong();
             lives--;
             streak = 0;
-            updateStreakUI();
-            updateLivesUI();
+            updateStreakDisplay();
+            updateLivesDisplay();
 
             if (lives <= 0) {
-                showGameOverScreen();
+                concludeGame(false);
             } else {
-                displayFeedback(reasonMsg, "#d32f2f", 1400);
+                showFeedbackModal(msg, "#d50000", 1400);
             }
         }
 
-        function updateLivesUI() {
+        function updateLivesDisplay() {
             let hearts = "";
             for (let i = 0; i < lives; i++) hearts += "❤";
             document.getElementById('hudLives').innerText = hearts || "💔";
         }
 
-        function updateStreakUI() {
+        function updateStreakDisplay() {
             const badge = document.getElementById('hudStreakBadge');
             if (streak >= 2) {
                 badge.innerText = `🔥 COMBO x${streak}! (+${streak * 5} pts)`;
@@ -1067,237 +1309,226 @@
             }
         }
 
-        function evaluateAnswer() {
+        function checkCurrentAnswer() {
             stopTimer();
-            const slots = document.querySelectorAll('.slot');
-            let isCompletelyFilled = true;
-            let isOrderCorrect = true;
+            const slots = document.querySelectorAll('.target-slot');
+            let allFilled = true;
+            let allCorrect = true;
 
             slots.forEach(slot => {
                 if (slot.children.length > 0) {
                     const userText = slot.children[0].innerText.trim();
-                    const expectedText = slot.getAttribute('data-expected').trim();
-                    if (userText !== expectedText) {
-                        isOrderCorrect = false;
-                    }
+                    const expectedText = slot.getAttribute('data-expected-text').trim();
+                    if (userText !== expectedText) allCorrect = false;
                 } else {
-                    isCompletelyFilled = false;
-                    isOrderCorrect = false;
+                    allFilled = false;
+                    allCorrect = false;
                 }
             });
 
-            if (!isCompletelyFilled) {
-                alert("Please place a phrase into every empty slot before checking!");
-                startTimerForLevel(timeLeft);
+            if (!allFilled) {
+                alert("Please place every part into its slot before checking!");
+                startCountdownTimer(timeLeft);
                 return;
             }
 
-            if (isOrderCorrect) {
+            if (allCorrect) {
                 streak++;
-                const bonusPoints = (streak >= 2) ? (10 + streak * 5) : 10;
-                score += bonusPoints;
+                const bonus = (streak >= 2) ? (10 + streak * 5) : 10;
+                score += bonus;
                 document.getElementById('hudScore').innerText = score;
 
-                // Sound & visual effects
-                if (streak >= 2) Sound.combo();
-                else Sound.correct();
-                blastConfetti(streak >= 3 ? 90 : 50);
+                if (streak >= 2) SFX.combo();
+                else SFX.correct();
+                fireConfetti(streak >= 3 ? 90 : 50);
 
-                // Update unlocked level
-                if (activeLevelIndex + 2 > userHighLevel) {
-                    userHighLevel = Math.min(activeLevelIndex + 2, 100);
-                    saveStudentProgress(currentStudent.n, userHighLevel);
-                    populateLevelDropdown();
-                }
-
-                // Level 100 Finish!
-                if (activeLevelIndex === 99) {
-                    showLevel100GrandVictory();
+                // Level 100 Victory!
+                if (currentLevelIdx === 99) {
+                    concludeGame(true);
                     return;
                 }
 
-                const praise = (streak >= 3) ? "SUPERB WRITING STREAK! 🔥" : "PERFECT SENTENCE! 🎉";
-                displayFeedback(praise, "#2e7d32", 1300, () => {
-                    activeLevelIndex++;
+                const praise = streak >= 3 ? "UNSTOPPABLE COMBO! 🔥" : "BRILLIANT SENTENCE! 🎉";
+                showFeedbackModal(praise, "#2e7d32", 1200, () => {
+                    currentLevelIdx++;
                     renderLevel();
                 });
-
             } else {
-                processPenalty("❌ Incorrect order! Look closely at the grammar labels.");
+                triggerMistake("❌ Incorrect arrangement. Check the grammar labels!");
             }
         }
 
-        function displayFeedback(headline, color, duration, callback) {
+        function showFeedbackModal(msg, color, duration, nextAction) {
             const modal = document.getElementById('feedbackModal');
-            document.getElementById('feedbackHeadline').innerText = headline;
+            document.getElementById('feedbackHeadline').innerText = msg;
             document.getElementById('feedbackHeadline').style.color = color;
             document.getElementById('feedbackEmoji').innerText = (color === "#2e7d32") ? "🌟" : "💡";
-            document.getElementById('feedbackExplanation').innerText = lives > 0 ? "Preparing next question..." : "No lives left!";
+            document.getElementById('feedbackExplanation').innerText = lives > 0 ? "Loading next challenge..." : "Out of hearts!";
             modal.style.display = 'flex';
 
             setTimeout(() => {
                 modal.style.display = 'none';
-                if (callback && lives > 0) callback();
+                if (nextAction && lives > 0) nextAction();
             }, duration);
         }
 
         function skipToNextLevel() {
-            if (activeLevelIndex < 99) {
-                activeLevelIndex++;
+            if (currentLevelIdx < 99) {
+                currentLevelIdx++;
                 renderLevel();
             } else {
                 alert("You are at the final Level 100 challenge!");
             }
         }
 
-        function restartLevel() {
-            document.getElementById('summaryModal').style.display = 'none';
+        function concludeGame(isWinner) {
+            stopTimer();
+            if (isWinner) {
+                SFX.boss();
+                fireConfetti(160);
+            }
+
+            const modal = document.getElementById('scorecardModal');
+            document.getElementById('scorecardAvatar').innerText = selectedAvatar;
+            document.getElementById('scorecardPlayerName').innerText = playerName;
+            document.getElementById('scorecardClass').innerText = `Year ${selectedYear}`;
+            document.getElementById('scorecardScore').innerText = score;
+
+            // Rating Stars
+            const stars = (score >= 300 || isWinner) ? "⭐⭐⭐" : (score >= 120 ? "⭐⭐" : "⭐");
+            document.getElementById('scorecardStars').innerText = stars;
+
+            if (isWinner) {
+                document.getElementById('scorecardTitle').innerText = "LEVEL 100 CONQUERED! 👑";
+                document.getElementById('scorecardTitle').style.color = "#2e7d32";
+            } else {
+                document.getElementById('scorecardTitle').innerText = "QUEST PAUSED 💔";
+                document.getElementById('scorecardTitle').style.color = "#d50000";
+            }
+
+            modal.style.display = 'flex';
+            saveScoreGoogleSheet(isWinner ? 100 : currentLevelIdx + 1);
+        }
+
+        function restartRound() {
+            document.getElementById('scorecardModal').style.display = 'none';
             lives = 3;
             renderLevel();
         }
 
-        function logoutStudent() {
+        function exitToHome() {
             stopTimer();
+            document.getElementById('scorecardModal').style.display = 'none';
             document.getElementById('gameArena').style.display = 'none';
-            document.getElementById('summaryModal').style.display = 'none';
             document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('studentSearchInput').value = '';
-            document.getElementById('selectedClassDisplay').style.display = 'none';
-            document.getElementById('startGameBtn').style.display = 'none';
+            document.getElementById('studentNameInput').value = '';
         }
 
-        function showLevel100GrandVictory() {
-            stopTimer();
-            Sound.bossTrumpet();
-            blastConfetti(180);
-
-            document.getElementById('summaryTitle').innerText = "LEVEL 100 COMPLETED! 🏆";
-            document.getElementById('summaryTitle').style.color = "#2e7d32";
-            document.getElementById('summarySubtitle').innerText = `Magnificent! You have conquered all 100 writing levels for Year ${currentYear}!`;
-            document.getElementById('summaryScore').innerText = score;
-            document.getElementById('summaryModal').style.display = 'flex';
-
-            syncScoreToGoogleSheet(100);
-        }
-
-        function showGameOverScreen() {
-            stopTimer();
-            document.getElementById('summaryTitle').innerText = "MISSION PAUSED 💔";
-            document.getElementById('summaryTitle').style.color = "#c62828";
-            document.getElementById('summarySubtitle').innerText = `Good effort, ${currentStudent.n.split(' ')[0]}! You reached Level ${activeLevelIndex + 1}.`;
-            document.getElementById('summaryScore').innerText = score;
-            document.getElementById('summaryModal').style.display = 'flex';
-
-            syncScoreToGoogleSheet(activeLevelIndex + 1);
-        }
-
-        function syncScoreToGoogleSheet(reachedLvl) {
-            const statusEl = document.getElementById('sheetStatusText');
+        function saveScoreGoogleSheet(reachedLevel) {
+            const syncEl = document.getElementById('syncStatus');
             if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
-                statusEl.innerText = "Demo mode (Google Sheet URL is not configured).";
+                syncEl.innerText = "Score recorded locally.";
                 return;
             }
 
-            statusEl.innerText = "Syncing level score with teacher's Google Sheet...";
+            syncEl.innerText = "Saving score to Google Sheet...";
             const payload = {
-                name: currentStudent.n,
-                class: currentStudent.c,
+                name: playerName,
+                class: `Year ${selectedYear}`,
                 score: score,
-                level: reachedLvl,
-                year: currentYear,
+                level: reachedLevel,
                 timestamp: new Date().toISOString()
             };
 
             fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
-            .then(() => { statusEl.innerText = "✅ Progress saved to Google Sheet!"; })
-            .catch(err => { statusEl.innerText = "⚠️ Network offline. Progress stored locally."; });
+            .then(() => { syncEl.innerText = "✅ Score successfully synced with teacher!"; })
+            .catch(() => { syncEl.innerText = "⚠️ Network offline. Saved locally."; });
         }
 
-        let draggedElement = null;
-        let touchTile = null;
+        /* ================= Drag & Touch Handlers ================= */
+        let draggedTile = null;
+        let touchTargetTile = null;
 
         function handleDragStart(e) {
-            draggedElement = e.target;
+            draggedTile = e.target;
             e.dataTransfer.setData("text/plain", e.target.id);
-            Sound.tap();
+            SFX.tap();
         }
 
         function allowDrop(e) { e.preventDefault(); }
 
-        function handleDropToSlot(e) {
+        function handleDropInSlot(e) {
             e.preventDefault();
-            const slot = e.target.closest('.slot');
+            const slot = e.target.closest('.target-slot');
             if (!slot) return;
             const tileId = e.dataTransfer.getData("text/plain");
             const tile = document.getElementById(tileId);
             if (!tile) return;
 
-            // If slot already occupied, return occupant back to word bank
             if (slot.children.length > 0) {
                 document.getElementById('wordBankArea').appendChild(slot.children[0]);
             }
-
             slot.appendChild(tile);
             slot.classList.add('filled');
-            Sound.tap();
+            SFX.tap();
         }
 
-        function handleDropToBank(e) {
+        function handleDropBackToBank(e) {
             e.preventDefault();
             const tileId = e.dataTransfer.getData("text/plain");
             const tile = document.getElementById(tileId);
             if (!tile) return;
 
-            if (tile.parentElement.classList.contains('slot')) {
+            if (tile.parentElement.classList.contains('target-slot')) {
                 tile.parentElement.classList.remove('filled');
             }
             document.getElementById('wordBankArea').appendChild(tile);
-            Sound.tap();
+            SFX.tap();
         }
 
-        // Mobile / Touchscreen Support
+        // Touch Handlers for Tablets & Phones
         function handleTouchStart(e) {
-            touchTile = e.target;
-            touchTile.style.opacity = '0.65';
+            touchTargetTile = e.target;
+            touchTargetTile.style.opacity = '0.65';
         }
 
         function handleTouchMove(e) {
             e.preventDefault();
-            const touch = e.touches[0];
-            touchTile.style.position = 'fixed';
-            touchTile.style.left = (touch.clientX - 50) + 'px';
-            touchTile.style.top = (touch.clientY - 25) + 'px';
-            touchTile.style.zIndex = '5000';
+            const t = e.touches[0];
+            touchTargetTile.style.position = 'fixed';
+            touchTargetTile.style.left = (t.clientX - 50) + 'px';
+            touchTargetTile.style.top = (t.clientY - 25) + 'px';
+            touchTargetTile.style.zIndex = '5000';
         }
 
         function handleTouchEnd(e) {
-            const touch = e.changedTouches[0];
-            touchTile.style.opacity = '1';
-            touchTile.style.position = 'static';
-            touchTile.style.zIndex = '100';
+            const t = e.changedTouches[0];
+            touchTargetTile.style.opacity = '1';
+            touchTargetTile.style.position = 'static';
+            touchTargetTile.style.zIndex = '100';
 
-            const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
-            const slot = targetElement ? targetElement.closest('.slot') : null;
-            const bank = targetElement ? targetElement.closest('.word-bank') : null;
+            const hitEl = document.elementFromPoint(t.clientX, t.clientY);
+            const slot = hitEl ? hitEl.closest('.target-slot') : null;
+            const bank = hitEl ? hitEl.closest('.word-bank') : null;
 
             if (slot) {
                 if (slot.children.length > 0) {
                     document.getElementById('wordBankArea').appendChild(slot.children[0]);
                 }
-                slot.appendChild(touchTile);
+                slot.appendChild(touchTargetTile);
                 slot.classList.add('filled');
-                Sound.tap();
+                SFX.tap();
             } else if (bank) {
-                if (touchTile.parentElement.classList.contains('slot')) {
-                    touchTile.parentElement.classList.remove('filled');
+                if (touchTargetTile.parentElement.classList.contains('target-slot')) {
+                    touchTargetTile.parentElement.classList.remove('filled');
                 }
-                bank.appendChild(touchTile);
-                Sound.tap();
+                bank.appendChild(touchTargetTile);
+                SFX.tap();
             }
         }
     </script>
